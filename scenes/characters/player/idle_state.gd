@@ -1,0 +1,50 @@
+extends NodeState
+
+var player: CharacterBody2D
+var animated_sprite_2d: AnimatedSprite2D
+var direction: Vector2
+
+
+func _on_enter() -> void:
+	# Pega as referências dos nós quando o estado é ativado
+	player = owner as CharacterBody2D
+	animated_sprite_2d = player.get_node("AnimatedSprite2D")
+	if animated_sprite_2d:
+		animated_sprite_2d.play("idle_front")
+
+
+func _on_process(_delta: float) -> void:
+	pass
+
+
+func _on_physics_process(_delta: float) -> void:
+	if not animated_sprite_2d:
+		return
+	
+	if Input.is_action_pressed("walk_left"):
+		direction = Vector2.LEFT
+	elif Input.is_action_pressed("walk_right"):
+		direction = Vector2.RIGHT
+	elif Input.is_action_pressed("walk_up"):
+		direction = Vector2.UP
+	elif Input.is_action_pressed("walk_down"):
+		direction = Vector2.DOWN
+	else:
+		direction = Vector2.ZERO
+		
+	if direction == Vector2.UP:
+		animated_sprite_2d.play("idle_back")
+	elif direction == Vector2.DOWN:
+		animated_sprite_2d.play("idle_front")
+	elif direction == Vector2.LEFT:
+		animated_sprite_2d.play("idle_left")
+	elif direction == Vector2.RIGHT:
+		animated_sprite_2d.play("idle_right")
+
+
+func _on_next_transitions() -> void:
+	pass
+
+
+func _on_exit() -> void:
+	pass
