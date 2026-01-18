@@ -1,9 +1,11 @@
-[gd_scene load_steps=47 format=3 uid="uid://4g6smpubcbk5"]
+[gd_scene load_steps=49 format=3 uid="uid://4g6smpubcbk5"]
 
+[ext_resource type="Script" uid="uid://cvhuw7s767my2" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="Texture2D" uid="uid://cq85685q5llrc" path="res://game/assets/characters/basic_charakter_actions.png" id="1_t61fv"]
 [ext_resource type="Texture2D" uid="uid://1jilajjsh762" path="res://game/assets/characters/basic_charakter_spritesheet.png" id="2_686vu"]
 [ext_resource type="Script" uid="uid://chukvjr66bld" path="res://scenes/characters/player/state_machine.gd" id="3_hss88"]
 [ext_resource type="Script" uid="uid://bhy584xjhve6f" path="res://scenes/characters/player/idle_state.gd" id="4_qd3e3"]
+[ext_resource type="Script" uid="uid://bm54bwr4w1e13" path="res://scenes/characters/player/walk_state.gd" id="5_qd3e3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hss88"]
 radius = 8.062258
@@ -392,6 +394,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_6avc5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(27, 20)
@@ -409,3 +412,8 @@ initial_node_state = NodePath("Idle")
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("4_qd3e3")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
+script = ExtResource("5_qd3e3")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
