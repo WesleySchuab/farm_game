@@ -7,8 +7,11 @@ func _on_process(_delta : float) -> void:
 	pass
 
 func _on_physics_process(_delta : float) -> void:
+	
 	var direction: Vector2 = GameInputEvents.movement_input()
+	
 	print("direção = " ,direction)
+	
 	if direction == Vector2.UP:
 		animated_sprite_2d.play("walk_back")
 	elif direction == Vector2.DOWN:
@@ -22,15 +25,18 @@ func _on_physics_process(_delta : float) -> void:
 	player.velocity = direction * speed
 	player.move_and_slide()
 
-
 func _on_next_transitions() -> void:
-	var movement = GameInputEvents.movement_input()
-	if movement == Vector2.ZERO:
+	#var movement = GameInputEvents.movement_input()
+	#if movement == Vector2.ZERO:
+	if !GameInputEvents.movement_input():
 		transition.emit("idle")
+	if player.current_tool == DataTypes.Tools.AxeWood && GameInputEvents.use_tool():
+		transition.emit("Chopping")
 
 
 func _on_enter() -> void:
 	pass
+
 
 
 func _on_exit() -> void:

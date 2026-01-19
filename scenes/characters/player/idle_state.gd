@@ -1,8 +1,7 @@
 extends NodeState
 
-var player: CharacterBody2D
+var player: Player
 var animated_sprite_2d: AnimatedSprite2D
-var direction: Vector2
 
 
 func _on_enter() -> void:
@@ -17,9 +16,7 @@ func _on_process(_delta: float) -> void:
 	pass
 
 
-func _on_physics_process(_delta: float) -> void:
-	#direction = GameInputEvents.movement_input()
-		
+func _on_physics_process(_delta: float) -> void:		
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("idle_back")
 	elif player.player_direction == Vector2.DOWN:
@@ -31,9 +28,17 @@ func _on_physics_process(_delta: float) -> void:
 
 
 func _on_next_transitions() -> void:
-	var movement = GameInputEvents.movement_input()
-	if movement != Vector2.ZERO:
+	# Se houver movimentação chama a transição andando	
+	# Se clicar com o botão esquerdo do mouse chama a animação correspondente
+	GameInputEvents.movement_input()
+	if GameInputEvents.is_moviment_input():
 		transition.emit("walk")
+	if player.current_tool == DataTypes.Tools.AxeWood && GameInputEvents.use_tool():
+		transition.emit("Chopping")
+	if player.current_tool == DataTypes.Tools.TillGround && GameInputEvents.use_tool():
+		transition.emit("Tilling")
+	if player.current_tool == DataTypes.Tools.WaterCrops && GameInputEvents.use_tool():
+		transition.emit("Watering")	
 
 
 func _on_exit() -> void:
