@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://d2o4fk47030ci" path="res://scenes/characters/player/watering_state.gd" id="9_42irl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hss88"]
-radius = 8.062258
+radius = 7.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qd3e3"]
 atlas = ExtResource("1_t61fv")
@@ -397,12 +397,12 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(2, 2)
+collision_layer = 2
 script = ExtResource("1_6avc5")
-current_tool = 1
+current_tool = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(27, 20)
+position = Vector2(27, 21)
 shape = SubResource("CircleShape2D_hss88")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
