@@ -23,7 +23,7 @@ func _on_physics_process(_delta : float) -> void:
 	
 	var direction: Vector2 = GameInputEvents.movement_input()
 	
-	print("direção = ", direction)
+	#print("direção = ", direction)
 	
 	if direction == Vector2.UP:
 		animated_sprite_2d.play("walk_back")
