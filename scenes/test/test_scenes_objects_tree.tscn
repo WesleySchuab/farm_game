@@ -22,5 +22,6 @@ tile_set = ExtResource("2_fgijr")
 
 [node name="Player" parent="." instance=ExtResource("3_cvmhr")]
 position = Vector2(181, 197)
+scale = Vector2(1.3, 1.3)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

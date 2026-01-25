@@ -4,6 +4,9 @@ var player: Player
 var animated_sprite_2d: AnimatedSprite2D
 
 
+## Executado quando o estado idle é iniciado
+## Obtém as referências do player e do sprite animado
+## Inicia a animação padrão de idle frontal
 func _on_enter() -> void:
 	# Pega as referências dos nós quando o estado é ativado
 	player = owner as CharacterBody2D
@@ -12,10 +15,14 @@ func _on_enter() -> void:
 		animated_sprite_2d.play("idle_front")
 
 
+## Processa a lógica do estado a cada frame
+## Atualmente não implementado para este estado
 func _on_process(_delta: float) -> void:
 	pass
 
 
+## Processa a física do estado a cada frame
+## Atualiza a animação idle baseado na direção que o jogador está olhando
 func _on_physics_process(_delta: float) -> void:		
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("idle_back")
@@ -27,6 +34,9 @@ func _on_physics_process(_delta: float) -> void:
 		animated_sprite_2d.play("idle_right")
 
 
+## Verifica condições para transição para outros estados
+## Transita para walk se houver input de movimento
+## Transita para estados de ferramentas (Chopping, Tilling, Watering) baseado na ferramenta equipada e input de uso
 func _on_next_transitions() -> void:
 	# Se houver movimentação chama a transição andando	
 	# Se clicar com o botão esquerdo do mouse chama a animação correspondente
@@ -41,5 +51,7 @@ func _on_next_transitions() -> void:
 		transition.emit("Watering")	
 
 
+## Executado quando o estado idle é finalizado
+## Para a animação atual
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
