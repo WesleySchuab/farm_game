@@ -5,7 +5,7 @@ class_name HurtComponent
 extends Area2D
 
 ## Tipo de ferramenta que pode causar dano a este componente
-@export var tool: DataTypes.Tools = DataTypes.Tools.None
+@export var tool: DataTypes.Tools = DataTypes.Tools.AxeWood
 
 ## Sinal emitido quando o objeto recebe dano, passando a quantidade de dano como parâmetro
 signal hurt 

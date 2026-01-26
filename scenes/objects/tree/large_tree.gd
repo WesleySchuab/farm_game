@@ -13,6 +13,8 @@ var log_scene = preload("res://scenes/objects/tree/log.tscn")
 ## Inicializa a árvore conectando os sinais dos componentes
 ## Conecta o sinal de dano recebido e o sinal de dano máximo atingido
 func _ready() -> void:
+	# Duplica o material para que cada instância tenha seu próprio shader
+	material = material.duplicate()
 	hurt_component.hurt.connect(on_hurt)
 	damage_component.max_damaged_reached.connect(on_max_damaged_reached)
 
@@ -20,6 +22,12 @@ func _ready() -> void:
 ## Aplica o dano recebido ao componente de dano
 func on_hurt(hit_damage: int )-> void:
 	damage_component.apply_damage(hit_damage)
+	# Inicia a animação de tremor
+	material.set_shader_parameter("shake_intensity", 1.5)
+	
+	# Aguarda e depois para a animação
+	await get_tree().create_timer(0.5).timeout
+	material.set_shader_parameter("shake_intensity", 0.0)
 
 ## Callback chamado quando o dano máximo é atingido
 ## Remove a árvore da cena (destrói o objeto)
