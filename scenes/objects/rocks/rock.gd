@@ -23,6 +23,12 @@ func _ready() -> void:
 ## Aplica o dano recebido ao componente de dano
 func on_hurt(hit_damage: int )-> void:
 	damage_component.apply_damage(hit_damage)
+	# Inicia a animação de tremor
+	material.set_shader_parameter("shake_intensity", 0.3)
+	
+	# Aguarda e depois para a animação
+	await get_tree().create_timer(0.5).timeout
+	material.set_shader_parameter("shake_intensity", 0.0)
 
 ## Callback chamado quando o dano máximo é atingido
 ## Remove a árvore da cena (destrói o objeto)
