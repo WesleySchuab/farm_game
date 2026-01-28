@@ -401,6 +401,7 @@ animations = [{
 radius = 4.0
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 position = Vector2(-19, -16)
 collision_layer = 2
 script = ExtResource("1_6avc5")

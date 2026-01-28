@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://b2x23mbkgbkno"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://b2x23mbkgbkno"]
 
 [ext_resource type="Texture2D" uid="uid://dxhh1y0iaask2" path="res://game/assets/tilesets/water.png" id="1_wj2rd"]
 [ext_resource type="PackedScene" uid="uid://dwi2308ajj6mv" path="res://scenes/houses/large_house.tscn" id="2_kvivr"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://c3cnerygovtv4" path="res://game/assets/tilesets/tilled_dirt_Wide.png" id="3_cgjhy"]
 [ext_resource type="PackedScene" uid="uid://w44jhuxal6qa" path="res://scenes/objects/rocks/rock.tscn" id="4_6xm74"]
 [ext_resource type="Texture2D" uid="uid://b7721ifaarcpm" path="res://game/assets/Objects/basic_grass_biom_things.png" id="4_wyahh"]
+[ext_resource type="PackedScene" uid="uid://n334bjf2jnro" path="res://scenes/objects/tree/large_tree.tscn" id="5_r5dsl"]
+[ext_resource type="PackedScene" uid="uid://cb7mcig4m2m6f" path="res://scenes/objects/tree/small_tree.tscn" id="6_mudpr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r3ft6"]
 texture = ExtResource("1_wj2rd")
@@ -21,6 +23,8 @@ texture = ExtResource("1_wj2rd")
 scenes/1/scene = ExtResource("2_kvivr")
 scenes/2/scene = ExtResource("3_5qp8g")
 scenes/3/scene = ExtResource("4_6xm74")
+scenes/4/scene = ExtResource("5_r5dsl")
+scenes/5/scene = ExtResource("6_mudpr")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgjhy"]
 texture = ExtResource("2_r3ft6")
@@ -489,8 +493,11 @@ texture = ExtResource("4_wyahh")
 2:3/0 = 0
 3:0/size_in_atlas = Vector2i(2, 2)
 3:0/0 = 0
+3:0/0/y_sort_origin = 8
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.5, 8, 3, 8, 3, 14.5, -3, 14)
 8:2/size_in_atlas = Vector2i(1, 2)
 8:2/0 = 0
+8:2/0/y_sort_origin = 8
 0:0/size_in_atlas = Vector2i(1, 2)
 0:0/0 = 0
 1:0/size_in_atlas = Vector2i(2, 2)
@@ -501,6 +508,7 @@ texture = ExtResource("4_wyahh")
 0:4/0 = 0
 
 [resource]
+physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Grass Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
