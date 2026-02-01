@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://csmbx0s4y6lni"]
+[gd_scene load_steps=14 format=3 uid="uid://csmbx0s4y6lni"]
 
 [ext_resource type="Texture2D" uid="uid://m542m02jnike" path="res://game/assets/characters/free_chicken_sprites.png" id="1_awcwn"]
+[ext_resource type="Script" uid="uid://c64fupmpotrmw" path="res://scenes/characters/chicken/chicken.gd" id="1_r6a33"]
 [ext_resource type="Script" uid="uid://brme6870fmohm" path="res://scripts/states_machine/node_state_machine.gd" id="2_31inw"]
-[ext_resource type="Script" uid="uid://bh4qyca7vfvpb" path="res://scenes/characters/chicken/idle_state.gd" id="3_r6a33"]
-[ext_resource type="Script" uid="uid://nyltxfwmxnm3" path="res://scenes/characters/chicken/walk_state.gd" id="4_31inw"]
+[ext_resource type="Script" uid="uid://bh4qyca7vfvpb" path="res://scenes/characters/npc_states/idle_state.gd" id="3_r6a33"]
+[ext_resource type="Script" uid="uid://nyltxfwmxnm3" path="res://scenes/characters/npc_states/walk_state.gd" id="4_31inw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_asyyu"]
 atlas = ExtResource("1_awcwn")
@@ -64,6 +65,7 @@ animations = [{
 radius = 5.0
 
 [node name="Chicken" type="CharacterBody2D"]
+script = ExtResource("1_r6a33")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
@@ -78,6 +80,8 @@ position = Vector2(-1, 1)
 shape = SubResource("CircleShape2D_73xul")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 5.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("2_31inw")
@@ -88,8 +92,8 @@ script = ExtResource("3_r6a33")
 chacarter = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("character", "animated_sprite_2d", "navegation_agent_2d")]
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("character", "animated_sprite_2d", "navigation_agent_2d")]
 script = ExtResource("4_31inw")
 character = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-navegation_agent_2d = NodePath("../../NavigationAgent2D")
+navigation_agent_2d = NodePath("../../NavigationAgent2D")
