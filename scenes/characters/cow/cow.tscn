@@ -65,6 +65,7 @@ animations = [{
 radius = 6.0
 
 [node name="Cow" type="CharacterBody2D"]
+collision_layer = 64
 script = ExtResource("1_j7g5r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -73,12 +74,13 @@ animation = &"walk"
 autoplay = "idle"
 frame_progress = 0.030141367
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 7)
 shape = SubResource("CircleShape2D_dtuwe")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 navigation_layers = 2
+path_postprocessing = 1
 avoidance_enabled = true
 avoidance_layers = 3
 
