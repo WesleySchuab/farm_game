@@ -1,87 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://dd5lcxyy4sprw"]
+[gd_scene load_steps=14 format=3 uid="uid://dd5lcxyy4sprw"]
 
 [ext_resource type="Texture2D" uid="uid://baeisbo88x5g7" path="res://game/basic_ui_sprit.png" id="1_566tw"]
 [ext_resource type="Texture2D" uid="uid://cj68nypynmoow" path="res://game/assets/Objects/basic_tools_and_meterials.png" id="2_kbl31"]
 [ext_resource type="Script" uid="uid://bh7r6pqoepqiv" path="res://scenes/ui/tools_painel.gd" id="2_sgani"]
 [ext_resource type="Texture2D" uid="uid://d04wob11ahijp" path="res://game/assets/Objects/basic_plants.png" id="3_sgani"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tw6wx"]
-atlas = ExtResource("1_566tw")
-region = Rect2(201, 105, 30, 30)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kbl31"]
-texture = SubResource("AtlasTexture_tw6wx")
-texture_margin_left = 7.0
-texture_margin_top = 7.0
-texture_margin_right = 7.0
-texture_margin_bottom = 7.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kbl31"]
-load_path = "res://.godot/imported/basic_ui_sprit.png-879fea5788866d2adc2a77ca3f2af7ed.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yeomg"]
-atlas = SubResource("CompressedTexture2D_kbl31")
-region = Rect2(11, 11, 26, 28)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yu8o4"]
-texture = SubResource("AtlasTexture_yeomg")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tw6wx"]
-load_path = "res://.godot/imported/basic_ui_sprit.png-879fea5788866d2adc2a77ca3f2af7ed.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sgani"]
-atlas = SubResource("CompressedTexture2D_tw6wx")
-region = Rect2(11, 59, 26, 28)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gn0b4"]
-texture = SubResource("AtlasTexture_sgani")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_566tw"]
-load_path = "res://.godot/imported/basic_ui_sprit.png-879fea5788866d2adc2a77ca3f2af7ed.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kbl31"]
-atlas = SubResource("CompressedTexture2D_566tw")
-region = Rect2(11, 107, 26, 28)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sgani"]
-texture = SubResource("AtlasTexture_kbl31")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gn0b4"]
-atlas = ExtResource("1_566tw")
-region = Rect2(11, 155, 26, 28)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_566tw"]
-texture = SubResource("AtlasTexture_gn0b4")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="Theme" id="Theme_sgani"]
-DarkWoodPanel/base_type = &"PanelContainer"
-DarkWoodPanel/styles/panel = SubResource("StyleBoxTexture_kbl31")
-MarginContainer/constants/margin_bottom = 10
-MarginContainer/constants/margin_left = 10
-MarginContainer/constants/margin_right = 10
-MarginContainer/constants/margin_top = 10
-ToolButton/base_type = &"Button"
-ToolButton/styles/disabled = SubResource("StyleBoxTexture_yu8o4")
-ToolButton/styles/focus = SubResource("StyleBoxTexture_gn0b4")
-ToolButton/styles/hover = SubResource("StyleBoxTexture_sgani")
-ToolButton/styles/normal = SubResource("StyleBoxTexture_566tw")
-ToolButton/styles/pressed = SubResource("StyleBoxTexture_gn0b4")
+[ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="5_theme"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_566tw"]
 atlas = ExtResource("2_kbl31")
@@ -115,7 +38,7 @@ region = Rect2(0, 16, 16, 16)
 [node name="ToolsPanel" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
-theme = SubResource("Theme_sgani")
+theme = ExtResource("5_theme")
 theme_type_variation = &"DarkWoodPanel"
 script = ExtResource("2_sgani")
 
