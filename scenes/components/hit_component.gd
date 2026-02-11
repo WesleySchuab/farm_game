@@ -8,3 +8,8 @@ extends Area2D
 
 ## Quantidade de dano que este ataque causa
 @export	var hit_damage : int = 1
+
+func _ready() -> void:
+	monitoring = true
+	monitorable = true
+	print("⚔️ HitComponent ready. Tool: ", DataTypes.Tools.keys()[current_tool], " | Layer: ", collision_layer, " | Mask: ", collision_mask)

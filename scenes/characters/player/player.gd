@@ -13,7 +13,9 @@ var player_direction: Vector2
 
 func _ready() -> void:
 	ToolManager.tool_selected.connect(on_tool_selected)
+	print("🎮 Player inicializado. HitComponent: ", hit_component)
 	
 func on_tool_selected(tool :DataTypes.Tools)-> void:
 	current_tool = tool
 	hit_component.current_tool = tool
+	print("🔧 Ferramenta selecionada: ", DataTypes.Tools.keys()[tool])
