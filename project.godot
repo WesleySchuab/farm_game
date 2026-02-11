@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 ToolManager="*res://scripts/globais/tool_manager.gd"
 InventoryManager="*res://scripts/globais/inventory_manager.gd"
+DayAndCycleManager="*res://scripts/globais/day_and_cycle_manager.gd"
 
 [display]
 
