@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2sprmfkoeh47"]
+[gd_scene load_steps=8 format=3 uid="uid://d2sprmfkoeh47"]
 
 [ext_resource type="Script" uid="uid://ng4q687ibauk" path="res://scenes/objects/plants/corn.gd" id="1_hgaca"]
 [ext_resource type="Texture2D" uid="uid://d04wob11ahijp" path="res://game/assets/Objects/basic_plants.png" id="1_hm4is"]
@@ -18,10 +18,8 @@ position = Vector2(0, -4)
 texture = ExtResource("1_hm4is")
 hframes = 6
 vframes = 2
-frame = 0
 
 [node name="WateringParticles" parent="." instance=ExtResource("2_ofjf8")]
-visible = false
 
 [node name="FloringParticles" parent="." instance=ExtResource("3_ofjf8")]
 

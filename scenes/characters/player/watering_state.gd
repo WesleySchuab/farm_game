@@ -37,19 +37,19 @@ func _on_enter() -> void:
 	print("💧 Estado Watering ativado. Collision disabled: ", hit_component_collision_shape.disabled)
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("watering_back")
-		hit_component_collision_shape.position = Vector2(32,10.0)
+		hit_component_collision_shape.position = Vector2(6,-16)
 	elif player.player_direction == Vector2.RIGHT:
 		animated_sprite_2d.play("watering_right")
-		hit_component_collision_shape.position = Vector2(46,22)
+		hit_component_collision_shape.position = Vector2(21,-3)
 	elif player.player_direction == Vector2.DOWN:
 		animated_sprite_2d.play("watering_front")
-		hit_component_collision_shape.position = Vector2(22,31)
+		hit_component_collision_shape.position = Vector2(-5,6)
 	elif player.player_direction == Vector2.LEFT:
 		animated_sprite_2d.play("watering_left")
-		hit_component_collision_shape.position = Vector2(08,25)
+		hit_component_collision_shape.position = Vector2(-21,3)
 	else :
 		animated_sprite_2d.play("watering_front")
-		hit_component_collision_shape.position = Vector2(23,32)
+		hit_component_collision_shape.position = Vector2(-5,6)
 	hit_component_collision_shape.disabled = false
 	print("💧 Collision habilitada. Disabled: ", hit_component_collision_shape.disabled)
 

@@ -26,19 +26,19 @@ func _on_physics_process(_delta : float) -> void:
 func _on_enter() -> void:
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("chopping_back")
-		hit_component_collision_shape.position = Vector2(31,7.0)
+		hit_component_collision_shape.position = Vector2(6,-16)
 	elif player.player_direction == Vector2.RIGHT:
 		animated_sprite_2d.play("chopping_right")
-		hit_component_collision_shape.position = Vector2(36,26)
+		hit_component_collision_shape.position = Vector2(10,0)
 	elif player.player_direction == Vector2.DOWN:
 		animated_sprite_2d.play("chopping_front")
-		hit_component_collision_shape.position = Vector2(23,29)
+		hit_component_collision_shape.position = Vector2(-5,6)
 	elif player.player_direction == Vector2.LEFT:
 		animated_sprite_2d.play("chopping_left")
-		hit_component_collision_shape.position = Vector2(19,28)
+		hit_component_collision_shape.position = Vector2(-10,0)
 	else :
 		animated_sprite_2d.play("chopping_front")
-		hit_component_collision_shape.position = Vector2(23,32)
+		hit_component_collision_shape.position = Vector2(-5,6)
 		
 	hit_component_collision_shape.disabled = false
 
