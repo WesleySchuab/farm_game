@@ -45,9 +45,11 @@ func _ready() -> void:
 	
 	hurt_component.hurt.connect(on_hurt)
 	growth_cycle_component.crop_maturity.connect(on_crop_maturiry)
+	growth_cycle_component.crop_harvesting.connect(on_crop_harvesting)
 
 func _process(delta: float) -> void:
 	growth_state = growth_cycle_component.get_current_growth_state()
+	#sprite_2d.frame = growth_state + start_tomato_frame_offset
 	var expected_frame = growth_frames[growth_state]
 	
 	# Debug se o frame está incorreto

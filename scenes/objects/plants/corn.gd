@@ -45,6 +45,7 @@ func _ready() -> void:
 	
 	hurt_component.hurt.connect(on_hurt)
 	growth_cycle_component.crop_maturity.connect(on_crop_maturiry)
+	growth_cycle_component.crop_harvesting.connect(on_crop_harvesting)
 
 func _process(delta: float) -> void:
 	growth_state = growth_cycle_component.get_current_growth_state()
