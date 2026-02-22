@@ -34,9 +34,9 @@ func on_time_tick_day(day: int) -> void:
 func growth_states(starting_day: int, current_day: int):
 	if current_growth_state == DataTypes.GrowthStates.Maturity:
 		return
-	var num_states = 5
-	var growth_days_passed =(current_day - starting_day) % num_states
-	var state_index = growth_days_passed % num_states + 1
+	var num_states = DataTypes.GrowthStates.Maturity + 1
+	var growth_days_passed = max(0, current_day - starting_day)
+	var state_index = min(growth_days_passed, num_states - 1)
 	
 	current_growth_state = state_index
 	
@@ -49,8 +49,8 @@ func growth_states(starting_day: int, current_day: int):
 func harvest_state(starting_day: int, current_day: int):
 	if current_growth_state == DataTypes.GrowthStates.Harvesting:
 		return
-	var days_passed = (current_day - starting_day) % day_until_harvest
-	if days_passed == day_until_harvest -1:
+	var days_passed = max(0, current_day - starting_day)
+	if days_passed >= day_until_harvest - 1:
 		current_growth_state = DataTypes.GrowthStates.Harvesting
 		crop_harvesting.emit()
 		

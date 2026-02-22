@@ -12,14 +12,19 @@ var previous_frame: int = 0
 
 # Mapeamento dos estados para frames do sprite
 # Frame 0 = bolsa (harvest), Frame 1 = semente inicial
-var growth_frames = {
-	DataTypes.GrowthStates.Germination: 7,
-	DataTypes.GrowthStates.Seed: 8,
-	DataTypes.GrowthStates.Vegetative: 9,
-	DataTypes.GrowthStates.Reproduction: 10,
-	DataTypes.GrowthStates.Maturity: 11,
-	DataTypes.GrowthStates.Harvesting: 6
+var growth_frames = {	
+	DataTypes.GrowthStates.Germination: 1,
+	DataTypes.GrowthStates.Seed: 2,
+	DataTypes.GrowthStates.Vegetative: 3,
+	DataTypes.GrowthStates.Reproduction: 4,
+	DataTypes.GrowthStates.Maturity: 5,
+	#DataTypes.GrowthStates.Harvesting: 0
 }
+
+func _get_frame_for_state(state: DataTypes.GrowthStates) -> int:
+	if growth_frames.has(state):
+		return growth_frames[state]
+	return growth_frames[DataTypes.GrowthStates.Maturity]
 
 func _ready() -> void:
 	watering_particles.emitting = false
@@ -31,7 +36,7 @@ func _ready() -> void:
 	
 	# Forçar frame inicial correto
 	growth_state = growth_cycle_component.get_current_growth_state()
-	var target_frame = growth_frames[growth_state]
+	var target_frame = _get_frame_for_state(growth_state)
 	sprite_2d.frame = target_frame
 	previous_frame = sprite_2d.frame
 	
@@ -49,7 +54,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	growth_state = growth_cycle_component.get_current_growth_state()
-	var expected_frame = growth_frames[growth_state]
+	var expected_frame = _get_frame_for_state(growth_state)
 	
 	# Debug se o frame está incorreto
 	if sprite_2d.frame != expected_frame:

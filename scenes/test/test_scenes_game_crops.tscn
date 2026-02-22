@@ -23,12 +23,27 @@ tile_map_data = PackedByteArray("AAANABAAAgABAAEAAAANAA8AAgABAAEAAAANAA4AAgABAAE
 tile_set = ExtResource("2_pm342")
 
 [node name="Player" parent="." instance=ExtResource("3_q6dh7")]
-position = Vector2(240, 178)
+position = Vector2(227, 205)
 
 [node name="GameScreen" parent="." instance=ExtResource("4_7544d")]
 
 [node name="Corn" parent="." instance=ExtResource("10_pm342")]
-position = Vector2(327, 203)
+position = Vector2(245, 210)
+
+[node name="Corn2" parent="." instance=ExtResource("10_pm342")]
+position = Vector2(256, 246)
+
+[node name="Corn3" parent="." instance=ExtResource("10_pm342")]
+position = Vector2(293, 204)
 
 [node name="Tomato" parent="." instance=ExtResource("6_wylso")]
-position = Vector2(193, 205)
+position = Vector2(188, 209)
+
+[node name="Tomato2" parent="." instance=ExtResource("6_wylso")]
+position = Vector2(194, 253)
+
+[node name="Tomato3" parent="." instance=ExtResource("6_wylso")]
+position = Vector2(219, 148)
+
+[node name="Tomato4" parent="." instance=ExtResource("6_wylso")]
+position = Vector2(173, 180)
