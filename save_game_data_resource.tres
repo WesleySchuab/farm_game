@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dggcqikyd6sjk"]
+
+[ext_resource type="Script" uid="uid://dj2d31wuvdkvj" path="res://resources/node_data_resource.gd" id="1_pcyyd"]
+[ext_resource type="Script" uid="uid://cathg2ctncs0e" path="res://resources/save_game_data_resource.gd" id="2_nvgtl"]
+
+[resource]
+script = ExtResource("2_nvgtl")
+

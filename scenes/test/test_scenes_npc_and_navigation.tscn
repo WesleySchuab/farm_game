@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://d0gmn07orcn2s"]
 
-[ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://scenes/test/Tilesets/game_tile_set.tres" id="1_pyvv1"]
+[ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://tileset/game_tile_set.tres" id="1_pyvv1"]
 [ext_resource type="PackedScene" uid="uid://4g6smpubcbk5" path="res://scenes/characters/player/player.tscn" id="2_ygbey"]
 [ext_resource type="PackedScene" uid="uid://2s55umgn5316" path="res://scenes/characters/cow/cow.tscn" id="3_pyvv1"]
 [ext_resource type="PackedScene" uid="uid://n334bjf2jnro" path="res://scenes/objects/tree/large_tree.tscn" id="4_labna"]

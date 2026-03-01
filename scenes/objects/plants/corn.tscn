@@ -18,6 +18,7 @@ position = Vector2(0, -4)
 texture = ExtResource("1_hm4is")
 hframes = 6
 vframes = 2
+frame = 1
 
 [node name="WateringParticles" parent="." instance=ExtResource("2_ofjf8")]
 

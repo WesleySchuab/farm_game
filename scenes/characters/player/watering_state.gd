@@ -34,6 +34,11 @@ func _on_physics_process(_delta : float) -> void:
 ## Executado quando o estado é iniciado
 ## Determina a animação de regar baseado na direção que o jogador está olhando
 func _on_enter() -> void:
+	if hit_component_collision_shape == null:
+		push_error("❌ WateringState: hit_component_collision_shape não foi atribuído no Inspector")
+		animated_sprite_2d.play("watering_front")
+		return
+
 	print("💧 Estado Watering ativado. Collision disabled: ", hit_component_collision_shape.disabled)
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("watering_back")
@@ -49,7 +54,7 @@ func _on_enter() -> void:
 		hit_component_collision_shape.position = Vector2(-21,3)
 	else :
 		animated_sprite_2d.play("watering_front")
-		hit_component_collision_shape.position = Vector2(-5,6)
+		hit_component_collision_shape.position = Vector2(0,0)
 	hit_component_collision_shape.disabled = false
 	print("💧 Collision habilitada. Disabled: ", hit_component_collision_shape.disabled)
 
@@ -63,5 +68,6 @@ func _on_next_transitions() -> void:
 ## Para a animação atual
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
-	hit_component_collision_shape.disabled = true
+	if hit_component_collision_shape != null:
+		hit_component_collision_shape.disabled = true
 	print("💧 Estado Watering desativado")
