@@ -1,11 +1,10 @@
 ~ start
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
-- First one
-	Nathan: You picked the first one.
-- Second one
-	Nathan: You picked the second one.
-- Start again => start
-- End the conversation => END
-Nathan: For more information see the online documentation.
+Marlow: [[Hi|Hello|Howdy]], nice to meet you.
+Marlow: Welcome to your new farm.
+#Como você pode ver, as vacas e as galinhas estão com fome.
+Marlow: As you can see the cows and chicken are hungry.
+#Você precisa plantar algumas coisas para alimentá-las.
+Marlow: You need to grow some crops to fed them.
+Marlow: Here are some seed to grow some crops
+do GameDialogueManager.action_give_crop_seed()
 => END

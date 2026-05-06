@@ -22,6 +22,7 @@ InventoryManager="*res://scripts/globais/inventory_manager.gd"
 DayAndCycleManager="*res://scripts/globais/day_and_cycle_manager.gd"
 SaveGameManager="*res://scripts/globais/save_game_manager.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+GameDialogueManager="*res://scripts/globais/game_dialogue_manager.gd"
 
 [display]
 
@@ -102,7 +103,7 @@ show_dialogue={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://dialogue/conversations/guide.dialogue", "res://dialogue/conversations/test.dialogue")
+locale/translations_pot_files=PackedStringArray("res://dialogue/conversations/test.dialogue", "res://dialogue/conversations/guide.dialogue")
 
 [layer_names]
 
