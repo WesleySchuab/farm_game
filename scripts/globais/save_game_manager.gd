@@ -12,6 +12,9 @@ func save_game() -> void:
 	
 	if save_level_data_component != null:
 		save_level_data_component.save_game()
+		print ("Jogo salvo")
+	else:
+		print("SaveGameManager: nenhum SaveLevelDataComponent encontrado no nó atual.")
 
 
 func load_game() -> void:

@@ -1,19 +1,18 @@
-[gd_scene load_steps=16 format=4 uid="uid://bx4hp8bpsp350"]
+[gd_scene load_steps=15 format=4 uid="uid://bx4hp8bpsp350"]
 
 [ext_resource type="PackedScene" uid="uid://bdtbb0m50th1j" path="res://scenes/components/test_scene_save_data_manager_component.tscn" id="1_cerar"]
 [ext_resource type="PackedScene" uid="uid://d0hf50dnf5rhd" path="res://scenes/components/day_night_cycle_component.tscn" id="1_scfrk"]
 [ext_resource type="Script" uid="uid://d34nqae4kb6s2" path="res://scenes/test/test_scenes_game_crops_fields_tiled_dirty.gd" id="1_tvcpy"]
 [ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://tileset/game_tile_set.tres" id="2_t1qn7"]
 [ext_resource type="PackedScene" uid="uid://4g6smpubcbk5" path="res://scenes/characters/player/player.tscn" id="3_nahx4"]
-[ext_resource type="PackedScene" uid="uid://ba0ocewgajbyl" path="res://scenes/components/field_cursorcomponent.tscn" id="3_scfrk"]
-[ext_resource type="Script" uid="uid://ba785mwamvk3w" path="res://scenes/components/field_cursorcomponent.gd" id="4_t1qn7"]
+[ext_resource type="PackedScene" uid="uid://ba0ocewgajbyl" path="res://scenes/components/field_cursor_component.tscn" id="3_scfrk"]
+[ext_resource type="Script" uid="uid://ba785mwamvk3w" path="res://scenes/components/field_cursor_component.gd" id="4_t1qn7"]
 [ext_resource type="PackedScene" uid="uid://dnb21jumvnft5" path="res://scenes/ui/game_screen.tscn" id="4_w41sn"]
 [ext_resource type="PackedScene" uid="uid://crtrngkor05ht" path="res://scenes/components/save_data_component.tscn" id="6_i1nn4"]
 [ext_resource type="PackedScene" uid="uid://0ydyna1f8gya" path="res://scenes/components/crop_cursor_component.tscn" id="7_nahx4"]
 [ext_resource type="Resource" uid="uid://bitr0ooojit0t" path="res://resources/tilemap_layer_data_resource.tres" id="7_qt8y1"]
 [ext_resource type="Script" uid="uid://bf7xmeeq0q22a" path="res://scenes/components/crop_cursor_component.gd" id="8_w41sn"]
 [ext_resource type="PackedScene" uid="uid://fn47qucoxvy7" path="res://scenes/components/save_level_data_component.tscn" id="9_8kebk"]
-[ext_resource type="Script" uid="uid://lcl6vrna1mgb" path="res://scenes/components/save_level_data_component.gd" id="10_cerar"]
 [ext_resource type="Resource" uid="uid://cfn1fktxo41jo" path="res://resources/scene_data_resource.tres" id="11_scene"]
 
 [node name="testScenesCropsFieldsTiledDirty" type="Node2D"]
@@ -22,7 +21,6 @@ script = ExtResource("1_tvcpy")
 [node name="TestSceneSaveDataManagerComponent" parent="." instance=ExtResource("1_cerar")]
 
 [node name="SaveLevelDataComponent" parent="." instance=ExtResource("9_8kebk")]
-script = ExtResource("10_cerar")
 
 [node name="DayNightCycleComponent" parent="." instance=ExtResource("1_scfrk")]
 visible = false

@@ -1,6 +1,10 @@
 class_name SaveLevelDataComponent
 extends Node
 
+const SaveGameDataResource = preload("res://resources/save_game_data_resource.gd")
+const SaveDataComponent = preload("res://scenes/components/save_data_component.gd")
+const NodeDataResource = preload("res://resources/node_data_resource.gd")
+
 var level_scene_name: String
 var save_game_data_path: String = "user://game_data/"
 var save_file_name: String = "save_%s_game_data.tres"
@@ -26,15 +30,22 @@ func save_node_data() -> void:
 
 
 func save_game() -> void:
-	if !DirAccess.dir_exists_absolute(save_game_data_path):
-		DirAccess.make_dir_absolute(save_game_data_path)
-	
+	var absolute_save_path: String = ProjectSettings.globalize_path(save_game_data_path)
+	if !DirAccess.dir_exists_absolute(absolute_save_path):
+		var error = DirAccess.make_dir_recursive_absolute(absolute_save_path)
+		if error != OK:
+			push_error("SaveLevelDataComponent: erro ao criar diretório %s (erro %d)" % [absolute_save_path, error])
+			return
+
 	var level_save_file_name: String = save_file_name % level_scene_name
-	
+
 	save_node_data()
-	
-	var result: int = ResourceSaver.save(game_data_resource, save_game_data_path + level_save_file_name)
-	print("save result:", result)
+
+	var full_save_path: String = save_game_data_path + level_save_file_name
+	var result: int = ResourceSaver.save(game_data_resource, full_save_path)
+	print("save result:", result, "path:", full_save_path)
+	if result != OK:
+		push_error("Failed to save game data to %s (error %d)" % [full_save_path, result])
 
 
 func load_game() -> void:
