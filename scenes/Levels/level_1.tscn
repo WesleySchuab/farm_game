@@ -78,6 +78,8 @@ tilled_soil_tilemap_layer = NodePath("../GameTileMap/TiledSoil")
 script = ExtResource("6_14nfc")
 tilled_soil_tilemap_layer = NodePath("../GameTileMap/TiledSoil")
 
+[node name="CropFields" type="Node2D" parent="."]
+
 [node name="Chickens" type="Node2D" parent="."]
 y_sort_enabled = true
 
