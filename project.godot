@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="fallen_realm2"
-run/main_scene="uid://6ann8q8qx82y"
+run/main_scene="uid://b2os0y5qkw2m1"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,8 @@ DayAndCycleManager="*res://scripts/globais/day_and_cycle_manager.gd"
 SaveGameManager="*res://scripts/globais/save_game_manager.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 GameDialogueManager="*res://scripts/globais/game_dialogue_manager.gd"
+GameManager="*res://scripts/globais/game_manager.gd"
+SceneManager="*res://scripts/globais/scene_manager.gd"
 
 [display]
 
