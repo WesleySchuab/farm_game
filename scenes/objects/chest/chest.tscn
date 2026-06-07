@@ -111,6 +111,10 @@ radius = 18.027756
 
 [node name="Chest" type="StaticBody2D"]
 script = ExtResource("1_8qlbc")
+dialogue_start_command = null
+food_drop_height = null
+reward_output_radius = null
+output_reward_scenes = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_umtkn")

@@ -1,5 +1,7 @@
 extends Node
+
 var inventory: Dictionary = Dictionary()
+
 signal inventory_changed
 
 func add_collectable(collectable_name: String) -> void:
@@ -7,18 +9,17 @@ func add_collectable(collectable_name: String) -> void:
 	
 	if inventory[collectable_name] == null:
 		inventory[collectable_name] = 1
-		print("collectable_name == null")
-	else :
+	else:
 		inventory[collectable_name] += 1
-		print("inventory[",collectable_name,"] +=")
-	inventory_changed.emit()
 	
-func revome_collectable(collectable_name: String) -> void:
+	inventory_changed.emit()
+
+
+func remove_collectable(collectable_name: String) -> void:
 	if inventory[collectable_name] == null:
 		inventory[collectable_name] = 0
-		print("collectable_name == null")
-	else :
+	else:
 		if inventory[collectable_name] > 0:
 			inventory[collectable_name] -= 1
-		
+	
 	inventory_changed.emit()
