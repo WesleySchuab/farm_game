@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cfn1fktxo41jo"]
-
-[ext_resource type="Script" uid="uid://cmhd8hbdi4d65" path="res://resources/scene_data_game.gd" id="1_sc1v2"]
-
-[resource]
-script = ExtResource("1_sc1v2")
