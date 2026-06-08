@@ -142,6 +142,7 @@ texture_margin_bottom = 6.0
 DarkWoodPanel/base_type = &"PanelContainer"
 DarkWoodPanel/styles/panel = SubResource("StyleBoxTexture_darkwood")
 GameMenubutton/base_type = &"Button"
+GameMenubutton/colors/font_disabled_color = Color(0.055302, 0.09352035, 0.03740387, 1)
 GameMenubutton/font_sizes/font_size = 18
 GameMenubutton/fonts/font = ExtResource("2_mtjyl")
 GameMenubutton/styles/disabled = SubResource("StyleBoxTexture_w57q2")
