@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dk33u3ja4hja8" path="res://scenes/components/feed_component.tscn" id="5_1n4xr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_umtkn"]
-size = Vector2(20, 18)
+size = Vector2(17, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uigkj"]
 atlas = ExtResource("2_bw3f2")
@@ -105,7 +105,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_58f2p"]
-radius = 18.027756
+radius = 17.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3fge"]
 
@@ -117,6 +117,7 @@ reward_output_radius = null
 output_reward_scenes = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_umtkn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -15,6 +15,10 @@ run/main_scene="uid://crfiq1tjsrdgy"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://cu25fbwj5ayn"
+
 [autoload]
 
 ToolManager="*res://scripts/globais/tool_manager.gd"
@@ -43,6 +47,7 @@ enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://audio/": "red",
 "res://dialogue/": "teal",
 "res://game/assets/": "orange",
 "res://resources/": "purple",

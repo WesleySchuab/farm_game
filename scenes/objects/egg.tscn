@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d2mxuxm120g0l" path="res://scenes/components/collectable_component.tscn" id="2_twloa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h452w"]
-radius = 6.0827627
+radius = 8.062258
 
 [node name="Egg" type="Sprite2D"]
 texture = ExtResource("1_h452w")

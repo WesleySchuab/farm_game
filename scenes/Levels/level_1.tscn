@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=4 uid="uid://dycufinc85vru"]
+[gd_scene load_steps=19 format=4 uid="uid://dycufinc85vru"]
 
+[ext_resource type="PackedScene" uid="uid://ie56xe27bjse" path="res://audio/music/on_the_farm_music.tscn" id="1_hk2jt"]
 [ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://tileset/game_tile_set.tres" id="1_ptgt0"]
 [ext_resource type="PackedScene" uid="uid://fn47qucoxvy7" path="res://scenes/components/save_level_data_component.tscn" id="1_vtd0g"]
 [ext_resource type="PackedScene" uid="uid://kt51lqla44wo" path="res://scenes/houses/medium_house.tscn" id="2_ac15f"]
@@ -30,6 +31,8 @@ source_geometry_mode = 2
 
 [node name="Level1" type="Node2D"]
 y_sort_enabled = true
+
+[node name="OnTheFarmMusic" parent="." instance=ExtResource("1_hk2jt")]
 
 [node name="SaveLevelDataComponent" parent="." instance=ExtResource("1_vtd0g")]
 
@@ -134,9 +137,21 @@ dialogue_start_command = "star_cow_pasture_box"
 output_reward_scenes = Array[PackedScene]([ExtResource("11_ngn3o")])
 
 [node name="ChickenPastureBox" parent="." instance=ExtResource("10_14nfc")]
-position = Vector2(866, 553)
+position = Vector2(919, 412)
 dialogue_start_command = "star_chicken_pasture_box"
 output_reward_scenes = Array[PackedScene]([ExtResource("12_iiv34")])
 
 [node name="Guide" parent="." instance=ExtResource("4_fkdrv")]
 position = Vector2(297, 274)
+
+[node name="Chicken" parent="." instance=ExtResource("3_3ydyl")]
+position = Vector2(107, 298)
+
+[node name="Cow" parent="." instance=ExtResource("4_vtxvj")]
+position = Vector2(124, 324)
+
+[node name="Chicken2" parent="." instance=ExtResource("3_3ydyl")]
+position = Vector2(153, 317)
+
+[node name="Chicken3" parent="." instance=ExtResource("3_3ydyl")]
+position = Vector2(149, 282)
