@@ -107,6 +107,6 @@ navigation_agent_2d = NodePath("../../NavigationAgent2D")
 autoplay = false
 
 [node name="AudioPlaytimeComponent" parent="." node_paths=PackedStringArray("audio_playtime_player2D") instance=ExtResource("7_wh5lc")]
-wait_time = 5.0
+wait_time = 3.0
 autostart = true
 audio_playtime_player2D = NodePath("../ChickenCluckMultipleSFX")

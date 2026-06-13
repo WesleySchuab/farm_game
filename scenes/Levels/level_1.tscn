@@ -144,11 +144,11 @@ output_reward_scenes = Array[PackedScene]([ExtResource("12_iiv34")])
 [node name="Guide" parent="." instance=ExtResource("4_fkdrv")]
 position = Vector2(297, 274)
 
-[node name="Chicken" parent="." instance=ExtResource("3_3ydyl")]
-position = Vector2(107, 298)
-
 [node name="Cow" parent="." instance=ExtResource("4_vtxvj")]
 position = Vector2(124, 324)
+
+[node name="Chicken" parent="." instance=ExtResource("3_3ydyl")]
+position = Vector2(107, 298)
 
 [node name="Chicken2" parent="." instance=ExtResource("3_3ydyl")]
 position = Vector2(153, 317)
