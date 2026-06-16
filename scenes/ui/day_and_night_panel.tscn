@@ -79,6 +79,7 @@ offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_xc6ft")
+expand_mode = 1
 
 [node name="FastSpeedButton" type="Button" parent="Control"]
 layout_mode = 0

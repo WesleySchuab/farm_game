@@ -155,3 +155,15 @@ position = Vector2(153, 317)
 
 [node name="Chicken3" parent="." instance=ExtResource("3_3ydyl")]
 position = Vector2(149, 282)
+
+[node name="Milk" parent="." instance=ExtResource("11_ngn3o")]
+position = Vector2(333, 309)
+
+[node name="Milk2" parent="." instance=ExtResource("11_ngn3o")]
+position = Vector2(421, 326)
+
+[node name="Egg" parent="." instance=ExtResource("12_iiv34")]
+position = Vector2(210, 299)
+
+[node name="Egg2" parent="." instance=ExtResource("12_iiv34")]
+position = Vector2(271, 307)

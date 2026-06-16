@@ -1,8 +1,9 @@
-[gd_scene load_steps=54 format=3 uid="uid://4g6smpubcbk5"]
+[gd_scene load_steps=56 format=3 uid="uid://4g6smpubcbk5"]
 
 [ext_resource type="Script" uid="uid://cvhuw7s767my2" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="Texture2D" uid="uid://cq85685q5llrc" path="res://game/assets/characters/basic_charakter_actions.png" id="1_t61fv"]
 [ext_resource type="Texture2D" uid="uid://1jilajjsh762" path="res://game/assets/characters/basic_charakter_spritesheet.png" id="2_686vu"]
+[ext_resource type="Texture2D" uid="uid://vmcipb01va3s" path="res://game/assets/characters/Basic Charakter dead.png" id="3_djydg"]
 [ext_resource type="Script" uid="uid://bhy584xjhve6f" path="res://scenes/characters/player/idle_state.gd" id="4_qd3e3"]
 [ext_resource type="Script" uid="uid://brme6870fmohm" path="res://scripts/states_machine/node_state_machine.gd" id="4_xuses"]
 [ext_resource type="Script" uid="uid://bm54bwr4w1e13" path="res://scenes/characters/player/walk_state.gd" id="5_qd3e3"]
@@ -50,6 +51,10 @@ region = Rect2(0, 48, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hv5x3"]
 atlas = ExtResource("2_686vu")
 region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kghjy"]
+atlas = ExtResource("3_djydg")
+region = Rect2(144, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykrpk"]
 atlas = ExtResource("2_686vu")
@@ -227,6 +232,14 @@ animations = [{
 "loop": false,
 "name": &"idle_back",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kghjy")
+}],
+"loop": true,
+"name": &"idle_dead",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -408,7 +421,8 @@ current_tool = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kghjy")
-animation = &"chopping_right"
+animation = &"idle_dead"
+frame_progress = 0.062466282
 offset = Vector2(0, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

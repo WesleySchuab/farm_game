@@ -29,6 +29,7 @@ GameDialogueManager="*res://scripts/globais/game_dialogue_manager.gd"
 GameManager="*res://scripts/globais/game_manager.gd"
 SceneManager="*res://scripts/globais/scene_manager.gd"
 DayAndNightCycleManager="*res://scripts/globais/day_and_night_cycle_manager.gd"
+EventBus="*res://scripts/globais/EventBus.gd"
 
 [display]
 

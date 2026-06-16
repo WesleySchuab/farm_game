@@ -11,6 +11,13 @@ extends NodeState
 ## Velocidade de movimento do jogador em pixels por segundo
 @export var speed : int = 50
  
+# Dentro do SEU script de transições:
+var controle_de_animacao_ativo: bool = true
+
+func _ready() -> void:
+	# Se conecta ao sinal de morte
+	EventBus.player_died.connect(_on_player_died)
+
 ## Processa a lógica do estado a cada frame
 ## Atualmente não implementado para este estado
 func _on_process(_delta : float) -> void:
@@ -24,7 +31,8 @@ func _on_physics_process(_delta : float) -> void:
 	var direction: Vector2 = GameInputEvents.movement_input()
 	
 	#print("direção = ", direction)
-	
+	if not controle_de_animacao_ativo: 
+		return # Se o player morreu, não deixa o script rodar mais nada!
 	if direction == Vector2.UP:
 		animated_sprite_2d.play("walk_back")
 	elif direction == Vector2.DOWN:
@@ -61,3 +69,7 @@ func _on_enter() -> void:
 ## Para a animação atual
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
+
+func _on_player_died() -> void:
+	controle_de_animacao_ativo = false # Desativa o controle normal de andar/correr
+	animated_sprite_2d.play("idle_dead")

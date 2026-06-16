@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://crmukn5agnohr"]
+[gd_scene load_steps=15 format=3 uid="uid://crmukn5agnohr"]
 
 [ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="1_7ck5g"]
 [ext_resource type="Script" uid="uid://8qk1ft6yyfbk" path="res://scenes/ui/inventory_panel.gd" id="2_b11k6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d04wob11ahijp" path="res://game/assets/Objects/basic_plants.png" id="3_b11k6"]
 [ext_resource type="Texture2D" uid="uid://bjvxsx0dcb3l8" path="res://game/assets/Objects/egg_item.png" id="4_tdvod"]
 [ext_resource type="Texture2D" uid="uid://cybrmnlkb0ous" path="res://game/assets/Objects/simple_milk_and_grass_item.png" id="5_4tgr1"]
+[ext_resource type="Texture2D" uid="uid://m542m02jnike" path="res://game/assets/characters/free_chicken_sprites.png" id="7_tdvod"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wmmu1"]
 atlas = ExtResource("2_lcq1t")
@@ -30,13 +31,17 @@ atlas = ExtResource("4_tdvod")
 atlas = ExtResource("5_4tgr1")
 region = Rect2(32, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tgr1"]
+atlas = ExtResource("7_tdvod")
+region = Rect2(1, 3, 11, 12)
+
 [node name="InventoryPanel" type="PanelContainer"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -117.0
+offset_top = -130.0
 offset_right = 54.0
-offset_bottom = 117.0
+offset_bottom = 140.0
 grow_vertical = 2
 theme = ExtResource("1_7ck5g")
 theme_type_variation = &"DarkWoodPanel"
@@ -154,6 +159,24 @@ size_flags_vertical = 0
 texture = SubResource("AtlasTexture_0lmsk")
 
 [node name="MilkLabel" type="Label" parent="MarginContainer/VBoxContainer/Milk"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_type_variation = &"InventoryLabel"
+text = "0"
+
+[node name="meat" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_type_variation = &"InventoryItemPanel"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/meat"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_4tgr1")
+
+[node name="MilkLabel" type="Label" parent="MarginContainer/VBoxContainer/meat"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

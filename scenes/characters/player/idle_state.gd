@@ -2,8 +2,13 @@ extends NodeState
 
 var player: Player
 var animated_sprite_2d: AnimatedSprite2D
+# Dentro do SEU script de transições:
+var controle_de_animacao_ativo: bool = true
 
-
+func _ready() -> void:
+	# Se conecta ao sinal de morte
+	EventBus.player_died.connect(_on_player_died)
+	
 ## Executado quando o estado idle é iniciado
 ## Obtém as referências do player e do sprite animado
 ## Inicia a animação padrão de idle frontal
@@ -23,7 +28,9 @@ func _on_process(_delta: float) -> void:
 
 ## Processa a física do estado a cada frame
 ## Atualiza a animação idle baseado na direção que o jogador está olhando
-func _on_physics_process(_delta: float) -> void:		
+func _on_physics_process(_delta: float) -> void:	
+	if not controle_de_animacao_ativo: 
+		return # Se o player morreu, não deixa o script rodar mais nada!	
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("idle_back")
 	elif player.player_direction == Vector2.DOWN:
@@ -56,3 +63,6 @@ func _on_next_transitions() -> void:
 ## Para a animação atual
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
+func _on_player_died() -> void:
+	controle_de_animacao_ativo = false # Desativa o controle normal de andar/correr
+	animated_sprite_2d.play("idle_dead")

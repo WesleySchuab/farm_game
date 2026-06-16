@@ -190,7 +190,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Emote"]
-position = Vector2(20, 22)
+position = Vector2(20, 20)
 sprite_frames = SubResource("SpriteFrames_66moy")
 animation = &"emote_12_talking"
 autoplay = "emote_1_idle"
