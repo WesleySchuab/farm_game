@@ -23,12 +23,12 @@ buses/default_bus_layout="uid://cu25fbwj5ayn"
 
 ToolManager="*res://scripts/globais/tool_manager.gd"
 InventoryManager="*res://scripts/globais/inventory_manager.gd"
-DayAndCycleManager="*res://scripts/globais/day_and_cycle_manager.gd"
 SaveGameManager="*res://scripts/globais/save_game_manager.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 GameDialogueManager="*res://scripts/globais/game_dialogue_manager.gd"
 GameManager="*res://scripts/globais/game_manager.gd"
 SceneManager="*res://scripts/globais/scene_manager.gd"
+DayAndNightCycleManager="*res://scripts/globais/day_and_night_cycle_manager.gd"
 
 [display]
 

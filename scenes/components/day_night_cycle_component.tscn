@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://dxii0vkhrug8a" path="res://scenes/components/day_night_cycle_component.gd" id="1_76coa"]
 
 [sub_resource type="Gradient" id="Gradient_76coa"]
-offsets = PackedFloat32Array(0, 0.1097561, 0.19756098, 0.29512194, 0.39756098, 0.49756098)
-colors = PackedColorArray(0, 0, 0, 1, 0.120414905, 0.12035238, 0.28205538, 1, 0.35739505, 0.35745478, 0.4744829, 1, 0.7021577, 0.40009826, 0.2326659, 1, 0.95182437, 0.5505048, 0.35946912, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0.10138249, 0.1827957, 0.2780338, 0.4562212, 0.6175115, 0.8079877, 0.88251746, 0.95852536)
+colors = PackedColorArray(0.14406255, 0.14406255, 0.14406255, 1, 0.19850521, 0.18422274, 0.27992263, 1, 0.26219285, 0.23120257, 0.43885326, 1, 0.437788, 0.437788, 0.437788, 1, 0.98755175, 0.68815327, 0.51595235, 1, 0.91164815, 0.8693061, 0.8391958, 1, 0.8509804, 0.8156863, 0.7882353, 1, 0.9098039, 0.87058824, 0.8392157, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_02hyl"]
 gradient = SubResource("Gradient_76coa")
 
 [node name="DayNightCycleComponent" type="CanvasModulate"]
+color = Color(0.9471994, 0.9471994, 0.9471994, 1)
 script = ExtResource("1_76coa")
-day_and_gradient_texture = SubResource("GradientTexture1D_02hyl")
+day_night_gradient_texture = SubResource("GradientTexture1D_02hyl")

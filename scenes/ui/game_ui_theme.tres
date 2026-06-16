@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=31 format=3 uid="uid://8i5gd41smlvv"]
+[gd_resource type="Theme" load_steps=33 format=3 uid="uid://8i5gd41smlvv"]
 
 [ext_resource type="Texture2D" uid="uid://baeisbo88x5g7" path="res://game/basic_ui_sprit.png" id="1_ui_theme"]
 [ext_resource type="FontVariation" uid="uid://dg0y7bmhlkbmt" path="res://game/assets/ui/fonts/zx_palm_variation.tres" id="2_68i34"]
@@ -94,6 +94,20 @@ texture = SubResource("AtlasTexture_mtjyl")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtjyl"]
+bg_color = Color(0.7137255, 0.5372549, 0.38431373, 1)
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7137255, 0.5372549, 0.38431373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cqa1q"]
+bg_color = Color(0.2669057, 0.7052614, 0.31098533, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0.7137255, 0.5372549, 0.38431373, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_button_disabled"]
 atlas = ExtResource("1_ui_theme")
 region = Rect2(11, 11, 26, 28)
@@ -160,6 +174,8 @@ MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+ProgressBar/styles/background = SubResource("StyleBoxFlat_mtjyl")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_cqa1q")
 ToolButton/styles/disabled = SubResource("StyleBoxTexture_button_disabled")
 ToolButton/styles/focus = SubResource("StyleBoxTexture_button_pressed")
 ToolButton/styles/hover = SubResource("StyleBoxTexture_button_hover")
