@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://cvkorhnyofafy"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://cvkorhnyofafy"]
 
 [ext_resource type="Texture2D" uid="uid://baeisbo88x5g7" path="res://game/basic_ui_sprit.png" id="1_tge16"]
+[ext_resource type="FontFile" uid="uid://b76qq71u1mxyf" path="res://game/assets/ui/fonts/pixelFont-7-8x14-sproutLands.ttf" id="1_xukoe"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tge16"]
 load_path = "res://.godot/imported/basic_ui_sprit.png-99c8009ff9279eb9bf9a6da0c0753836.ctex"
@@ -86,6 +87,8 @@ texture_margin_right = 3.9241905
 texture_margin_bottom = 3.0
 
 [resource]
+Button/font_sizes/font_size = 17
+Button/fonts/font = ExtResource("1_xukoe")
 Button/styles/disabled = SubResource("StyleBoxTexture_my13y")
 Button/styles/focus = SubResource("StyleBoxTexture_preor")
 Button/styles/hover = SubResource("StyleBoxTexture_0hyyi")
@@ -94,7 +97,7 @@ Button/styles/pressed = SubResource("StyleBoxTexture_7koft")
 CharacterNameText/base_type = &"RichTextLabel"
 CharacterNameText/font_sizes/normal_font_size = 14
 DialogueText/base_type = &"RichTextLabel"
-DialogueText/font_sizes/normal_font_size = 12
+DialogueText/font_sizes/normal_font_size = 16
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10

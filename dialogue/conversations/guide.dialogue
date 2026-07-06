@@ -1,11 +1,9 @@
 ~ start
 Marlow: [[Hi|Hello|Howdy]], nice to meet you.
-Marlow: Welcome to your new farm.
-#Como você pode ver, as vacas e as galinhas estão com fome.
-Marlow: As you can see the cows and chicken are hungry.
+Marlow: Are you hungry?
 #Você precisa plantar algumas coisas para alimentá-las.
-Marlow: You need to grow some crops to fed them.
-Marlow: Here are some seed to grow some crops
+Marlow: Plant something, feed the animals.
+Marlow: To get eggs and milk
 
 - Take crop sedds
 	Teemo: Yeah I can grow crops

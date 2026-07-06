@@ -4,5 +4,5 @@
 
 [node name="OnTheFarmMusic" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_iwkhc")
-autoplay = true
 bus = &"Music"
+parameters/looping = true

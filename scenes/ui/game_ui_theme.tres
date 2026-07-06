@@ -91,8 +91,9 @@ region = Rect2(107, 59, 26, 26)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nhbk8"]
 texture = SubResource("AtlasTexture_mtjyl")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
+texture_margin_top = 3.0
+texture_margin_bottom = 1.0
+region_rect = Rect2(2, 1, 22, 22)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mtjyl"]
 bg_color = Color(0.7137255, 0.5372549, 0.38431373, 1)

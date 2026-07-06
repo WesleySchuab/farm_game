@@ -11,8 +11,8 @@ func _ready() -> void:
 	tool_tilling.disabled = true
 	tool_tilling.focus_mode = Control.FOCUS_NONE
 	
-	tool_watering_can.disabled = true
-	tool_watering_can.focus_mode = Control.FOCUS_NONE
+	tool_watering_can.disabled = false
+	#tool_watering_can.focus_mode = Control.FOCUS_NONE
 	
 	tool_corn.disabled = true
 	tool_corn.focus_mode = Control.FOCUS_NONE

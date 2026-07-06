@@ -29,11 +29,7 @@ func _get_frame_for_state(state: DataTypes.GrowthStates) -> int:
 func _ready() -> void:
 	watering_particles.emitting = false
 	floring_particles.emitting = false
-	
-	print("🌽 ANTES - sprite_2d.frame: ", sprite_2d.frame, " | hframes: ", sprite_2d.hframes, " | vframes: ", sprite_2d.vframes)
-	print("🌽 ANTES - texture: ", sprite_2d.texture)
-	print("🌽 ANTES - growth_cycle_component estado: ", DataTypes.GrowthStates.keys()[growth_cycle_component.get_current_growth_state()])
-	
+		
 	# Forçar frame inicial correto
 	growth_state = growth_cycle_component.get_current_growth_state()
 	var target_frame = _get_frame_for_state(growth_state)

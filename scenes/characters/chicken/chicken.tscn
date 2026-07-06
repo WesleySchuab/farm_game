@@ -67,6 +67,8 @@ animations = [{
 radius = 5.0
 
 [node name="Chicken" type="CharacterBody2D"]
+y_sort_enabled = true
+scale = Vector2(1.3, 1.3)
 collision_layer = 64
 script = ExtResource("1_r6a33")
 
@@ -107,6 +109,4 @@ navigation_agent_2d = NodePath("../../NavigationAgent2D")
 
 [node name="AudioPlaytimeComponent" parent="." node_paths=PackedStringArray("audio_playtime_player2D") instance=ExtResource("7_wh5lc")]
 wait_time = 6.0
-one_shot = true
-autostart = true
 audio_playtime_player2D = NodePath("../ChickenCluck1SFX")

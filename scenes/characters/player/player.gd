@@ -38,7 +38,7 @@ func on_tool_selected(tool :DataTypes.Tools)-> void:
 	
 # A cada minuto que passa no relógio do jogo, o player perde vida
 func _on_time_tick(_day: int, _hour: int, _minute: int) -> void:
-	adicionar_vida(-0.1) # Valor negativo faz perder vida
+	#adicionar_vida(-0.1) # Valor negativo faz perder vida
 	print("Relógio bateu! Vida atual: ", current_health) # <-- ADICIONE ESSA LINHA PARA TESTAR
 
 # Função simples que adiciona vida (se positivo) ou retira vida (se negativo)

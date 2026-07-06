@@ -25,6 +25,7 @@ size = Vector2(14, 22)
 [node name="SmallTree" type="Sprite2D"]
 material = SubResource("ShaderMaterial_mw1op")
 position = Vector2(-1, -12)
+scale = Vector2(3, 3)
 texture = SubResource("AtlasTexture_1bff3")
 script = ExtResource("2_0ai8s")
 

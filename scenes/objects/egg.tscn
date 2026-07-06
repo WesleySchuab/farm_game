@@ -7,6 +7,8 @@
 radius = 8.062258
 
 [node name="Egg" type="Sprite2D"]
+y_sort_enabled = true
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("1_h452w")
 
 [node name="CollectableComponent" parent="." instance=ExtResource("2_twloa")]

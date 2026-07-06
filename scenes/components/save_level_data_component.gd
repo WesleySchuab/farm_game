@@ -66,3 +66,32 @@ func load_game() -> void:
 		if resource is Resource:
 			if resource is NodeDataResource:
 				resource._load_data(root_node)
+
+
+func delete_save() -> bool:
+	"""Deleta o salvamento do nível atual"""
+	var level_save_file_name: String = save_file_name % level_scene_name
+	var full_save_path: String = save_game_data_path + level_save_file_name
+	
+	if !FileAccess.file_exists(full_save_path):
+		print("SaveLevelDataComponent: Arquivo de salvamento não encontrado: %s" % full_save_path)
+		return false
+	
+	var absolute_path: String = ProjectSettings.globalize_path(full_save_path)
+	var error = DirAccess.remove_absolute(absolute_path)
+	
+	if error != OK:
+		push_error("SaveLevelDataComponent: Erro ao deletar %s (erro %d)" % [full_save_path, error])
+		return false
+	
+	print("SaveLevelDataComponent: Salvamento de %s foi deletado com sucesso" % level_scene_name)
+	game_data_resource = null
+	return true
+
+
+func has_save() -> bool:
+	"""Verifica se existe um salvamento para o nível atual"""
+	var level_save_file_name: String = save_file_name % level_scene_name
+	var full_save_path: String = save_game_data_path + level_save_file_name
+	
+	return FileAccess.file_exists(full_save_path)

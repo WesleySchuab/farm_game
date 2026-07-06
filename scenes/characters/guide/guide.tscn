@@ -39,6 +39,7 @@ animations = [{
 radius = 17.0
 
 [node name="Guide" type="Node2D"]
+scale = Vector2(1.2, 1.2)
 script = ExtResource("1_pdv8u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
