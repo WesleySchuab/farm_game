@@ -2,7 +2,6 @@
 ## Gerencia o personagem controlável do jogo
 class_name Player
 extends CharacterBody2D
-@onready var animated_sprite_2d: AnimatedSprite2D
 @onready var hit_component: HitComponent = $HitComponent
 
 @export var max_health: float = 100.0
@@ -29,17 +28,17 @@ func _ready() -> void:
 		DayAndNightCycleManager.time_tick.connect(_on_time_tick)
 		
 	ToolManager.tool_selected.connect(on_tool_selected)
-	print("🎮 Player inicializado. HitComponent: ", hit_component)
+	#print("🎮 Player inicializado. HitComponent: ", hit_component)
 	
 func on_tool_selected(tool :DataTypes.Tools)-> void:
 	current_tool = tool
 	hit_component.current_tool = tool
-	print("🔧 Ferramenta selecionada: ", DataTypes.Tools.keys()[tool])
+	#print("🔧 Ferramenta selecionada: ", DataTypes.Tools.keys()[tool])
 	
 # A cada minuto que passa no relógio do jogo, o player perde vida
 func _on_time_tick(_day: int, _hour: int, _minute: int) -> void:
-	#adicionar_vida(-0.1) # Valor negativo faz perder vida
-	print("Relógio bateu! Vida atual: ", current_health) # <-- ADICIONE ESSA LINHA PARA TESTAR
+	adicionar_vida(-0.1) # Valor negativo faz perder vida
+	#print("Relógio bateu! Vida atual: ", current_health) # <-- ADICIONE ESSA LINHA PARA TESTAR
 
 # Função simples que adiciona vida (se positivo) ou retira vida (se negativo)
 func adicionar_vida(quantidade: float) -> void:

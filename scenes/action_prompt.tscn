@@ -1,80 +1,94 @@
-[gd_scene format=3 uid="uid://cfwswekht6j1n"]
+[gd_scene format=3 uid="uid://7vhqefqoiqc0"]
 
-[ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="1_0cb7s"]
-[ext_resource type="Script" uid="uid://ciga8iio2yyfl" path="res://scenes/ui/emotes_panel.gd" id="2_h8ggh"]
-[ext_resource type="Texture2D" uid="uid://voi7gjxbcnyh" path="res://game/assets/ui/emots.png" id="3_gfgw2"]
+[ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="1_ahjmq"]
+[ext_resource type="Script" uid="uid://ciga8iio2yyfl" path="res://scenes/ui/emotes_panel.gd" id="2_pwdvy"]
+[ext_resource type="Texture2D" uid="uid://voi7gjxbcnyh" path="res://game/assets/ui/emots.png" id="3_jm0tu"]
+[ext_resource type="Texture2D" uid="uid://bmlqaqnbfyge4" path="res://game/assets/ui/left_click.png" id="4_jm0tu"]
+[ext_resource type="Texture2D" uid="uid://ctphrhcm6e7ap" path="res://game/assets/ui/right_click.png" id="4_pwdvy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vmshr"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 352, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hp7qp"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(32, 352, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1xbdl"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hceha"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7dn0"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8n5p"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pnv4k"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s4puw"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sl3dk"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(96, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vxlvs"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(128, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rl8sg"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g56v5"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(32, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqdjx"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(64, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m15sa"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(96, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eu71p"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xjjei"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(32, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdbw6"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(0, 192, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7u25o"]
-atlas = ExtResource("3_gfgw2")
+atlas = ExtResource("3_jm0tu")
 region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwovy"]
+atlas = ExtResource("4_jm0tu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwdvy"]
+atlas = ExtResource("4_pwdvy")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apair"]
+atlas = ExtResource("4_pwdvy")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_66moy"]
 animations = [{
@@ -166,15 +180,45 @@ animations = [{
 "loop": 1,
 "name": &"emote_7_excited",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwovy")
+}],
+"loop": 1,
+"name": &"left_click",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwdvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apair")
+}],
+"loop": 1,
+"name": &"right_click",
+"speed": 5.0
 }]
 
-[node name="EmotesPanel" type="Panel"]
+[node name="ActionPrompt" type="Panel" unique_id=591445201]
 custom_minimum_size = Vector2(50, 50)
-theme = ExtResource("1_0cb7s")
-theme_type_variation = &"DarkWoodPanel"
-script = ExtResource("2_h8ggh")
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = -30.0
+offset_bottom = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_ahjmq")
+theme_type_variation = &"ActionPanel"
+script = ExtResource("2_pwdvy")
 
-[node name="Emote" type="Control" parent="."]
+[node name="Emote" type="Control" parent="." unique_id=238507539]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
@@ -189,14 +233,25 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Emote"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Emote" unique_id=358482749]
+visible = false
 position = Vector2(20, 20)
 sprite_frames = SubResource("SpriteFrames_66moy")
-animation = &"emote_12_talking"
+animation = &"left_click"
 autoplay = "emote_1_idle"
 
-[node name="EmoteIdleTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
-
-[connection signal="timeout" from="EmoteIdleTimer" to="." method="_on_emote_idle_timer_timeout"]
+[node name="ActionLabel" type="Label" parent="Emote" unique_id=288642512]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.24840015, 0.24840018, 0.24840015, 0)
+theme_override_font_sizes/font_size = 24
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

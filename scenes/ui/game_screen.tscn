@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnb21jumvnft5"]
+[gd_scene format=3 uid="uid://dnb21jumvnft5"]
 
 [ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="PackedScene" uid="uid://cfwswekht6j1n" path="res://scenes/emotes_panel.tscn" id="2_0kkfd"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://crmukn5agnohr" path="res://scenes/ui/inventory_panel.tscn" id="3_gusqm"]
 [ext_resource type="PackedScene" uid="uid://ba4u3udwyim50" path="res://scenes/ui/day_and_night_panel.tscn" id="4_gkbp4"]
 [ext_resource type="PackedScene" uid="uid://cacjrq658rpcd" path="res://scenes/ui/health_bar.tscn" id="6_nwa5a"]
+[ext_resource type="PackedScene" uid="uid://7vhqefqoiqc0" path="res://scenes/action_prompt.tscn" id="6_ooiym"]
 
-[node name="GameScreen" type="CanvasLayer"]
+[node name="GameScreen" type="CanvasLayer" unique_id=1138285371]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1591355067]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,33 +20,35 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("1_e2vrk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1428845647]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="InventoryPanel" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_gusqm")]
+[node name="InventoryPanel" parent="MarginContainer/VBoxContainer" unique_id=1557908961 instance=ExtResource("3_gusqm")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="ToolsPanel" parent="MarginContainer" instance=ExtResource("2_gusqm")]
+[node name="ToolsPanel" parent="MarginContainer" unique_id=634279871 instance=ExtResource("2_gusqm")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="DayAndNightPanel" parent="MarginContainer" instance=ExtResource("4_gkbp4")]
+[node name="DayAndNightPanel" parent="MarginContainer" unique_id=1160365751 instance=ExtResource("4_gkbp4")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="EmotesPanel" parent="." instance=ExtResource("2_0kkfd")]
+[node name="EmotesPanel" parent="." unique_id=1197449171 instance=ExtResource("2_0kkfd")]
 offset_left = 11.0
 offset_right = 61.0
 offset_bottom = 50.0
 size_flags_horizontal = 4
 
-[node name="HealthBar" parent="." instance=ExtResource("6_nwa5a")]
+[node name="ActionPrompt" parent="." unique_id=591445201 instance=ExtResource("6_ooiym")]
+
+[node name="HealthBar" parent="." unique_id=796134517 instance=ExtResource("6_nwa5a")]
 offset_left = -36.0
 offset_top = 3.9999998
 offset_right = -36.0
