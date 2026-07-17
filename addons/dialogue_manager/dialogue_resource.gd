@@ -1,8 +1,9 @@
 @tool
 @icon("./assets/icon.svg")
 
-## A collection of dialogue lines for use with [code]DialogueManager[/code].
 class_name DialogueResource extends Resource
+
+## A collection of dialogue lines for use with [code]DialogueManager[/code].
 
 
 const _DialogueManager = preload("./dialogue_manager.gd")

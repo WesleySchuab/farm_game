@@ -1,8 +1,9 @@
+class_name InteractableComponents
+extends Area2D
+
 ## Componente de interação
 ## Detecta quando um corpo entra ou sai da área de interação
 ## Emite sinais para ativar/desativar a possibilidade de interação
-class_name InteractableComponents
-extends Area2D
 
 ## Sinal emitido quando um corpo entra na área de interação
 signal interactable_activated

@@ -36,9 +36,29 @@ Refatorei completamente o sistema de inimigos para seguir o padrão do jogo:
 - `scenes/characters/enemy/enemy.gd` (Classe Enemy refatorada)
 - `scenes/characters/enemy/ENEMY_SETUP.md` (Guia de configuração)
 
+---
+
+## Sistema de Dano - Debug e Correções ✅
+
+**Data:** 16/07/2026
+
+Implementei sistema de dano com debug completo:
+
+### ✅ Implementado:
+- **PlayerHurtComponent** - Novo componente para receber dano do inimigo
+- **Sistema de Debug** - Prints em todos os pontos críticos
+- **Detecção de Colisão** - Validação de layer/mask
+
+### 📁 Arquivos Atualizados/Criados:
+- `scenes/characters/player/player_hurt_component.gd` (NOVO)
+- `scenes/components/hit_component.gd` (Debug adicionado)
+- `scenes/characters/enemy/enemy_attack_state.gd` (Debug adicionado)
+- `scenes/characters/enemy/enemy_chase_state.gd` (Debug adicionado)
+- `scenes/characters/enemy/enemy.gd` (Debug adicionado)
+- `scenes/characters/DAMAGE_SYSTEM_SETUP.md` (Guia completo)
+
 ### 📋 Próximas Ações:
-- [ ] Configurar StateMachine na cena (adicionar os 3 estados como filhos)
-- [ ] Testar distâncias e comportamento
-- [ ] Adicionar sons de ataque com AnimalSoundComponent
-- [ ] Implementar XP/Drops ao inimigo morrer
-- [ ] Criar variações do inimigo 
+- [ ] Adicionar PlayerHurtComponent à cena do player
+- [ ] Configurar Collision Layers/Masks (Layer 2 player, Layer 3 inimigo)
+- [ ] Testar e ver prints de debug
+- [ ] Ajustar valores de dano se necessário 

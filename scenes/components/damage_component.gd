@@ -1,8 +1,9 @@
+class_name DamageComponent
+extends Node2D
+
 ## Componente de dano
 ## Gerencia o sistema de dano e vida de um objeto
 ## Rastreia dano acumulado e emite sinal quando o dano máximo é atingido
-class_name DamageComponent
-extends Node2D
 
 ## Quantidade máxima de dano que o objeto pode receber antes de ser destruído/morrer
 @export var max_damage = 1

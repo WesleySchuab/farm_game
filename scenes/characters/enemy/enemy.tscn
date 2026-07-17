@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ibaoccj46mfl"]
+[gd_scene load_steps=39 format=3 uid="uid://ibaoccj46mfl"]
 
 [ext_resource type="Texture2D" uid="uid://c24iv5urjf0d" path="res://game/assets/characters/enemy/Mushroom-Idle.png" id="1_7jlhe"]
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_uqam8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ctbulrixqgigt" path="res://scenes/characters/enemy/enemy_idle_state.gd" id="6_uqhpy"]
 [ext_resource type="Script" uid="uid://bq2tikn5h7gvn" path="res://scenes/characters/enemy/enemy_chase_state.gd" id="7_i0x2j"]
 [ext_resource type="Script" uid="uid://cy4sog0pw5rmg" path="res://scenes/characters/enemy/enemy_attack_state.gd" id="8_44pfb"]
+[ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_44pfb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0uc76"]
 atlas = ExtResource("2_pwjhn")
@@ -146,9 +147,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_emon8")
 }],
-"loop": true,
+"loop": false,
 "name": &"mushroom_attack_right",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -213,6 +214,9 @@ animations = [{
 radius = 11.0
 height = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_72liy"]
+radius = 54.00926
+
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
@@ -238,3 +242,13 @@ script = ExtResource("7_i0x2j")
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("8_44pfb")
+
+[node name="HitComponent" parent="." instance=ExtResource("9_44pfb")]
+collision_layer = 4
+collision_mask = 2
+hit_damage = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_72liy")
+debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)

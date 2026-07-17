@@ -1,7 +1,8 @@
-## Componente responsável por gerenciar visualmente o ciclo de dia e noite no jogo.
-## Ele herda de CanvasModulate para tingir toda a cena 2D com as cores de um gradiente.
 class_name DayNightCycleComponent
 extends CanvasModulate
+
+## Componente responsável por gerenciar visualmente o ciclo de dia e noite no jogo.
+## Ele herda de CanvasModulate para tingir toda a cena 2D com as cores de um gradiente.
 
 # --- VARIÁVEIS EXPORTADAS (CONFIGURÁVEIS NO INSPECTOR) ---
 

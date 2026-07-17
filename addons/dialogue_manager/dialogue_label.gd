@@ -2,8 +2,9 @@
 
 @tool
 
-## A RichTextLabel specifically for use with [b]Dialogue Manager[/b] dialogue.
 class_name DialogueLabel extends RichTextLabel
+
+## A RichTextLabel specifically for use with [b]Dialogue Manager[/b] dialogue.
 
 
 ## Emitted for each letter typed out.

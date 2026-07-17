@@ -1,7 +1,8 @@
 @icon("./assets/responses_menu.svg")
 
-## A [Container] for dialogue responses provided by [b]Dialogue Manager[/b].
 class_name DialogueResponsesMenu extends Container
+
+## A [Container] for dialogue responses provided by [b]Dialogue Manager[/b].
 
 
 ## Emitted when a response is selected.

@@ -27,11 +27,15 @@ func _on_enter() -> void:
 	time_since_last_attack = attack_cooldown  # Permite ataque imediatamente
 	
 	if animated_sprite_2d:
-		animated_sprite_2d.play("mushroom_attack")
+		animated_sprite_2d.play("mushroom_attack_right")
+		#sprint("🔴 [ATTACK STATE] Iniciando ataque do inimigo")
 	
 	# Habilita a colisão do componente de ataque
 	if hit_component_collision_shape:
 		hit_component_collision_shape.disabled = false
+		#print("🔴 [ATTACK STATE] HitComponent habilitado - Collision Shape: ", hit_component_collision_shape)
+	else:
+		print("❌ [ATTACK STATE] ERRO: HitComponent/CollisionShape2D não encontrado!")
 
 
 ## Processa a lógica do estado a cada frame
@@ -63,13 +67,16 @@ func _on_next_transitions() -> void:
 		return
 	
 	var distance = enemy.get_distance_to_player()
+	print("🔴 [ATTACK STATE] Distância até player: %.2f | Attack Distance: %.2f" % [distance, enemy.attack_distance])
 	
 	# Se o player se afastou além da distância de perseguição, volta a perseguir
 	if distance > enemy.chase_distance:
+		print("🔴 [ATTACK STATE] Player muito longe! Transitando para Chase")
 		transition.emit("chase")
 	
 	# Se o player saiu da zona de ataque mas ainda está perto, persegue
 	elif distance > enemy.attack_distance:
+		print("🔴 [ATTACK STATE] Player saiu da zona de ataque! Transitando para Chase")
 		transition.emit("chase")
 
 

@@ -1,8 +1,8 @@
+class_name HurtComponent
+extends Area2D
+
 ## Componente de dano recebido
 ## Detecta quando um objeto é atingido e emite sinal de dano
-class_name HurtComponent
-
-extends Area2D
 
 ## Tipo de ferramenta que pode causar dano a este componente
 @export var tool: DataTypes.Tools = DataTypes.Tools.WaterCrops

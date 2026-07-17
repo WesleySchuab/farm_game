@@ -60,10 +60,12 @@ func _on_next_transitions() -> void:
 	
 	# Se o player está muito perto, transiciona para Attack
 	if distance <= enemy.attack_distance:
+		print("🟡 [CHASE STATE] Player em zona de ataque! Distância: %.2f | Attack Distance: %.2f → Transitando para ATTACK" % [distance, enemy.attack_distance])
 		transition.emit("attack")
 	
 	# Se o player se afastou muito, volta para Idle
 	elif distance > enemy.chase_distance * 1.5:
+		print("🟡 [CHASE STATE] Player muito longe! → Transitando para IDLE")
 		transition.emit("idle")
 
 

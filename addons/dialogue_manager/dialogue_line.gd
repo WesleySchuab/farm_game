@@ -1,5 +1,6 @@
-## A line of dialogue returned from [code]DialogueManager[/code].
 class_name DialogueLine extends RefCounted
+
+## A line of dialogue returned from [code]DialogueManager[/code].
 
 
 const _DialogueConstants = preload("./constants.gd")

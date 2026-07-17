@@ -1,7 +1,8 @@
-## Classe principal do inimigo
-## Gerencia o inimigo controlado por IA com máquina de estados
 class_name Enemy
 extends CharacterBody2D
+
+## Classe principal do inimigo
+## Gerencia o inimigo controlado por IA com máquina de estados
 
 @onready var hit_component: HitComponent = $HitComponent
 
@@ -16,7 +17,7 @@ var current_health: float = 30.0
 @export var chase_distance: float = 150.0
 
 ## Distância para atacar o player
-@export var attack_distance: float = 50.0
+@export var attack_distance: float = 35.0
 
 ## Direção que o inimigo está olhando
 var enemy_direction: Vector2 = Vector2.DOWN
@@ -33,6 +34,9 @@ func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player = players[0]
+		print("👹 [ENEMY] Player encontrado: ", player.name)
+	else:
+		print("❌ [ENEMY] Player NÃO encontrado!")
 	
 	# Adicionar inimigo ao grupo de inimigos
 	add_to_group("enemies")
@@ -40,6 +44,8 @@ func _ready() -> void:
 	# Conectar ao sinal de morte do player para parar quando player morre
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)
+	
+	print("👹 [ENEMY] Inimigo inicializado - Chase Distance: ", chase_distance, " | Attack Distance: ", attack_distance)
 
 
 ## Calcula a distância até o player

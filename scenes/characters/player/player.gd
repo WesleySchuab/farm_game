@@ -1,7 +1,8 @@
-## Classe principal do jogador
-## Gerencia o personagem controlável do jogo
 class_name Player
 extends CharacterBody2D
+
+## Classe principal do jogador
+## Gerencia o personagem controlável do jogo
 @onready var hit_component: HitComponent = $HitComponent
 
 @export var max_health: float = 100.0
@@ -37,7 +38,8 @@ func on_tool_selected(tool :DataTypes.Tools)-> void:
 	
 # A cada minuto que passa no relógio do jogo, o player perde vida
 func _on_time_tick(_day: int, _hour: int, _minute: int) -> void:
-	adicionar_vida(-0.1) # Valor negativo faz perder vida
+	pass
+	#adicionar_vida(-0.1) # Valor negativo faz perder vida
 	#print("Relógio bateu! Vida atual: ", current_health) # <-- ADICIONE ESSA LINHA PARA TESTAR
 
 # Função simples que adiciona vida (se positivo) ou retira vida (se negativo)

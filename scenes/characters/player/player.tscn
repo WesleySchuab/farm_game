@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://4g6smpubcbk5"]
+[gd_scene load_steps=74 format=3 uid="uid://4g6smpubcbk5"]
 
 [ext_resource type="Script" uid="uid://cvhuw7s767my2" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="Texture2D" uid="uid://cq85685q5llrc" path="res://game/assets/characters/basic_charakter_actions.png" id="1_t61fv"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ds6dbh05m7p7f" path="res://scenes/characters/player/tilling_state.gd" id="8_xuses"]
 [ext_resource type="Script" uid="uid://d2o4fk47030ci" path="res://scenes/characters/player/watering_state.gd" id="9_42irl"]
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="10_3xnwo"]
+[ext_resource type="Script" uid="uid://c6kfy2kajlnw8" path="res://scenes/characters/player/player_hurt_component.gd" id="12_bsn6e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qd3e3"]
 atlas = ExtResource("1_t61fv")
@@ -543,7 +544,9 @@ animations = [{
 radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_djydg"]
-radius = 4.0
+radius = 3.922323
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bsn6e"]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
@@ -595,3 +598,11 @@ current_tool = 0
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
 shape = SubResource("CircleShape2D_djydg")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
+
+[node name="PlayerHurtComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("12_bsn6e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtComponent"]
+shape = SubResource("CircleShape2D_bsn6e")

@@ -1,5 +1,6 @@
-## A response to a line of dialogue, usualy attached to a [code]DialogueLine[/code].
 class_name DialogueResponse extends RefCounted
+
+## A response to a line of dialogue, usualy attached to a [code]DialogueLine[/code].
 
 
 const _DialogueConstants = preload("./constants.gd")

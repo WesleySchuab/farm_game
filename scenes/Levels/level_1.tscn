@@ -205,10 +205,10 @@ position = Vector2(491.00003, 480)
 position = Vector2(217.00003, 356.00003)
 
 [node name="Egg" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(201, 314)
+position = Vector2(51.000015, 322)
 
 [node name="Egg2" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(312, 297)
+position = Vector2(367, 180)
 
 [node name="Milk" parent="." instance=ExtResource("11_ngn3o")]
 position = Vector2(894, 161)
@@ -220,7 +220,7 @@ position = Vector2(894, 129)
 position = Vector2(875, 162)
 
 [node name="Milk4" parent="." instance=ExtResource("11_ngn3o")]
-position = Vector2(264, 345)
+position = Vector2(269, 438)
 
 [node name="Egg3" parent="." instance=ExtResource("12_iiv34")]
 position = Vector2(1003, 439)
@@ -241,7 +241,7 @@ position = Vector2(431, 259)
 position = Vector2(619, 270)
 
 [node name="Egg9" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(262, 285)
+position = Vector2(273, 193)
 
 [node name="Egg10" parent="." instance=ExtResource("12_iiv34")]
 position = Vector2(451, 407)
@@ -256,4 +256,4 @@ position = Vector2(865, 461)
 position = Vector2(843, 512)
 
 [node name="Enemy" parent="." instance=ExtResource("18_7u17y")]
-position = Vector2(896, 337)
+position = Vector2(428, 315)
