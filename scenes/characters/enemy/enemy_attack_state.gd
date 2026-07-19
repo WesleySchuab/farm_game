@@ -4,8 +4,9 @@ extends NodeState
 
 var enemy: Enemy
 var animated_sprite_2d: AnimatedSprite2D
-var hit_component_collision_shape: CollisionShape2D
+@export var hit_component_collision_shape : CollisionShape2D
 var controle_de_animacao_ativo: bool = true
+
 
 ## Tempo mínimo entre ataques (em segundos)
 @export var attack_cooldown: float = 1.5
@@ -13,30 +14,29 @@ var time_since_last_attack: float = 0.0
 
 
 func _ready() -> void:
+	enemy = owner as Enemy
+	animated_sprite_2d = enemy.get_node("AnimatedSprite2D")
+	hit_component_collision_shape = enemy.get_node("HitComponent/HitComponentCollisionShape2D")
+	hit_component_collision_shape.position = Vector2(0,0)
 	# Conecta ao sinal de morte
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)
+	
 
 
 ## Executado quando o estado attack é iniciado
 func _on_enter() -> void:
-	enemy = owner as Enemy
-	animated_sprite_2d = enemy.get_node("AnimatedSprite2D")
-	hit_component_collision_shape = enemy.get_node("HitComponent/CollisionShape2D")
-	
 	time_since_last_attack = attack_cooldown  # Permite ataque imediatamente
 	
 	if animated_sprite_2d:
 		animated_sprite_2d.play("mushroom_attack_right")
-		#sprint("🔴 [ATTACK STATE] Iniciando ataque do inimigo")
 	
 	# Habilita a colisão do componente de ataque
 	if hit_component_collision_shape:
 		hit_component_collision_shape.disabled = false
-		#print("🔴 [ATTACK STATE] HitComponent habilitado - Collision Shape: ", hit_component_collision_shape)
 	else:
 		print("❌ [ATTACK STATE] ERRO: HitComponent/CollisionShape2D não encontrado!")
-
+	hit_component_collision_shape.disabled = false
 
 ## Processa a lógica do estado a cada frame
 func _on_process(delta: float) -> void:
@@ -56,6 +56,8 @@ func _on_physics_process(_delta: float) -> void:
 	var direction = enemy.get_direction_to_player()
 	if direction != Vector2.ZERO:
 		enemy.enemy_direction = direction
+		# Atualiza o flip durante o ataque
+		enemy.update_flip(direction)
 
 
 ## Verifica condições para transição para outros estados

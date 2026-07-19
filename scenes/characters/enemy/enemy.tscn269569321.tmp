@@ -220,6 +220,10 @@ radius = 10.049875
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
+chase_speed = null
+max_health = null
+chase_distance = null
+attack_distance = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -249,7 +253,7 @@ script = ExtResource("8_44pfb")
 [node name="HitComponent" parent="." instance=ExtResource("9_44pfb")]
 collision_layer = 4
 collision_mask = 2
-hit_damage = 10
+hit_damage = 20
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
 position = Vector2(-26, -5)

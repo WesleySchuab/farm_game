@@ -579,7 +579,7 @@ animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 script = ExtResource("7_mk55u")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
+hit_component_collision_shape = NodePath("../../HitComponent/CollisionShape2D")
 
 [node name="Tilling" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
 script = ExtResource("8_xuses")
@@ -590,12 +590,12 @@ animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 script = ExtResource("9_42irl")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
+hit_component_collision_shape = NodePath("../../HitComponent/CollisionShape2D")
 
 [node name="HitComponent" parent="." instance=ExtResource("10_3xnwo")]
 current_tool = 0
 
-[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
 shape = SubResource("CircleShape2D_djydg")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
 

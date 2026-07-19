@@ -28,6 +28,15 @@ var player: Node2D = null
 ## Variável de controle para o inimigo morrer
 var is_dead: bool = false
 
+## Controla se a sprite está flipada
+var is_flipped: bool = false
+
+## Referência à sprite animada
+var animated_sprite_2d: AnimatedSprite2D
+
+## Referência ao collision shape do hit component
+var hit_component_collision_shape: CollisionShape2D
+
 
 func _ready() -> void:
 	# Busca o player na cena através do grupo
@@ -44,6 +53,12 @@ func _ready() -> void:
 	# Conectar ao sinal de morte do player para parar quando player morre
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)
+	
+	# Obter referência à sprite
+	animated_sprite_2d = get_node("AnimatedSprite2D")
+	
+	# Obter referência ao collision shape do hit component
+	hit_component_collision_shape = get_node("HitComponent/HitComponentCollisionShape2D")
 	
 	print("👹 [ENEMY] Inimigo inicializado - Chase Distance: ", chase_distance, " | Attack Distance: ", attack_distance)
 
@@ -80,6 +95,34 @@ func morrer() -> void:
 	
 	set_physics_process(false)
 	queue_free()
+
+
+## Funcao para flipar a sprite e o hit component
+## Inverte a sprite quando a direção muda
+func update_flip(direction: Vector2) -> void:
+	if direction == Vector2.ZERO:
+		return
+	
+	# Se o inimigo está se movendo para a direita e está flipado, desflipa
+	if direction.x < 0 and is_flipped:
+		is_flipped = false
+		if animated_sprite_2d:
+			animated_sprite_2d.flip_h = false
+		# Inverte a posição X do hit component para direita
+		if hit_component_collision_shape:
+			hit_component_collision_shape.position.x = -26
+		print("👹 [ENEMY] Desflipado para direita - HitBox position: -26")
+	
+	# Se o inimigo está se movendo para a esquerda e não está flipado, flipa
+	elif direction.x > 0 and not is_flipped:
+		is_flipped = true
+		if animated_sprite_2d:
+			animated_sprite_2d.flip_h = true
+		# Inverte a posição X do hit component para esquerda
+		if hit_component_collision_shape:
+			hit_component_collision_shape.position.x = 26
+		print("👹 [ENEMY] Flipado para esquerda - HitBox position: 26")
+		
 
 
 ## Callback quando o player morre

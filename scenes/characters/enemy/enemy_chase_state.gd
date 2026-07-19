@@ -42,6 +42,8 @@ func _on_physics_process(_delta: float) -> void:
 	# Atualiza a direção que o inimigo está olhando
 	if direction != Vector2.ZERO:
 		enemy.enemy_direction = direction
+		# Atualiza o flip da sprite e do hit component
+		enemy.update_flip(direction)
 	
 	# Aplica velocidade e move
 	enemy.velocity = direction * enemy.chase_speed

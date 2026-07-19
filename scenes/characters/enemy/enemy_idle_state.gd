@@ -43,6 +43,9 @@ func _on_next_transitions() -> void:
 	
 	# Se o player existe e está próximo, transiciona para Chase
 	if enemy.player and enemy.get_distance_to_player() <= enemy.chase_distance:
+		# Atualiza o flip para a direção correta antes de começar a perseguir
+		var direction = enemy.get_direction_to_player()
+		enemy.update_flip(direction)
 		transition.emit("chase")
 
 

@@ -37,57 +37,67 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -48.0
-offset_right = 168.0
+offset_right = 180.0
+offset_bottom = 10.0
 grow_vertical = 0
 theme = ExtResource("5_theme")
 theme_type_variation = &"DarkWoodPanel"
 script = ExtResource("2_sgani")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+texture_filter = 1
+texture_repeat = 2
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme = ExtResource("5_theme")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+texture_filter = 1
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="ToolAxe" type="Button" parent="MarginContainer/HBoxContainer" groups=["navigation_polygon_source_geometry_group"]]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+theme = ExtResource("5_theme")
 theme_type_variation = &"ToolButton"
+theme_override_constants/h_separation = 0
+theme_override_constants/icon_max_width = 0
+theme_override_font_sizes/font_size = 16
 icon = SubResource("AtlasTexture_yu8o4")
 icon_alignment = 1
 expand_icon = true
 
 [node name="ToolTilling" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(40, 30)
 layout_mode = 2
+theme = ExtResource("5_theme")
 theme_type_variation = &"ToolButton"
 icon = SubResource("AtlasTexture_yeomg")
 icon_alignment = 1
 expand_icon = true
 
 [node name="ToolWateringCan" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(40, 30)
 layout_mode = 2
+theme = ExtResource("5_theme")
 theme_type_variation = &"ToolButton"
 icon = SubResource("AtlasTexture_gn0b4")
 icon_alignment = 1
 expand_icon = true
 
 [node name="ToolCorn" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(40, 30)
 layout_mode = 2
+theme = ExtResource("5_theme")
 theme_type_variation = &"ToolButton"
 icon = SubResource("AtlasTexture_qow1k")
 icon_alignment = 1
 expand_icon = true
 
 [node name="ToolTomato" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(40, 30)
 layout_mode = 2
+theme = ExtResource("5_theme")
 theme_type_variation = &"ToolButton"
 icon = SubResource("AtlasTexture_cahy5")
 icon_alignment = 1

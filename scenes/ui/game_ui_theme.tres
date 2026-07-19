@@ -11,9 +11,9 @@ region = Rect2(201, 105, 30, 30)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_darkwood"]
 texture = SubResource("AtlasTexture_darkwood")
 texture_margin_left = 7.0
-texture_margin_top = 7.0
+texture_margin_top = 5.0
 texture_margin_right = 7.0
-texture_margin_bottom = 7.0
+texture_margin_bottom = 5.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cqa1q"]
 load_path = "res://.godot/imported/basic_ui_sprit.png-99c8009ff9279eb9bf9a6da0c0753836.ctex"
@@ -115,10 +115,6 @@ region = Rect2(11, 11, 26, 28)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_button_disabled"]
 texture = SubResource("AtlasTexture_button_disabled")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_button_pressed"]
 atlas = ExtResource("1_ui_theme")
@@ -126,10 +122,6 @@ region = Rect2(11, 107, 26, 28)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_button_pressed"]
 texture = SubResource("AtlasTexture_button_pressed")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_button_hover"]
 atlas = ExtResource("1_ui_theme")
@@ -172,10 +164,10 @@ InventoryLabel/base_type = &"Label"
 InventoryLabel/font_sizes/font_size = 8
 InventoryLabel/fonts/font = ExtResource("2_68i34")
 Label/fonts/font = ExtResource("2_mtjyl")
-MarginContainer/constants/margin_bottom = 10
-MarginContainer/constants/margin_left = 10
-MarginContainer/constants/margin_right = 10
-MarginContainer/constants/margin_top = 10
+MarginContainer/constants/margin_bottom = 1
+MarginContainer/constants/margin_left = 1
+MarginContainer/constants/margin_right = 1
+MarginContainer/constants/margin_top = 1
 ProgressBar/styles/background = SubResource("StyleBoxFlat_mtjyl")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_cqa1q")
 ToolButton/styles/disabled = SubResource("StyleBoxTexture_button_disabled")
