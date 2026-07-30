@@ -5,7 +5,8 @@ enum Tools {
 	TillGround,
 	WaterCrops,
 	PlantCorn,
-	PlantTomato
+	PlantTomato,
+	Crossbow
 }
 enum GrowthStates {
 	Germination,

@@ -28,17 +28,19 @@ func _on_process(_delta: float) -> void:
 
 ## Processa a física do estado a cada frame
 ## Atualiza a animação idle baseado na direção que o jogador está olhando
+## Usa animações "crossbow_idle_*" quando a besta está equipada
 func _on_physics_process(_delta: float) -> void:	
 	if not controle_de_animacao_ativo: 
-		return # Se o player morreu, não deixa o script rodar mais nada!	
+		return # Se o player morreu, não deixa o script rodar mais nada!
+	var prefix: String = "crossbow_idle_" if player.current_tool == DataTypes.Tools.Crossbow else "idle_"
 	if player.player_direction == Vector2.UP:
-		animated_sprite_2d.play("idle_back")
+		animated_sprite_2d.play(prefix + "back")
 	elif player.player_direction == Vector2.DOWN:
-		animated_sprite_2d.play("idle_front")
+		animated_sprite_2d.play(prefix + "front")
 	elif player.player_direction == Vector2.LEFT:
-		animated_sprite_2d.play("idle_left")
+		animated_sprite_2d.play(prefix + "left")
 	elif player.player_direction == Vector2.RIGHT:
-		animated_sprite_2d.play("idle_right")
+		animated_sprite_2d.play(prefix + "right")
 
 
 ## Verifica condições para transição para outros estados
@@ -57,6 +59,8 @@ func _on_next_transitions() -> void:
 	if player.current_tool == DataTypes.Tools.WaterCrops && GameInputEvents.use_tool():
 		print("💧 Transição para Watering solicitada")
 		transition.emit("Watering")	
+	if player.current_tool == DataTypes.Tools.Crossbow && GameInputEvents.use_tool():
+		transition.emit("Crossbow")
 
 
 ## Executado quando o estado idle é finalizado

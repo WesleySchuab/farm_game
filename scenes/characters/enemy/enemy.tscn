@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ibaoccj46mfl"]
+[gd_scene load_steps=40 format=3 uid="uid://ibaoccj46mfl"]
 
 [ext_resource type="Texture2D" uid="uid://c24iv5urjf0d" path="res://game/assets/characters/enemy/Mushroom-Idle.png" id="1_7jlhe"]
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_uqam8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bq2tikn5h7gvn" path="res://scenes/characters/enemy/enemy_chase_state.gd" id="7_i0x2j"]
 [ext_resource type="Script" uid="uid://cy4sog0pw5rmg" path="res://scenes/characters/enemy/enemy_attack_state.gd" id="8_44pfb"]
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_44pfb"]
+[ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_hurtc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0uc76"]
 atlas = ExtResource("2_pwjhn")
@@ -178,7 +179,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"mushroom_idle",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -205,7 +206,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qvr0l")
 }],
-"loop": true,
+"loop": false,
 "name": &"mushroom_run",
 "speed": 5.0
 }]
@@ -220,14 +221,14 @@ radius = 10.049875
 [node name="Enemy" type="CharacterBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
+chase_speed = 30.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(1, -29)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"mushroom_attack_right"
-frame = 5
+animation = &"mushroom_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -14)
@@ -255,3 +256,10 @@ hit_damage = 10
 position = Vector2(-26, -5)
 shape = SubResource("CircleShape2D_72liy")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
+
+[node name="HurtComponent" parent="." instance=ExtResource("10_hurtc")]
+tool = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+position = Vector2(1, -14)
+shape = SubResource("CapsuleShape2D_i0x2j")

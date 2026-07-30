@@ -1,9 +1,10 @@
-[gd_scene load_steps=74 format=3 uid="uid://4g6smpubcbk5"]
+[gd_scene load_steps=80 format=3 uid="uid://4g6smpubcbk5"]
 
 [ext_resource type="Script" uid="uid://cvhuw7s767my2" path="res://scenes/characters/player/player.gd" id="1_6avc5"]
 [ext_resource type="Texture2D" uid="uid://cq85685q5llrc" path="res://game/assets/characters/basic_charakter_actions.png" id="1_t61fv"]
 [ext_resource type="Texture2D" uid="uid://1jilajjsh762" path="res://game/assets/characters/basic_charakter_spritesheet.png" id="2_686vu"]
 [ext_resource type="Texture2D" uid="uid://vmcipb01va3s" path="res://game/assets/characters/Basic Charakter dead.png" id="3_djydg"]
+[ext_resource type="Texture2D" uid="uid://bi6j13uoyc3jm" path="res://game/assets/characters/players/Basic Charakter Spritesheet -.png" id="3_hv5x3"]
 [ext_resource type="Script" uid="uid://bhy584xjhve6f" path="res://scenes/characters/player/idle_state.gd" id="4_qd3e3"]
 [ext_resource type="Script" uid="uid://brme6870fmohm" path="res://scripts/states_machine/node_state_machine.gd" id="4_xuses"]
 [ext_resource type="Script" uid="uid://bm54bwr4w1e13" path="res://scenes/characters/player/walk_state.gd" id="5_qd3e3"]
@@ -12,6 +13,7 @@
 [ext_resource type="Script" uid="uid://d2o4fk47030ci" path="res://scenes/characters/player/watering_state.gd" id="9_42irl"]
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="10_3xnwo"]
 [ext_resource type="Script" uid="uid://c6kfy2kajlnw8" path="res://scenes/characters/player/player_hurt_component.gd" id="12_bsn6e"]
+[ext_resource type="Script" uid="uid://d0srdga5sfi1i" path="res://scenes/characters/player/crossbow_state.gd" id="13_crssb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qd3e3"]
 atlas = ExtResource("1_t61fv")
@@ -44,6 +46,22 @@ region = Rect2(48, 336, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_djydg"]
 atlas = ExtResource("1_t61fv")
 region = Rect2(0, 336, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1q5g"]
+atlas = ExtResource("3_hv5x3")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chajt"]
+atlas = ExtResource("3_hv5x3")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afvx7"]
+atlas = ExtResource("3_hv5x3")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1p0sf"]
+atlas = ExtResource("3_hv5x3")
+region = Rect2(144, 144, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_blysn"]
 atlas = ExtResource("2_686vu")
@@ -286,6 +304,38 @@ animations = [{
 "loop": false,
 "name": &"chopping_right",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1q5g")
+}],
+"loop": true,
+"name": &"crossbow_idle_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chajt")
+}],
+"loop": true,
+"name": &"crossbow_idle_front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afvx7")
+}],
+"loop": true,
+"name": &"crossbow_idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1p0sf")
+}],
+"loop": true,
+"name": &"crossbow_idle_right",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -550,14 +600,14 @@ radius = 3.922323
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
-scale = Vector2(1.3, 1.3)
+scale = Vector2(1.5, 1.5)
 collision_layer = 2
 script = ExtResource("1_6avc5")
 current_tool = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kghjy")
-animation = &"run_right"
+animation = &"crossbow_idle_back"
 offset = Vector2(0, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -591,6 +641,11 @@ script = ExtResource("9_42irl")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 hit_component_collision_shape = NodePath("../../HitComponent/CollisionShape2D")
+
+[node name="Crossbow" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
+script = ExtResource("13_crssb")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
 [node name="HitComponent" parent="." instance=ExtResource("10_3xnwo")]
 current_tool = 0

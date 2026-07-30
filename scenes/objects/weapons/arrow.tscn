@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://qvuk7ggaxby7"]
+
+[ext_resource type="Texture2D" uid="uid://0b44ondhsmph" path="res://game/assets/Objects/weapons/CrossbowArrow.png" id="1_dvgml"]
+[ext_resource type="Script" uid="uid://50ryqe3ph4sy" path="res://scenes/objects/weapons/arrow.gd" id="1_n3xkb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3xkb"]
+atlas = ExtResource("1_dvgml")
+region = Rect2(8, 0, 32, 18)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wijsa"]
+radius = 6.0
+
+[node name="Arrow" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_n3xkb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_n3xkb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wijsa")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+rect = Rect2(-17, -7, 32, 14)
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

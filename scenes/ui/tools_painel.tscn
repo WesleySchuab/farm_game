@@ -1,17 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://dd5lcxyy4sprw"]
+[gd_scene load_steps=15 format=3 uid="uid://dd5lcxyy4sprw"]
 
 [ext_resource type="Script" uid="uid://bh7r6pqoepqiv" path="res://scenes/ui/tools_painel.gd" id="2_sgani"]
 [ext_resource type="Texture2D" uid="uid://b1tvn83v6lb7x" path="res://game/assets/Objects/basic_tools_and_meterials (2).png" id="3_gn0b4"]
 [ext_resource type="Texture2D" uid="uid://d04wob11ahijp" path="res://game/assets/Objects/basic_plants.png" id="3_sgani"]
 [ext_resource type="Texture2D" uid="uid://cnhqce46anpv0" path="res://game/assets/Objects/basic_tools_and_meterials (3).png" id="3_yeomg"]
 [ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="5_theme"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gn0b4"]
-load_path = "res://.godot/imported/basic_tools_and_meterials (3).png-91a245e542f57b0158e2229b7769a74d.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yu8o4"]
-atlas = SubResource("CompressedTexture2D_gn0b4")
-region = Rect2(17, 0, 14, 16)
+[ext_resource type="Texture2D" uid="uid://ce1djyr1nxpsk" path="res://game/assets/Objects/weapons/bow.png" id="6_yeomg"]
+[ext_resource type="Texture2D" uid="uid://cguvtgjgjfjxl" path="res://game/assets/Objects/weapons/axe.png" id="7_yu8o4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yeomg"]
 atlas = ExtResource("3_yeomg")
@@ -32,12 +27,18 @@ load_path = "res://.godot/imported/basic_plants.png-d748f482623fb0aa770d96682096
 atlas = SubResource("CompressedTexture2D_5i5n4")
 region = Rect2(0, 16, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e67qe"]
+atlas = ExtResource("6_yeomg")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oeoe"]
+atlas = ExtResource("7_yu8o4")
+
 [node name="ToolsPanel" type="PanelContainer"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -48.0
-offset_right = 180.0
+offset_right = 266.0
 offset_bottom = 10.0
 grow_vertical = 0
 theme = ExtResource("5_theme")
@@ -54,18 +55,6 @@ theme = ExtResource("5_theme")
 texture_filter = 1
 layout_mode = 2
 theme_override_constants/separation = 2
-
-[node name="ToolAxe" type="Button" parent="MarginContainer/HBoxContainer" groups=["navigation_polygon_source_geometry_group"]]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-theme = ExtResource("5_theme")
-theme_type_variation = &"ToolButton"
-theme_override_constants/h_separation = 0
-theme_override_constants/icon_max_width = 0
-theme_override_font_sizes/font_size = 16
-icon = SubResource("AtlasTexture_yu8o4")
-icon_alignment = 1
-expand_icon = true
 
 [node name="ToolTilling" type="Button" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 30)
@@ -103,8 +92,27 @@ icon = SubResource("AtlasTexture_cahy5")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/ToolAxe" to="." method="_on_tool_axe_pressed"]
+[node name="CrossBow" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+theme = ExtResource("5_theme")
+theme_type_variation = &"ToolButton"
+icon = SubResource("AtlasTexture_e67qe")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ToolAxe" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+theme = ExtResource("5_theme")
+theme_type_variation = &"ToolButton"
+icon = SubResource("AtlasTexture_4oeoe")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolTilling" to="." method="_on_tool_tilling_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolWateringCan" to="." method="_on_tool_watering_can_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolCorn" to="." method="_on_tool_corn_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolTomato" to="." method="_on_tool_tomato_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/CrossBow" to="." method="_on_cross_bow_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ToolAxe" to="." method="_on_tool_axe_pressed"]

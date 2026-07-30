@@ -5,6 +5,8 @@ extends NodeState
 var enemy: Enemy
 var animated_sprite_2d: AnimatedSprite2D
 @export var hit_component_collision_shape : CollisionShape2D
+@onready var hit_component_collision_shape_2d: CollisionShape2D = $"../../HitComponent/HitComponentCollisionShape2D"
+
 var controle_de_animacao_ativo: bool = true
 
 
@@ -17,7 +19,8 @@ func _ready() -> void:
 	enemy = owner as Enemy
 	animated_sprite_2d = enemy.get_node("AnimatedSprite2D")
 	hit_component_collision_shape = enemy.get_node("HitComponent/HitComponentCollisionShape2D")
-	hit_component_collision_shape.position = Vector2(0,0)
+	hit_component_collision_shape_2d.position = Vector2(0,0)
+	hit_component_collision_shape.disabled = true
 	# Conecta ao sinal de morte
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)

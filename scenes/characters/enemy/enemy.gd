@@ -6,8 +6,11 @@ extends CharacterBody2D
 
 @onready var hit_component: HitComponent = $HitComponent
 
+## Componente que detecta quando o inimigo é atingido por flechas (Crossbow)
+@onready var hurt_component: HurtComponent = $HurtComponent
+
 ## Velocidade de movimentação do inimigo
-@export var chase_speed: float = 40.0
+@export var chase_speed: float = 35.0
 
 ## Vida do inimigo
 @export var max_health: float = 30.0
@@ -54,6 +57,9 @@ func _ready() -> void:
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)
 	
+	# Conecta ao sinal de dano recebido (ex: flechas da besta)
+	hurt_component.hurt.connect(on_hurt)
+	
 	# Obter referência à sprite
 	animated_sprite_2d = get_node("AnimatedSprite2D")
 	
@@ -83,6 +89,12 @@ func adicionar_vida(quantidade: float) -> void:
 	
 	if current_health <= 0.0:
 		morrer()
+
+
+## Callback chamado quando o HurtComponent recebe dano (ex: flecha da besta)
+func on_hurt(hit_damage: int) -> void:
+	print("👹 [ENEMY] Recebeu ", hit_damage, " de dano! Vida atual: ", current_health)
+	adicionar_vida(-hit_damage)
 
 
 ## Função para morrer

@@ -20,8 +20,8 @@ func _ready() -> void:
 	tool_tomato.disabled = true
 	tool_tomato.focus_mode = Control.FOCUS_NONE
 
-func _on_tool_axe_pressed() -> void:
-	ToolManager.select_tool(DataTypes.Tools.AxeWood)
+#func _on_tool_axe_pressed() -> void:
+	#ToolManager.select_tool(DataTypes.Tools.AxeWood)
 
 
 func _on_tool_tilling_pressed() -> void:
@@ -38,6 +38,10 @@ func _on_tool_corn_pressed() -> void:
 
 func _on_tool_tomato_pressed() -> void:
 	ToolManager.select_tool(DataTypes.Tools.PlantTomato)
+
+
+func _on_cross_bow_pressed() -> void:
+	ToolManager.select_tool(DataTypes.Tools.Crossbow)
 #Não funcionou	
 #func _unhandled_input(event: InputEvent) -> void:
 	#if event is InputEventMouseButton:
@@ -61,3 +65,7 @@ func on_enable_tool_button(tool:DataTypes.Tools) -> void:
 	elif tool == DataTypes.Tools.PlantTomato:
 		tool_tomato.disabled = false
 		tool_tomato.focus_mode = Control.FOCUS_ALL
+
+
+func _on_tool_axe_pressed() -> void:
+	ToolManager.select_tool(DataTypes.Tools.AxeWood)

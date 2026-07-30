@@ -5,10 +5,12 @@ extends NodeState
 var enemy: Enemy
 var animated_sprite_2d: AnimatedSprite2D
 var controle_de_animacao_ativo: bool = true
-
+@onready var hit_component_collision_shape_2d: CollisionShape2D = $"../../HitComponent/HitComponentCollisionShape2D"
 
 func _ready() -> void:
 	# Conecta ao sinal de morte
+	hit_component_collision_shape_2d.position = Vector2(0,0)
+	hit_component_collision_shape_2d.disabled = true
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)
 

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://fm8u8fp06hwk"]
+
+[ext_resource type="Texture2D" uid="uid://dd7a8qxfcstdr" path="res://game/assets/Objects/weapons/Crossbow.png" id="1_vxtae"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b11hf"]
+atlas = ExtResource("1_vxtae")
+
+[node name="Crossbow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_b11hf")
+
+[node name="Marker2D" type="Marker2D" parent="Sprite2D"]
