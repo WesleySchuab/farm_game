@@ -40,6 +40,9 @@ var animated_sprite_2d: AnimatedSprite2D
 ## Referência ao collision shape do hit component
 var hit_component_collision_shape: CollisionShape2D
 
+## Posição padrão do hitbox (usada para reset)
+var _hitbox_default_position: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	# Busca o player na cena através do grupo
@@ -65,8 +68,38 @@ func _ready() -> void:
 	
 	# Obter referência ao collision shape do hit component
 	hit_component_collision_shape = get_node("HitComponent/HitComponentCollisionShape2D")
+	_hitbox_default_position = hit_component_collision_shape.position
 	
 	print("👹 [ENEMY] Inimigo inicializado - Chase Distance: ", chase_distance, " | Attack Distance: ", attack_distance)
+
+
+## Habilita o hitbox de ataque
+## Deve ser chamado pelo AttackState no _on_enter()
+func enable_hit_box() -> void:
+	if hit_component_collision_shape == null:
+		return
+	# Aplica o flip atual (posição X correta baseada na direção)
+	_apply_hitbox_flip_position()
+	hit_component_collision_shape.disabled = false
+
+
+## Desabilita o hitbox de ataque e reseta posição
+## Deve ser chamado pelo AttackState no _on_exit() e pelo ChaseState
+func disable_hit_box() -> void:
+	if hit_component_collision_shape == null:
+		return
+	hit_component_collision_shape.disabled = true
+	hit_component_collision_shape.position = _hitbox_default_position
+
+
+## Aplica a posição X do hitbox baseada no flip atual (uso interno)
+func _apply_hitbox_flip_position() -> void:
+	if hit_component_collision_shape == null:
+		return
+	if is_flipped:
+		hit_component_collision_shape.position.x = 26
+	else:
+		hit_component_collision_shape.position.x = -26
 
 
 ## Calcula a distância até o player
@@ -120,20 +153,14 @@ func update_flip(direction: Vector2) -> void:
 		is_flipped = false
 		if animated_sprite_2d:
 			animated_sprite_2d.flip_h = false
-		# Inverte a posição X do hit component para direita
-		if hit_component_collision_shape:
-			hit_component_collision_shape.position.x = -26
-		print("👹 [ENEMY] Desflipado para direita - HitBox position: -26")
+		_apply_hitbox_flip_position()
 	
 	# Se o inimigo está se movendo para a esquerda e não está flipado, flipa
 	elif direction.x > 0 and not is_flipped:
 		is_flipped = true
 		if animated_sprite_2d:
 			animated_sprite_2d.flip_h = true
-		# Inverte a posição X do hit component para esquerda
-		if hit_component_collision_shape:
-			hit_component_collision_shape.position.x = 26
-		print("👹 [ENEMY] Flipado para esquerda - HitBox position: 26")
+		_apply_hitbox_flip_position()
 		
 
 

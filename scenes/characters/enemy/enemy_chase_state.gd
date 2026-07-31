@@ -5,12 +5,9 @@ extends NodeState
 var enemy: Enemy
 var animated_sprite_2d: AnimatedSprite2D
 var controle_de_animacao_ativo: bool = true
-@onready var hit_component_collision_shape_2d: CollisionShape2D = $"../../HitComponent/HitComponentCollisionShape2D"
 
 func _ready() -> void:
 	# Conecta ao sinal de morte
-	hit_component_collision_shape_2d.position = Vector2(0,0)
-	hit_component_collision_shape_2d.disabled = true
 	if EventBus:
 		EventBus.player_died.connect(_on_player_died)
 
@@ -19,6 +16,9 @@ func _ready() -> void:
 func _on_enter() -> void:
 	enemy = owner as Enemy
 	animated_sprite_2d = enemy.get_node("AnimatedSprite2D")
+	
+	# Garante que o hitbox está desabilitado durante a perseguição
+	enemy.disable_hit_box()
 	
 	if animated_sprite_2d:
 		animated_sprite_2d.play("mushroom_run")

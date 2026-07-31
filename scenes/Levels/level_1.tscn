@@ -205,59 +205,62 @@ position = Vector2(491.00003, 480)
 [node name="Chicken5" parent="FreeAnimals/Chickens" instance=ExtResource("3_3ydyl")]
 position = Vector2(217.00003, 356.00003)
 
-[node name="Egg" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(51.000015, 322)
-
-[node name="Egg2" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(367, 180)
-
-[node name="Milk" parent="." instance=ExtResource("11_ngn3o")]
-position = Vector2(894, 161)
-
-[node name="Milk2" parent="." instance=ExtResource("11_ngn3o")]
-position = Vector2(894, 129)
-
-[node name="Milk3" parent="." instance=ExtResource("11_ngn3o")]
-position = Vector2(875, 162)
-
-[node name="Milk4" parent="." instance=ExtResource("11_ngn3o")]
-position = Vector2(269, 438)
-
-[node name="Egg3" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(1003, 439)
-
-[node name="Egg4" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(1004, 532)
-
-[node name="Egg5" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(916, 453)
-
-[node name="Egg6" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(958, 400)
-
-[node name="Egg7" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(431, 259)
-
-[node name="Egg8" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(619, 270)
-
-[node name="Egg9" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(273, 193)
-
-[node name="Egg10" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(451, 407)
-
-[node name="Egg11" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(470, 184)
-
-[node name="Egg12" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(865, 461)
-
-[node name="Egg13" parent="." instance=ExtResource("12_iiv34")]
-position = Vector2(843, 512)
-
 [node name="Enemy" parent="." instance=ExtResource("18_7u17y")]
-position = Vector2(-75, 183)
+position = Vector2(119, 257)
 
 [node name="Necromante" parent="." instance=ExtResource("19_a60bd")]
-position = Vector2(211, 281)
+position = Vector2(608, 345)
+
+[node name="CollectablesItens" type="Node2D" parent="."]
+visible = false
+
+[node name="Egg3" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(1003, 439)
+
+[node name="Egg4" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(1004, 532)
+
+[node name="Egg5" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(916, 453)
+
+[node name="Egg6" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(958, 400)
+
+[node name="Egg7" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(431, 259)
+
+[node name="Egg8" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(619, 270)
+
+[node name="Egg9" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(273, 193)
+
+[node name="Egg10" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(451, 407)
+
+[node name="Egg11" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(470, 184)
+
+[node name="Egg12" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(865, 461)
+
+[node name="Egg13" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(843, 512)
+
+[node name="Egg" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(51.000015, 322)
+
+[node name="Egg2" parent="CollectablesItens" instance=ExtResource("12_iiv34")]
+position = Vector2(367, 180)
+
+[node name="Milk" parent="CollectablesItens" instance=ExtResource("11_ngn3o")]
+position = Vector2(894, 161)
+
+[node name="Milk2" parent="CollectablesItens" instance=ExtResource("11_ngn3o")]
+position = Vector2(894, 129)
+
+[node name="Milk3" parent="CollectablesItens" instance=ExtResource("11_ngn3o")]
+position = Vector2(875, 162)
+
+[node name="Milk4" parent="CollectablesItens" instance=ExtResource("11_ngn3o")]
+position = Vector2(269, 438)

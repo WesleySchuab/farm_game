@@ -1,13 +1,11 @@
 extends NodeState
 @export var player: Player
 @export var animated_sprite_2d : AnimatedSprite2D
-@export var hit_component_collision_shape : CollisionShape2D
 
 ## Inicializa o estado de corte
 ## Desabilita a colisão do componente de ataque e reseta sua posição
 func  _ready() -> void:
-	hit_component_collision_shape.disabled = true
-	hit_component_collision_shape.position = Vector2(0,0) 
+	player.disable_player_hitbox()
 
 ## Processa a lógica do estado a cada frame
 ## Atualmente não implementado para este estado
@@ -26,31 +24,33 @@ func _on_physics_process(_delta : float) -> void:
 func _on_enter() -> void:
 	if player.player_direction == Vector2.UP:
 		animated_sprite_2d.play("chopping_back")
-		hit_component_collision_shape.position = Vector2(6,-16)
 	elif player.player_direction == Vector2.RIGHT:
 		animated_sprite_2d.play("chopping_right")
-		hit_component_collision_shape.position = Vector2(10,0)
 	elif player.player_direction == Vector2.DOWN:
 		animated_sprite_2d.play("chopping_front")
-		hit_component_collision_shape.position = Vector2(-5,6)
 	elif player.player_direction == Vector2.LEFT:
 		animated_sprite_2d.play("chopping_left")
-		hit_component_collision_shape.position = Vector2(-10,0)
 	else :
 		animated_sprite_2d.play("chopping_front")
-		hit_component_collision_shape.position = Vector2(0,0)
-		
-	hit_component_collision_shape.disabled = false
+	
+	# Posiciona o hitbox via método centralizado do Player
+	player.set_hitbox_position(
+		Vector2(6, -16),   # UP
+		Vector2(10, 0),    # RIGHT
+		Vector2(-5, 6),    # DOWN
+		Vector2(-10, 0)    # LEFT
+	)
+	player.enable_player_hitbox()
 
 ## Verifica condições para transição para o próximo estado
 ## Quando a animação terminar, retorna ao estado idle
-## Desabilita a colisão do componente de ataque
 func _on_next_transitions() -> void:
 	if !animated_sprite_2d.is_playing():
 		transition.emit("idle")
-	hit_component_collision_shape.disabled = true 
+	player.disable_player_hitbox()
 		
 ## Executado quando o estado é finalizado
 ## Para a animação atual
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
+	player.disable_player_hitbox()

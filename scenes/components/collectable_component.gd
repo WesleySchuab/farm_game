@@ -10,9 +10,8 @@ func _on_body_entered(body: Node2D) -> void:
 		InventoryManager.add_collectable(collectable_name)
 		#print("chama a fç add_collectable")
 		#print("Collected ", collectable_name)
-		get_parent().queue_free()
 		
-# CHECAGEM SIMPLES: Se for um animal, cura o jogador na hora!
+		# CHECAGEM SIMPLES: Se for um animal, cura o jogador na hora!
 		if collectable_name == "cow":
 			body.adicionar_vida(30.0) # Vaca dá leite/carne (cura 30)
 			#print("Você coletou recursos da Vaca e recuperou vida!")

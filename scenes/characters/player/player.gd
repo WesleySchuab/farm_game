@@ -4,6 +4,7 @@ extends CharacterBody2D
 ## Classe principal do jogador
 ## Gerencia o personagem controlável do jogo
 @onready var hit_component: HitComponent = $HitComponent
+@onready var hit_component_collision_shape: CollisionShape2D = $HitComponent/CollisionShape2D
 
 @export var max_health: float = 100.0
 var current_health: float = 100.0
@@ -100,3 +101,29 @@ func _physics_process(_delta: float) -> void:
 		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_force * _delta * 2.0)
 	else:
 		knockback_velocity = Vector2.ZERO
+
+# --- MÉTODOS CENTRALIZADOS DO HITBOX ---
+
+## Define a posição do hitbox baseado na direção e offsets
+func set_hitbox_position(up: Vector2, right: Vector2, down: Vector2, left: Vector2, default_pos: Vector2 = Vector2.ZERO) -> void:
+	if hit_component_collision_shape == null:
+		return
+	match player_direction:
+		Vector2.UP:    hit_component_collision_shape.position = up
+		Vector2.RIGHT: hit_component_collision_shape.position = right
+		Vector2.DOWN:  hit_component_collision_shape.position = down
+		Vector2.LEFT:  hit_component_collision_shape.position = left
+		_:             hit_component_collision_shape.position = default_pos
+
+## Habilita o hitbox de ataque do player
+func enable_player_hitbox() -> void:
+	if hit_component_collision_shape == null:
+		return
+	hit_component_collision_shape.disabled = false
+
+## Desabilita o hitbox de ataque do player e reseta posição
+func disable_player_hitbox() -> void:
+	if hit_component_collision_shape == null:
+		return
+	hit_component_collision_shape.disabled = true
+	hit_component_collision_shape.position = Vector2.ZERO
