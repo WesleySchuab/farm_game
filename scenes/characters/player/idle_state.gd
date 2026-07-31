@@ -11,13 +11,14 @@ func _ready() -> void:
 	
 ## Executado quando o estado idle é iniciado
 ## Obtém as referências do player e do sprite animado
-## Inicia a animação padrão de idle frontal
+## Inicia a animação idle correta baseada na ferramenta equipada
 func _on_enter() -> void:
 	# Pega as referências dos nós quando o estado é ativado
 	player = owner as CharacterBody2D
 	animated_sprite_2d = player.get_node("AnimatedSprite2D")
 	if animated_sprite_2d:
-		animated_sprite_2d.play("idle_front")
+		var prefix: String = "crossbow_idle_" if player.current_tool == DataTypes.Tools.Crossbow else "idle_"
+		animated_sprite_2d.play(prefix + "front")
 
 
 ## Processa a lógica do estado a cada frame
@@ -33,14 +34,18 @@ func _on_physics_process(_delta: float) -> void:
 	if not controle_de_animacao_ativo: 
 		return # Se o player morreu, não deixa o script rodar mais nada!
 	var prefix: String = "crossbow_idle_" if player.current_tool == DataTypes.Tools.Crossbow else "idle_"
+	var target_animation: String = prefix + "front"
 	if player.player_direction == Vector2.UP:
-		animated_sprite_2d.play(prefix + "back")
+		target_animation = prefix + "back"
 	elif player.player_direction == Vector2.DOWN:
-		animated_sprite_2d.play(prefix + "front")
+		target_animation = prefix + "front"
 	elif player.player_direction == Vector2.LEFT:
-		animated_sprite_2d.play(prefix + "left")
+		target_animation = prefix + "left"
 	elif player.player_direction == Vector2.RIGHT:
-		animated_sprite_2d.play(prefix + "right")
+		target_animation = prefix + "right"
+	
+	if animated_sprite_2d.animation != target_animation:
+		animated_sprite_2d.play(target_animation)
 
 
 ## Verifica condições para transição para outros estados

@@ -42,6 +42,10 @@ func _on_physics_process(_delta : float) -> void:
 	# Define a velocidade atual e o tipo de animação com base no estado de corrida
 	var current_speed: int = run_speed if wants_to_run else speed
 	var anim_prefix: String = "run_" if wants_to_run else "walk_"
+	
+	# Usa prefixo "crossbow_" quando a besta está equipada para não "sumir" a arma
+	if player.current_tool == DataTypes.Tools.Crossbow:
+		anim_prefix = "crossbow_" + anim_prefix
 
 	# Aplica a animação correta baseada na direção e se está correndo ou andando
 	var target_animation: String = ""

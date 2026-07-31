@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi6j13uoyc3jm"
-path="res://.godot/imported/Basic Charakter Spritesheet -.png-37f63a54d8fc267b94a1f471143865e0.ctex"
+uid="uid://6t16emhrksf6"
+path="res://.godot/imported/CrossbowCharakter Spritesheet -.png-169326377dce4e85c6b68c68aea1679e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/assets/characters/players/Basic Charakter Spritesheet -.png"
-dest_files=["res://.godot/imported/Basic Charakter Spritesheet -.png-37f63a54d8fc267b94a1f471143865e0.ctex"]
+source_file="res://game/assets/characters/players/CrossbowCharakter Spritesheet -.png"
+dest_files=["res://.godot/imported/CrossbowCharakter Spritesheet -.png-169326377dce4e85c6b68c68aea1679e.ctex"]
 
 [params]
 
