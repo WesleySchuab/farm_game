@@ -17,6 +17,19 @@ var player_direction: Vector2
 # Variável de controle para o player não ficar morrendo de fome em loop a cada frame
 var is_dead: bool = false
 
+# --- SISTEMA DE KNOCKBACK ---
+## Velocidade atual do knockback — usada por outros scripts para detectar se está ativo
+var knockback_velocity: Vector2 = Vector2.ZERO
+
+## Força do impulso em pixels/segundo. Ajustável no Inspector.
+@export var knockback_force: float = 400.0
+
+## Duração do knockback em segundos. Ajustável no Inspector.
+@export var knockback_duration: float = 0.2
+
+## Timer interno em segundos. Controla por quanto tempo o knockback dura.
+var _knockback_timer: float = 0.0
+
 func _ready() -> void:
 	# Avisa o EventBus logo no início para a barra começar cheia
 	# Usamos 'callable.call_deferred' para garantir que a barra já exista na tela antes de enviar o valor
@@ -60,3 +73,30 @@ func morrer_de_fome() -> void:
 	EventBus.player_died.emit()
 	
 	set_physics_process(false)
+
+## Aplica knockback ao player na direção oposta ao atacante
+## @param direction: direção DE ONDE veio o ataque (ex: RIGHT = ataque veio da direita)
+## @param force: força do knockback (-1 para usar knockback_force padrão)
+func aplicar_knockback(direction: Vector2, force: float = -1.0) -> void:
+	if is_dead:
+		return
+	
+	var knockback_strength = force if force >= 0 else knockback_force
+	
+	# -direction = direção oposta (empurra para longe do atacante)
+	knockback_velocity = -direction * knockback_strength
+	_knockback_timer = knockback_duration
+
+## Processa a física do knockback — roda ANTES da State Machine (pai antes dos filhos)
+func _physics_process(_delta: float) -> void:
+	if is_dead:
+		return
+	
+	if _knockback_timer > 0.0:
+		velocity = knockback_velocity
+		move_and_slide()
+		_knockback_timer -= _delta
+		# Desaceleração gradual
+		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_force * _delta * 2.0)
+	else:
+		knockback_velocity = Vector2.ZERO

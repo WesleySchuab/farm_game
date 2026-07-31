@@ -52,6 +52,10 @@ func _on_physics_process(_delta: float) -> void:
 ## Transita para walk se houver input de movimento
 ## Transita para estados de ferramentas (Chopping, Tilling, Watering) baseado na ferramenta equipada e input de uso
 func _on_next_transitions() -> void:
+	# ⏸️ KNOCKBACK ATIVO — não transiciona para walk nem ferramentas
+	if player.knockback_velocity != Vector2.ZERO:
+		return
+	
 	# Se houver movimentação chama a transição andando	
 	# Se clicar com o botão esquerdo do mouse chama a animação correspondente
 	GameInputEvents.movement_input()

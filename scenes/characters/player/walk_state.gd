@@ -34,7 +34,29 @@ func _on_physics_process(_delta : float) -> void:
 	
 	if not controle_de_animacao_ativo: 
 		return # Se o player morreu, não deixa o script rodar mais nada!
-		
+	
+	# ⏸️ KNOCKBACK ATIVO — não processa movimento, mostra idle
+	if player.knockback_velocity != Vector2.ZERO:
+		if player.current_tool == DataTypes.Tools.Crossbow:
+			var anim: String = "crossbow_front_idle"
+			match player.player_direction:
+				Vector2.UP: anim = "crossbow_back_idle"
+				Vector2.DOWN: anim = "crossbow_front_idle"
+				Vector2.LEFT: anim = "crossbow_left_idle"
+				Vector2.RIGHT: anim = "crossbow_right_idle"
+			if animated_sprite_2d.animation != anim:
+				animated_sprite_2d.play(anim)
+		else:
+			var anim: String = "idle_front"
+			match player.player_direction:
+				Vector2.UP: anim = "idle_back"
+				Vector2.DOWN: anim = "idle_front"
+				Vector2.LEFT: anim = "idle_left"
+				Vector2.RIGHT: anim = "idle_right"
+			if animated_sprite_2d.animation != anim:
+				animated_sprite_2d.play(anim)
+		return
+	
 	# Verifica se a tecla configurada como "run" (Shift) está pressionada E se há movimento
 	# Isso previne que a animação de correr toque mesmo se o jogador estiver parado
 	var wants_to_run: bool = Input.is_action_pressed("run") and direction != Vector2.ZERO
@@ -88,6 +110,10 @@ func _on_physics_process(_delta : float) -> void:
 
 ## Verifica condições para transição para outros estados
 func _on_next_transitions() -> void:
+	# ⏸️ KNOCKBACK ATIVO — não muda de estado
+	if player.knockback_velocity != Vector2.ZERO:
+		return
+	
 	if !GameInputEvents.movement_input():
 		transition.emit("idle")
 	if player.current_tool == DataTypes.Tools.AxeWood && GameInputEvents.use_tool():

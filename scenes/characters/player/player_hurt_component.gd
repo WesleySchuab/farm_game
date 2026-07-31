@@ -36,3 +36,8 @@ func _on_area_entered(area: Area2D) -> void:
 		player.adicionar_vida(-hit_component.hit_damage)
 		hurt.emit(hit_component.hit_damage)
 		print("💥 [PLAYER HURT] Player recebeu ", hit_component.hit_damage, " de dano! Vida: ", player.current_health)
+		
+		# Calcula direção do knockback: (atacante - player).normalized()
+		var attack_direction: Vector2 = (hit_component.global_position - player.global_position).normalized()
+		player.aplicar_knockback(attack_direction)
+		print("👊 [KNOCKBACK] Direção: ", attack_direction)
