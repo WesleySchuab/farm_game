@@ -17,17 +17,24 @@ const ARROW_SCENE: PackedScene = preload("res://scenes/objects/weapons/arrow.tsc
 ## Dano causado pela flecha
 @export var arrow_damage: int = 10
 
-## Tempo mínimo entre disparos (segundos), usado para segurar a animação de tiro
-@export var shoot_duration: float = 0.3
+## Tempo máximo de segurança para evitar travar no estado (fallback)
+@export var shoot_timeout: float = 3.0
 
 var time_in_state: float = 0.0
+var animation_finished: bool = false
 
 
 ## Executado quando o estado é iniciado
-## Toca a animação de mira baseada na direção e dispara a flecha imediatamente
+## Toca a animação de tiro e dispara a flecha
 func _on_enter() -> void:
 	time_in_state = 0.0
-	_play_aim_animation()
+	animation_finished = false
+	
+	# Conecta ao sinal de fim da animação para transitar de volta ao idle
+	if not animated_sprite_2d.animation_finished.is_connected(_on_shoot_animation_finished):
+		animated_sprite_2d.animation_finished.connect(_on_shoot_animation_finished)
+	
+	_play_shoot_animation()
 	_shoot_arrow()
 
 
@@ -37,34 +44,40 @@ func _on_process(delta: float) -> void:
 
 
 ## Processa a física do estado a cada frame
-## Atualmente não implementado para este estado
 func _on_physics_process(_delta: float) -> void:
 	pass
 
 
 ## Verifica condições para transição para o próximo estado
-## Retorna ao idle assim que a animação/duração do disparo terminar
+## Retorna ao idle quando a animação de tiro terminar ou após timeout de segurança
 func _on_next_transitions() -> void:
-	if time_in_state >= shoot_duration:
+	if animation_finished or time_in_state >= shoot_timeout:
 		transition.emit("idle")
 
 
 ## Executado quando o estado é finalizado
 func _on_exit() -> void:
+	if animated_sprite_2d.animation_finished.is_connected(_on_shoot_animation_finished):
+		animated_sprite_2d.animation_finished.disconnect(_on_shoot_animation_finished)
 	animated_sprite_2d.stop()
 
 
-## Toca a animação de mira/disparo baseada na direção que o jogador está olhando
-func _play_aim_animation() -> void:
-	var anim_name: String = "crossbow_idle_front"
+## Callback quando a animação de tiro termina
+func _on_shoot_animation_finished() -> void:
+	animation_finished = true
+
+
+## Toca a animação de tiro baseada na direção que o jogador está olhando
+func _play_shoot_animation() -> void:
+	var anim_name: String = "shoot_crossbow_front"
 	if player.player_direction == Vector2.UP:
-		anim_name = "crossbow_idle_back"
+		anim_name = "shoot_crossbow_back"
 	elif player.player_direction == Vector2.RIGHT:
-		anim_name = "crossbow_idle_right"
+		anim_name = "shoot_crossbow_right"
 	elif player.player_direction == Vector2.DOWN:
-		anim_name = "crossbow_idle_front"
+		anim_name = "shoot_crossbow_front"
 	elif player.player_direction == Vector2.LEFT:
-		anim_name = "crossbow_idle_left"
+		anim_name = "shoot_crossbow_left"
 	animated_sprite_2d.play(anim_name)
 
 
