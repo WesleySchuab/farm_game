@@ -1,0 +1,163 @@
+[gd_scene load_steps=23 format=3 uid="uid://c6jqhg7ik2s2w"]
+
+[ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
+[ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/nercomante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
+[ext_resource type="Script" uid="uid://brme6870fmohm" path="res://scripts/states_machine/node_state_machine.gd" id="5_1u4bh"]
+[ext_resource type="Script" uid="uid://ctbulrixqgigt" path="res://scenes/characters/enemy/enemy_idle_state.gd" id="6_tgg1u"]
+[ext_resource type="Script" uid="uid://bq2tikn5h7gvn" path="res://scenes/characters/enemy/enemy_chase_state.gd" id="7_32dsg"]
+[ext_resource type="Script" uid="uid://cy4sog0pw5rmg" path="res://scenes/characters/enemy/enemy_attack_state.gd" id="8_eu1gg"]
+[ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_b78sl"]
+[ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa4wr"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(0, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o72mc"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(160, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvh4t"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(320, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdg7q"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(480, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bllkn"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(640, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u4bh"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(800, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgg1u"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(960, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32dsg"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(1120, 0, 160, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0uc76"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xa4wr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o72mc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvh4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdg7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bllkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u4bh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgg1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32dsg")
+}],
+"loop": true,
+"name": &"necromante_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_8uoqn"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xa4wr"]
+gradient = SubResource("Gradient_8uoqn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8uoqn"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+angular_velocity_min = -187.40001
+angular_velocity_max = 180.84998
+orbit_velocity_min = -0.99999994
+orbit_velocity_max = 2.0000002
+radial_velocity_min = -10.000022
+radial_velocity_max = 9.999977
+gravity = Vector3(0, 10, 5)
+scale_min = 2.0
+scale_max = 3.0
+color = Color(0.07450981, 0.06666667, 0.13333334, 1)
+color_ramp = SubResource("GradientTexture1D_xa4wr")
+sub_emitter_mode = 1
+sub_emitter_frequency = 0.01
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0x2j"]
+radius = 11.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_72liy"]
+radius = 10.049875
+
+[node name="Necromante" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_o72mc")
+chase_speed = 30.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0, -47)
+sprite_frames = SubResource("SpriteFrames_0uc76")
+animation = &"necromante_idle"
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+modulate = Color(0.5787787, 0.39312986, 0.5618006, 1)
+amount = 30
+lifetime = 2.0
+randomness = 0.63
+use_fixed_seed = true
+seed = 517478081
+process_material = SubResource("ParticleProcessMaterial_8uoqn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, -14)
+shape = SubResource("CapsuleShape2D_i0x2j")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
+script = ExtResource("5_1u4bh")
+initial_node_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("6_tgg1u")
+
+[node name="Chase" type="Node" parent="StateMachine"]
+script = ExtResource("7_32dsg")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("8_eu1gg")
+
+[node name="HitComponent" parent="." instance=ExtResource("9_b78sl")]
+collision_layer = 4
+collision_mask = 2
+hit_damage = 10
+
+[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+visible = false
+position = Vector2(-26, -5)
+shape = SubResource("CircleShape2D_72liy")
+debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
+
+[node name="HurtComponent" parent="." instance=ExtResource("10_a8y1b")]
+position = Vector2(-5, 0)
+tool = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+visible = false
+position = Vector2(1, -14)
+shape = SubResource("CapsuleShape2D_i0x2j")

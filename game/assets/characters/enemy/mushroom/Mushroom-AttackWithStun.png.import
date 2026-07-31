@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2yab58xy645d"
-path="res://.godot/imported/Mushroom-Hit.png-0e958e4e80095cb71d7a9939ef0c8fa7.ctex"
+uid="uid://x63dgvr3mpq2"
+path="res://.godot/imported/Mushroom-AttackWithStun.png-872d35522894dd5c85136496b2942c90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/assets/characters/enemy/Mushroom-Hit.png"
-dest_files=["res://.godot/imported/Mushroom-Hit.png-0e958e4e80095cb71d7a9939ef0c8fa7.ctex"]
+source_file="res://game/assets/characters/enemy/mushroom/Mushroom-AttackWithStun.png"
+dest_files=["res://.godot/imported/Mushroom-AttackWithStun.png-872d35522894dd5c85136496b2942c90.ctex"]
 
 [params]
 

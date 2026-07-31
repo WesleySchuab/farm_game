@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x63dgvr3mpq2"
-path="res://.godot/imported/Mushroom-AttackWithStun.png-06491fb2e8de175f276b33618bcebb61.ctex"
+uid="uid://cpdad4b5gequr"
+path="res://.godot/imported/Necromancer_creativekind-Sheet.png-3ee5f43197930c765c497fa67b4220db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/assets/characters/enemy/Mushroom-AttackWithStun.png"
-dest_files=["res://.godot/imported/Mushroom-AttackWithStun.png-06491fb2e8de175f276b33618bcebb61.ctex"]
+source_file="res://game/assets/characters/enemy/nercomante/Necromancer_creativekind-Sheet.png"
+dest_files=["res://.godot/imported/Necromancer_creativekind-Sheet.png-3ee5f43197930c765c497fa67b4220db.ctex"]
 
 [params]
 
