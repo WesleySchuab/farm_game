@@ -38,6 +38,10 @@ func _on_physics_process(_delta: float) -> void:
 	if enemy == null or enemy.player == null:
 		return
 	
+	# Não faz nada enquanto o spawn está acontecendo
+	if enemy._is_spawning:
+		return
+	
 	# Calcula direção até o player
 	var direction = enemy.get_direction_to_player()
 	

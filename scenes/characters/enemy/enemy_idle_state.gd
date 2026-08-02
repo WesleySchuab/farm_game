@@ -41,6 +41,10 @@ func _on_next_transitions() -> void:
 	if not controle_de_animacao_ativo:
 		return
 	
+	# Não faz transições enquanto o spawn está acontecendo
+	if enemy._is_spawning:
+		return
+	
 	# Se o player existe e está próximo, transiciona para Chase
 	if enemy.player and enemy.get_distance_to_player() <= enemy.chase_distance:
 		# Atualiza o flip para a direção correta antes de começar a perseguir

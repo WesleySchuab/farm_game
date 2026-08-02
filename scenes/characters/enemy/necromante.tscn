@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://c6jqhg7ik2s2w"]
+[gd_scene load_steps=54 format=3 uid="uid://c6jqhg7ik2s2w"]
 
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
 [ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
@@ -8,6 +8,16 @@
 [ext_resource type="Script" uid="uid://cy4sog0pw5rmg" path="res://scenes/characters/enemy/enemy_attack_state.gd" id="8_eu1gg"]
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_b78sl"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xa4wr"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(3, 1, 1)
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, -20, 0)
 
 [sub_resource type="Gradient" id="Gradient_8uoqn"]
 
@@ -327,6 +337,10 @@ radius = 10.049875
 y_sort_enabled = true
 script = ExtResource("1_o72mc")
 chase_speed = 30.0
+
+[node name="PortalParticles" type="GPUParticles2D" parent="."]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_xa4wr")
 
 [node name="RightFoot" type="GPUParticles2D" parent="."]
 position = Vector2(5, -2)
