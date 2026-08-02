@@ -23,8 +23,8 @@ emission_shape_scale = Vector3(1, 1, 100)
 emission_shape = 1
 emission_sphere_radius = 15.0
 direction = Vector3(0, -1, 0)
-initial_velocity_min = 30.0
-initial_velocity_max = 80.0
+initial_velocity_min = 5.0
+initial_velocity_max = 25.0
 gravity = Vector3(0, -20, 0)
 scale_min = 0.0
 scale_max = 2.0
@@ -351,7 +351,8 @@ chase_speed = 30.0
 
 [node name="PortalParticles" type="GPUParticles2D" parent="."]
 position = Vector2(0, 10)
-amount = 300
+amount = 350
+lifetime = 2.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_xa4wr")
 
@@ -362,12 +363,14 @@ amount = 300
 process_material = SubResource("ParticleProcessMaterial_xa4wr")
 
 [node name="RightFoot" type="GPUParticles2D" parent="."]
+visible = false
 position = Vector2(5, -2)
 amount = 40
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
 [node name="LeftFoot" type="GPUParticles2D" parent="."]
+visible = false
 position = Vector2(-3, 0)
 amount = 40
 lifetime = 1.8
