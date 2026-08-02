@@ -1,20 +1,3 @@
-# 🔧 Configuração de Colisão - Sistema de Dano
-
-## ⚙️ Problema Identificado
-
-O HitComponent do inimigo estava configurado para colidir com árvores, não com o player.
-
----
-
-## ✅ Solução Implementada
-
-### 1. Novo Componente: PlayerHurtComponent ✨
-
-Criado arquivo: `scenes/characters/player/player_hurt_component.gd`
-
-- Detecta colisão com HitComponent
-- Aplica dano ao player automaticamente
-- Sistema de debug com prints
 
 ### 2. Sistema de Debug Adicionado 🐛
 
@@ -58,6 +41,14 @@ Prints em:
 ```
 Inimigo (Attack State)
   ↓
+t=0.0s   → Entra no estado Attack + toca animação "attack"
+            (wind-up: inimigo se prepara pra bater)
+            🚫 Hitbox DESATIVADO
+  ↓
+t=2.0s   → Hitbox ATIVADO (hitbox_enable_delay = 2.0)
+            ⚡ Frame de impacto: colisão acontece AQUI
+            👁️ Player JÁ vê a animação de ataque
+  ↓
 HitComponent ativado
   ↓
 PlayerHurtComponent detecta colisão
@@ -69,6 +60,8 @@ player.adicionar_vida(-dano)
 EventBus.player_health_changed.emit()
   ↓
 UI atualiza vida
+  ↓
+t=2.5s   → Animação termina → volta para Chase
 ```
 
 ---
@@ -77,21 +70,26 @@ UI atualiza vida
 
 Execute o jogo e procure pelos prints:
 
-```
-👹 [ENEMY] Inimigo inicializado - Chase Distance: 150 | Attack Distance: 50
-🟡 [CHASE STATE] Player em zona de ataque! Distância: 45.00 | Attack Distance: 50 → Transitando para ATTACK
-🔴 [ATTACK STATE] Iniciando ataque do inimigo
-🔴 [ATTACK STATE] HitComponent habilitado
+``` 
+👹 [ENEMY] Inimigo inicializado - Chase Distance: 150 | Attack Distance: 35
+🟡 [CHASE STATE] Player em zona de ataque! Distância: 30.00 | Attack Distance: 35 → Transitando para ATTACK
+🔴 [ATTACK STATE] Animação 'attack' iniciada! Hitbox será ativada em 2.00s
+🔴 [ATTACK STATE] Hitbox ATIVADA no frame de impacto! (t=2.00s)
 ⚔️ [HIT COMPONENT] Colisão detectada com: PlayerHurtComponent
 🛡️ [PLAYER HURT] Detectada colisão com: HitComponent
 ✅ [PLAYER HURT] HitComponent detectado! Dano: 10
 💥 [PLAYER HURT] Player recebeu 10 de dano! Vida: 90
+🔴 [ATTACK STATE] Animação terminou! Voltando para Chase
 ```
 
 Se não ver esses prints, significa:
 - ❌ Collision layers/masks erradas
 - ❌ PlayerHurtComponent não adicionado
 - ❌ Shape não configurado corretamente
+- ❌ `hitbox_enable_delay` muito alto (hitbox não ativa a tempo)
+
+> 💡 **Timing:** O hitbox só ativa após `hitbox_enable_delay` (padrão: 2.0s) do início da animação.
+> Ajuste esse valor no nó **Attack** do inimigo para sincronizar com o frame de impacto.
 
 ---
 

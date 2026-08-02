@@ -228,7 +228,8 @@ texture_filter = 1
 texture_repeat = 2
 position = Vector2(1, -29)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"run"
+animation = &"attack"
+speed_scale = 0.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -14)

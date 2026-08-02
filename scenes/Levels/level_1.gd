@@ -2,9 +2,11 @@ extends Node2D
 
 func _ready():
 	# Inicia a música do nível através do AudioManager
-	AudioManager.play_level_music()
+	#AudioManager.play_level_music()
+	pass
 
 
 func _exit_tree() -> void:
 	"""Para a música quando o nível é descarregado"""
-	AudioManager.stop_level_music()
+	#AudioManager.stop_level_music()
+	pass

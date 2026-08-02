@@ -62,10 +62,14 @@ func _on_next_transitions() -> void:
 	
 	var distance = enemy.get_distance_to_player()
 	
-	# Se o player está muito perto, transiciona para Attack
+	# Se o player está muito perto, transiciona para Attack (respeitando cooldown)
 	if distance <= enemy.attack_distance:
-		print("🟡 [CHASE STATE] Player em zona de ataque! Distância: %.2f | Attack Distance: %.2f → Transitando para ATTACK" % [distance, enemy.attack_distance])
-		transition.emit("attack")
+		var current_time = Time.get_ticks_msec() / 1000.0
+		var time_since_attack = current_time - enemy.last_attack_time
+		if time_since_attack >= enemy.attack_cooldown:
+			print("🟡 [CHASE STATE] Player em zona de ataque! Distância: %.2f | Attack Distance: %.2f → Transitando para ATTACK" % [distance, enemy.attack_distance])
+			transition.emit("attack")
+		# else: ainda em cooldown, continua perseguindo
 	
 	# Se o player se afastou muito, volta para Idle
 	elif distance > enemy.chase_distance * 1.5:

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpdad4b5gequr"
-path="res://.godot/imported/Necromancer_creativekind-Sheet.png-3ee5f43197930c765c497fa67b4220db.ctex"
+path="res://.godot/imported/Necromancer_creativekind-Sheet.png-487a0c7ed4e4c87ff5db2f55f9437b7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/assets/characters/enemy/nercomante/Necromancer_creativekind-Sheet.png"
-dest_files=["res://.godot/imported/Necromancer_creativekind-Sheet.png-3ee5f43197930c765c497fa67b4220db.ctex"]
+source_file="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png"
+dest_files=["res://.godot/imported/Necromancer_creativekind-Sheet.png-487a0c7ed4e4c87ff5db2f55f9437b7f.ctex"]
 
 [params]
 
