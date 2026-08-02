@@ -10,7 +10,7 @@ extends CharacterBody2D
 @onready var hurt_component: HurtComponent = $HurtComponent
 
 ## Velocidade de movimentação do inimigo
-@export var chase_speed: float = 35.0
+@export var chase_speed: float = 40.0
 
 ## Vida do inimigo
 @export var max_health: float = 30.0
@@ -20,7 +20,7 @@ var current_health: float = 30.0
 @export var chase_distance: float = 150.0
 
 ## Distância para atacar o player
-@export var attack_distance: float = 35.0
+@export var attack_distance: float = 40.0
 
 ## Direção que o inimigo está olhando
 var enemy_direction: Vector2 = Vector2.DOWN
@@ -34,6 +34,10 @@ var is_dead: bool = false
 ## Controla se a sprite está flipada
 var is_flipped: bool = false
 
+## Orientação padrão do sprite: true = olha para direita, false = olha para esquerda
+## MushMario: false (sprite olha pra esquerda) | Necromante: true (sprite olha pra direita)
+@export var sprite_faces_right: bool = true
+
 ## Referência à sprite animada
 var animated_sprite_2d: AnimatedSprite2D
 
@@ -42,6 +46,12 @@ var hit_component_collision_shape: CollisionShape2D
 
 ## Posição padrão do hitbox (usada para reset)
 var _hitbox_default_position: Vector2 = Vector2.ZERO
+
+## Tempo do último ataque (usado para cooldown entre ataques)
+var last_attack_time: float = -9999.0
+
+## Tempo de cooldown entre ataques consecutivos
+@export var attack_cooldown: float = 1.5
 
 
 func _ready() -> void:
@@ -92,11 +102,16 @@ func disable_hit_box() -> void:
 	hit_component_collision_shape.position = _hitbox_default_position
 
 
-## Aplica a posição X do hitbox baseada no flip atual (uso interno)
+## Aplica a posição X do hitbox baseada no flip atual e na orientação padrão do sprite (uso interno)
 func _apply_hitbox_flip_position() -> void:
 	if hit_component_collision_shape == null:
 		return
-	if is_flipped:
+	
+	# Determina para qual lado o personagem está REALMENTE olhando
+	# sprite_faces_right XOR is_flipped: quando um é true e o outro false, o personagem olha pra direita
+	var actually_facing_right: bool = (sprite_faces_right != is_flipped)
+	
+	if actually_facing_right:
 		hit_component_collision_shape.position.x = 26
 	else:
 		hit_component_collision_shape.position.x = -26
@@ -143,25 +158,28 @@ func morrer() -> void:
 
 
 ## Funcao para flipar a sprite e o hit component
-## Inverte a sprite quando a direção muda
+## Inverte a sprite quando a direção muda, respeitando a orientação padrão do sprite
 func update_flip(direction: Vector2) -> void:
 	if direction == Vector2.ZERO:
 		return
 	
-	# Se o inimigo está se movendo para a direita e está flipado, desflipa
-	if direction.x < 0 and is_flipped:
-		is_flipped = false
-		if animated_sprite_2d:
-			animated_sprite_2d.flip_h = false
-		_apply_hitbox_flip_position()
+	var moving_right: bool = direction.x > 0
 	
-	# Se o inimigo está se movendo para a esquerda e não está flipado, flipa
-	elif direction.x > 0 and not is_flipped:
-		is_flipped = true
+	# Determina se deve flipar baseado na direção E na orientação padrão do sprite
+	var should_flip: bool
+	if sprite_faces_right:
+		# Sprite padrão olha pra direita → flipa ao mover pra esquerda
+		should_flip = not moving_right
+	else:
+		# Sprite padrão olha pra esquerda → flipa ao mover pra direita
+		should_flip = moving_right
+	
+	# Só aplica se houve mudança no estado de flip
+	if should_flip != is_flipped:
+		is_flipped = should_flip
 		if animated_sprite_2d:
-			animated_sprite_2d.flip_h = true
+			animated_sprite_2d.flip_h = should_flip
 		_apply_hitbox_flip_position()
-		
 
 
 ## Callback quando o player morre
