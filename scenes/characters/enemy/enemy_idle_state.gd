@@ -18,7 +18,8 @@ func _on_enter() -> void:
 	enemy = owner as Enemy
 	animated_sprite_2d = enemy.get_node("AnimatedSprite2D")
 	
-	if animated_sprite_2d:
+	# Não toca animação idle durante o spawn — o PortalSpawnComponent controla o fade
+	if animated_sprite_2d and not enemy._is_spawning:
 		animated_sprite_2d.play("idle")
 
 

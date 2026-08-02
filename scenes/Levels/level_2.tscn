@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://gg5obnlhb3x8"]
+[gd_scene load_steps=24 format=4 uid="uid://gg5obnlhb3x8"]
 
 [ext_resource type="Script" uid="uid://bsqk52fjpb0or" path="res://scenes/Levels/level_1.gd" id="1_6qxha"]
 [ext_resource type="PackedScene" uid="uid://ie56xe27bjse" path="res://audio/music/on_the_farm_music.tscn" id="2_4i6gi"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://bmqctht5vc2t3" path="res://scenes/objects/milk.tscn" id="15_5ytgs"]
 [ext_resource type="PackedScene" uid="uid://b43tex181j2ne" path="res://scenes/objects/egg.tscn" id="16_moj4v"]
 [ext_resource type="PackedScene" uid="uid://b4pcch7rtkfwf" path="res://scenes/characters/guide/guide.tscn" id="17_04xhx"]
-[ext_resource type="PackedScene" uid="uid://ibaoccj46mfl" path="res://scenes/characters/enemy/enemy.tscn" id="18_y6tmf"]
 [ext_resource type="PackedScene" uid="uid://c6jqhg7ik2s2w" path="res://scenes/characters/enemy/necromante.tscn" id="19_r0w8p"]
 
 [sub_resource type="TileSet" id="TileSet_4xsrm"]
@@ -207,9 +206,6 @@ position = Vector2(491.00003, 480)
 
 [node name="Chicken5" parent="FreeAnimals/Chickens" instance=ExtResource("12_c6w1e")]
 position = Vector2(217.00003, 356.00003)
-
-[node name="Enemy" parent="." instance=ExtResource("18_y6tmf")]
-position = Vector2(218, 278)
 
 [node name="Necromante" parent="." instance=ExtResource("19_r0w8p")]
 position = Vector2(17, 285)

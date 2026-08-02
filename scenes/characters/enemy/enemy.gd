@@ -51,8 +51,8 @@ var _hitbox_default_position: Vector2 = Vector2.ZERO
 ## Componente reutilizável de spawn via portal
 @onready var portal_spawn_component: PortalSpawnComponent = $PortalSpawnComponent
 
-## Se o inimigo está na animação de spawn
-var _is_spawning: bool = false
+## Se o inimigo está na animação de spawn (começa true para evitar que o idle toque animação antes do spawn)
+var _is_spawning: bool = true
 
 ## Tempo do último ataque (usado para cooldown entre ataques)
 var last_attack_time: float = -9999.0
@@ -91,7 +91,11 @@ func _ready() -> void:
 	if portal_spawn_component:
 		portal_spawn_component.spawn_complete.connect(_on_spawn_complete)
 		portal_spawn_component.play_spawn()
-		_is_spawning = true
+	else:
+		# Sem portal: libera o idle imediatamente e toca animação
+		_is_spawning = false
+		if animated_sprite_2d:
+			animated_sprite_2d.play("idle")
 	
 	print("👹 [ENEMY] Inimigo inicializado - Chase Distance: ", chase_distance, " | Attack Distance: ", attack_distance)
 
@@ -106,6 +110,10 @@ func _play_spawn_animation() -> void:
 ## Callback chamado quando a animação de spawn termina
 func _on_spawn_complete() -> void:
 	_is_spawning = false
+	
+	# Toca a animação idle após o fade-in do portal
+	if animated_sprite_2d:
+		animated_sprite_2d.play("idle")
 	
 	# Reativa colisões
 	if hit_component_collision_shape:
