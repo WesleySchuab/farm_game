@@ -50,9 +50,10 @@ var _hitbox_default_position: Vector2 = Vector2.ZERO
 # --- SISTEMA DE SPAWN COM PORTAL ---
 ## Partículas do portal de spawn (efeito no chão)
 var _portal_particles: GPUParticles2D = null
+var _portal_particles2: GPUParticles2D = null
 
 ## Duração total da animação de spawn em segundos
-@export var spawn_duration: float = 2.0
+@export var spawn_duration: float = 4.0
 
 ## Se o inimigo está na animação de spawn
 var _is_spawning: bool = false
@@ -93,6 +94,8 @@ func _ready() -> void:
 	# Obter referência às partículas do portal (se existir)
 	if has_node("PortalParticles"):
 		_portal_particles = get_node("PortalParticles")
+	if has_node("PortalParticles2"):
+		_portal_particles2 = get_node("PortalParticles2")
 	
 	# Toca a animação de spawn via portal
 	_play_spawn_animation()
@@ -123,6 +126,10 @@ func _play_spawn_animation() -> void:
 		_portal_particles.emitting = true
 		_portal_particles.restart()
 	
+	if _portal_particles2:
+		_portal_particles2.emitting = true
+		_portal_particles2.restart()	
+	
 	# Cria o tween para a animação
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -133,14 +140,14 @@ func _play_spawn_animation() -> void:
 	# Fase 1 (0 → 60%): Portal no auge, personagem começa a aparecer
 	if animated_sprite_2d:
 		# Scale: 0 → 1.1 → 1.0 (efeito "pop")
-		tween.tween_property(animated_sprite_2d, "scale", Vector2(1.1, 1.1), spawn_duration * 0.4) \
-			.set_delay(spawn_duration * 0.2)
-		tween.tween_property(animated_sprite_2d, "scale", Vector2(1.0, 1.0), spawn_duration * 0.2) \
-			.set_delay(spawn_duration * 0.6)
+		tween.tween_property(animated_sprite_2d, "scale", Vector2(1.1, 1.1), spawn_duration * 0.6) \
+			.set_delay(spawn_duration * 0.4)
+		tween.tween_property(animated_sprite_2d, "scale", Vector2(1.0, 1.0), spawn_duration * 0.3) \
+			.set_delay(spawn_duration * 1.0)
 		
 		# Fade in: 0 → 1
-		tween.tween_property(animated_sprite_2d, "modulate:a", 1.0, spawn_duration * 0.5) \
-			.set_delay(spawn_duration * 0.2)
+		tween.tween_property(animated_sprite_2d, "modulate:a", 1.5, spawn_duration * 0.8) \
+			.set_delay(spawn_duration * 0.6)
 	
 	# Fase 2: Para as partículas do portal e ativa o inimigo
 	tween.tween_callback(_on_spawn_complete).set_delay(spawn_duration)
@@ -153,6 +160,7 @@ func _on_spawn_complete() -> void:
 	# Para as partículas do portal (elas vão morrer naturalmente)
 	if _portal_particles:
 		_portal_particles.emitting = false
+		_portal_particles2.emitting = false
 	
 	# Reativa colisões
 	if hit_component_collision_shape:
