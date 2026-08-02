@@ -1,7 +1,8 @@
-[gd_scene load_steps=57 format=3 uid="uid://c6jqhg7ik2s2w"]
+[gd_scene load_steps=64 format=3 uid="uid://c6jqhg7ik2s2w"]
 
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
 [ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
+[ext_resource type="PackedScene" uid="uid://b1ajdsb5gmp2j" path="res://scenes/effects/portal_spawn_component.tscn" id="2_o72mc"]
 [ext_resource type="Script" uid="uid://brme6870fmohm" path="res://scripts/states_machine/node_state_machine.gd" id="5_1u4bh"]
 [ext_resource type="Script" uid="uid://ctbulrixqgigt" path="res://scenes/characters/enemy/enemy_idle_state.gd" id="6_tgg1u"]
 [ext_resource type="Script" uid="uid://bq2tikn5h7gvn" path="res://scenes/characters/enemy/enemy_chase_state.gd" id="7_32dsg"]
@@ -9,26 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_b78sl"]
 [ext_resource type="PackedScene" uid="uid://bnfv246qi62yl" path="res://scenes/attack/ball_necromante.tscn" id="9_xa4wr"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
-
-[sub_resource type="Gradient" id="Gradient_xa4wr"]
-offsets = PackedFloat32Array(0, 0.47302905, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.18431373, 0.003921569, 0.003921569, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ls60r"]
-gradient = SubResource("Gradient_xa4wr")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xa4wr"]
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(1, 1, 100)
-emission_shape = 1
-emission_sphere_radius = 15.0
-direction = Vector3(0, -1, 0)
-initial_velocity_min = 5.0
-initial_velocity_max = 25.0
-gravity = Vector3(0, -20, 0)
-scale_min = 0.0
-scale_max = 2.0
-color_ramp = SubResource("GradientTexture1D_ls60r")
 
 [sub_resource type="Gradient" id="Gradient_8uoqn"]
 
@@ -40,7 +21,7 @@ particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 spread = 24.882
-initial_velocity_min = -10.0
+initial_velocity_min = -15.0
 initial_velocity_max = 10.0
 gravity = Vector3(0, 5, 0)
 scale_min = 2.0
@@ -135,6 +116,42 @@ region = Rect2(1120, 768, 160, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3a8tx"]
 atlas = ExtResource("2_8uoqn")
 region = Rect2(1280, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60yu8"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(1280, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1g25"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(1120, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i7oi"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(960, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6irq"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(800, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ww5c"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(640, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy1gh"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(480, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vi08s"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(320, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joj2k"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(160, 768, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kkl4"]
+atlas = ExtResource("2_8uoqn")
+region = Rect2(0, 768, 160, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ppuv"]
 atlas = ExtResource("2_8uoqn")
@@ -280,6 +297,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_60yu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1g25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0i7oi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6irq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ww5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iy1gh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vi08s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joj2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kkl4")
+}],
+"loop": true,
+"name": &"fade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7ppuv")
 }, {
 "duration": 1.0,
@@ -349,18 +398,12 @@ y_sort_enabled = true
 script = ExtResource("1_o72mc")
 chase_speed = 30.0
 
-[node name="PortalParticles" type="GPUParticles2D" parent="."]
-position = Vector2(0, 10)
-amount = 350
-lifetime = 2.0
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_xa4wr")
-
-[node name="PortalParticles2" type="GPUParticles2D" parent="."]
+[node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
 visible = false
-position = Vector2(0, 10)
-amount = 300
-process_material = SubResource("ParticleProcessMaterial_xa4wr")
+
+[node name="BallNecromante" parent="." instance=ExtResource("9_xa4wr")]
+visible = false
+position = Vector2(23, -35)
 
 [node name="RightFoot" type="GPUParticles2D" parent="."]
 visible = false
@@ -381,7 +424,9 @@ texture_filter = 1
 texture_repeat = 2
 position = Vector2(5, -48)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"run"
+animation = &"fade"
+frame = 6
+frame_progress = 0.81423837
 speed_scale = 0.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -417,7 +462,3 @@ tool = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
 position = Vector2(7, -21)
 shape = SubResource("CapsuleShape2D_i0x2j")
-
-[node name="BallNecromante" parent="." instance=ExtResource("9_xa4wr")]
-visible = false
-position = Vector2(23, -35)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ibaoccj46mfl"]
+[gd_scene load_steps=39 format=3 uid="uid://ibaoccj46mfl"]
 
 [ext_resource type="Texture2D" uid="uid://c24iv5urjf0d" path="res://game/assets/characters/enemy/mushroom/Mushroom-Idle.png" id="1_7jlhe"]
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_uqam8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cy4sog0pw5rmg" path="res://scenes/characters/enemy/enemy_attack_state.gd" id="8_44pfb"]
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_44pfb"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_hurtc"]
+[ext_resource type="PackedScene" uid="uid://b1ajdsb5gmp2j" path="res://scenes/effects/portal_spawn_component.tscn" id="11_icfsp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0uc76"]
 atlas = ExtResource("2_pwjhn")
@@ -62,14 +63,6 @@ region = Rect2(70, 0, 70, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_uqhpy"]
 atlas = ExtResource("1_7jlhe")
 region = Rect2(140, 0, 70, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ogw38"]
-atlas = ExtResource("1_7jlhe")
-region = Rect2(210, 0, 70, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i0x2j"]
-atlas = ExtResource("1_7jlhe")
-region = Rect2(280, 0, 70, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_44pfb"]
 atlas = ExtResource("1_7jlhe")
@@ -163,12 +156,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_uqhpy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ogw38")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i0x2j")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_44pfb")
 }, {
 "duration": 1.0,
@@ -228,7 +215,7 @@ texture_filter = 1
 texture_repeat = 2
 position = Vector2(1, -29)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"attack"
+animation = &"idle"
 speed_scale = 0.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -263,3 +250,6 @@ tool = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
 position = Vector2(1, -14)
 shape = SubResource("CapsuleShape2D_i0x2j")
+
+[node name="PortalSpawnComponent" parent="." instance=ExtResource("11_icfsp")]
+visible = false

@@ -48,12 +48,8 @@ var hit_component_collision_shape: CollisionShape2D
 var _hitbox_default_position: Vector2 = Vector2.ZERO
 
 # --- SISTEMA DE SPAWN COM PORTAL ---
-## Partículas do portal de spawn (efeito no chão)
-var _portal_particles: GPUParticles2D = null
-var _portal_particles2: GPUParticles2D = null
-
-## Duração total da animação de spawn em segundos
-@export var spawn_duration: float = 4.0
+## Componente reutilizável de spawn via portal
+@onready var portal_spawn_component: PortalSpawnComponent = $PortalSpawnComponent
 
 ## Se o inimigo está na animação de spawn
 var _is_spawning: bool = false
@@ -91,76 +87,25 @@ func _ready() -> void:
 	hit_component_collision_shape = get_node("HitComponent/HitComponentCollisionShape2D")
 	_hitbox_default_position = hit_component_collision_shape.position
 	
-	# Obter referência às partículas do portal (se existir)
-	if has_node("PortalParticles"):
-		_portal_particles = get_node("PortalParticles")
-	if has_node("PortalParticles2"):
-		_portal_particles2 = get_node("PortalParticles2")
-	
-	# Toca a animação de spawn via portal
-	_play_spawn_animation()
+	# Configura o componente de spawn (se existir)
+	if portal_spawn_component:
+		portal_spawn_component.spawn_complete.connect(_on_spawn_complete)
+		portal_spawn_component.play_spawn()
+		_is_spawning = true
 	
 	print("👹 [ENEMY] Inimigo inicializado - Chase Distance: ", chase_distance, " | Attack Distance: ", attack_distance)
 
 
-## Toca a animação do inimigo emergindo de um portal
+## Toca a animação do inimigo emergindo de um portal (delega ao PortalSpawnComponent)
 func _play_spawn_animation() -> void:
-	_is_spawning = true
-	
-	# Desabilita colisões e física durante o spawn
-	set_physics_process(false)
-	
-	# Inicia invisível e com scale 0
-	if animated_sprite_2d:
-		animated_sprite_2d.modulate.a = 0.0
-		animated_sprite_2d.scale = Vector2.ZERO
-	
-	# Esconde hit/hurt components
-	if hit_component_collision_shape:
-		hit_component_collision_shape.disabled = true
-	if hurt_component:
-		hurt_component.get_node("CollisionShape2D").disabled = true
-	
-	# Ativa as partículas do portal
-	if _portal_particles:
-		_portal_particles.emitting = true
-		_portal_particles.restart()
-	
-	if _portal_particles2:
-		_portal_particles2.emitting = true
-		_portal_particles2.restart()	
-	
-	# Cria o tween para a animação
-	var tween = create_tween()
-	tween.set_parallel(true)
-	
-	# Partículas durarão o spawn_duration + um pouco extra para dissipar
-	var particle_lifetime = spawn_duration * 0.8
-	
-	# Fase 1 (0 → 60%): Portal no auge, personagem começa a aparecer
-	if animated_sprite_2d:
-		# Scale: 0 → 1.1 → 1.0 (efeito "pop")
-		tween.tween_property(animated_sprite_2d, "scale", Vector2(1.1, 1.1), spawn_duration * 0.6) \
-			.set_delay(spawn_duration * 0.4)
-		tween.tween_property(animated_sprite_2d, "scale", Vector2(1.0, 1.0), spawn_duration * 0.3) \
-			.set_delay(spawn_duration * 1.0)
-		
-		# Fade in: 0 → 1
-		tween.tween_property(animated_sprite_2d, "modulate:a", 1.5, spawn_duration * 0.8) \
-			.set_delay(spawn_duration * 0.6)
-	
-	# Fase 2: Para as partículas do portal e ativa o inimigo
-	tween.tween_callback(_on_spawn_complete).set_delay(spawn_duration)
+	if portal_spawn_component:
+		portal_spawn_component.play_spawn()
+		_is_spawning = true
 
 
 ## Callback chamado quando a animação de spawn termina
 func _on_spawn_complete() -> void:
 	_is_spawning = false
-	
-	# Para as partículas do portal (elas vão morrer naturalmente)
-	if _portal_particles:
-		_portal_particles.emitting = false
-		_portal_particles2.emitting = false
 	
 	# Reativa colisões
 	if hit_component_collision_shape:
@@ -170,9 +115,6 @@ func _on_spawn_complete() -> void:
 		var hurt_shape = hurt_component.get_node_or_null("CollisionShape2D")
 		if hurt_shape:
 			hurt_shape.disabled = false
-	
-	# Reativa física (state machine assume o controle)
-	set_physics_process(true)
 	
 	print("👹 [ENEMY] Spawn completo! Inimigo ativo.")
 
