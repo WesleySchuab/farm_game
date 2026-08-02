@@ -149,7 +149,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_emon8")
 }],
 "loop": false,
-"name": &"mushroom_attack_right",
+"name": &"attack",
 "speed": 4.0
 }, {
 "frames": [{
@@ -178,7 +178,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_icfsp")
 }],
 "loop": false,
-"name": &"mushroom_idle",
+"name": &"idle",
 "speed": 3.0
 }, {
 "frames": [{
@@ -207,7 +207,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_qvr0l")
 }],
 "loop": false,
-"name": &"mushroom_run",
+"name": &"run",
 "speed": 5.0
 }]
 
@@ -218,7 +218,7 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_72liy"]
 radius = 10.049875
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="MushMario" type="CharacterBody2D"]
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
 chase_speed = 30.0
@@ -228,7 +228,7 @@ texture_filter = 1
 texture_repeat = 2
 position = Vector2(1, -29)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"mushroom_idle"
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -14)

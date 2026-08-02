@@ -21,7 +21,7 @@ func _on_enter() -> void:
 	enemy.disable_hit_box()
 	
 	if animated_sprite_2d:
-		animated_sprite_2d.play("mushroom_run")
+		animated_sprite_2d.play("run")
 
 
 ## Processa a lógica do estado a cada frame

@@ -28,7 +28,7 @@ func _on_enter() -> void:
 	time_since_last_attack = attack_cooldown  # Permite ataque imediatamente
 	
 	if animated_sprite_2d:
-		animated_sprite_2d.play("mushroom_attack_right")
+		animated_sprite_2d.play("attack")
 	
 	# Habilita o hitbox via método centralizado do Enemy
 	enemy.enable_hit_box()

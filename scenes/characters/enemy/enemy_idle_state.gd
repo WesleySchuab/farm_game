@@ -19,7 +19,7 @@ func _on_enter() -> void:
 	animated_sprite_2d = enemy.get_node("AnimatedSprite2D")
 	
 	if animated_sprite_2d:
-		animated_sprite_2d.play("necromante_idle")
+		animated_sprite_2d.play("idle")
 
 
 ## Processa a lógica do estado a cada frame

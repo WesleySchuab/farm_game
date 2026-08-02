@@ -58,7 +58,10 @@ Implementei sistema de dano com debug completo:
 - `scenes/characters/DAMAGE_SYSTEM_SETUP.md` (Guia completo)
 
 ### 📋 Próximas Ações:
-- [ ] Adicionar PlayerHurtComponent à cena do player
-- [ ] Configurar Collision Layers/Masks (Layer 2 player, Layer 3 inimigo)
+- [x ] Adicionar PlayerHurtComponent à cena do player
+- [ x] Configurar Collision Layers/Masks (Layer 2 player, Layer 3 inimigo)
 - [ ] Testar e ver prints de debug
-- [ ] Ajustar valores de dano se necessário 
+- [ x] Ajustar valores de dano se necessário 
+
+*Data:** 31/07/26
+Corrigi o nome dos frames para padronizar
