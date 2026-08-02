@@ -54,6 +54,10 @@ var _hitbox_default_position: Vector2 = Vector2.ZERO
 ## Se o inimigo está na animação de spawn (começa true para evitar que o idle toque animação antes do spawn)
 var _is_spawning: bool = true
 
+## Timer pós-spawn: impede transições por um curto período após o spawn terminar
+var _post_spawn_cooldown: float = 0.0
+const POST_SPAWN_DELAY: float = 0.5
+
 ## Tempo do último ataque (usado para cooldown entre ataques)
 var last_attack_time: float = -9999.0
 
@@ -110,10 +114,7 @@ func _play_spawn_animation() -> void:
 ## Callback chamado quando a animação de spawn termina
 func _on_spawn_complete() -> void:
 	_is_spawning = false
-	
-	# Toca a animação idle após o fade-in do portal
-	if animated_sprite_2d:
-		animated_sprite_2d.play("idle")
+	_post_spawn_cooldown = POST_SPAWN_DELAY
 	
 	# Reativa colisões
 	if hit_component_collision_shape:
@@ -125,6 +126,12 @@ func _on_spawn_complete() -> void:
 			hurt_shape.disabled = false
 	
 	print("👹 [ENEMY] Spawn completo! Inimigo ativo.")
+
+
+func _physics_process(delta: float) -> void:
+	# Decrementa o cooldown pós-spawn
+	if _post_spawn_cooldown > 0.0:
+		_post_spawn_cooldown -= delta
 
 
 ## Habilita o hitbox de ataque

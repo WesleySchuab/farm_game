@@ -400,6 +400,7 @@ chase_speed = 30.0
 
 [node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
 visible = false
+spawn_duration = 3.0
 
 [node name="BallNecromante" parent="." instance=ExtResource("9_xa4wr")]
 visible = false
@@ -425,9 +426,8 @@ texture_repeat = 2
 position = Vector2(5, -48)
 sprite_frames = SubResource("SpriteFrames_0uc76")
 animation = &"fade"
-frame = 6
-frame_progress = 0.81423837
-speed_scale = 0.6
+autoplay = "fade"
+speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, -21)

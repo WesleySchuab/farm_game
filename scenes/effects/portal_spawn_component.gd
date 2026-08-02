@@ -59,10 +59,13 @@ func play_spawn() -> void:
 	for shape in disable_collisions:
 		shape.disabled = true
 	
-	# Estado inicial: invisível e scale 0
+	# Estado inicial: invisível (escala mínima evita que o nó pare de processar)
 	if target_sprite:
 		target_sprite.modulate.a = 0.0
-		target_sprite.scale = Vector2.ZERO
+		target_sprite.scale = Vector2(0.01, 0.01)
+		# Garante que a animação toque frame a frame, sem depender de autoplay no editor
+		if target_sprite is AnimatedSprite2D:
+			target_sprite.play()
 	
 	# Ativa partículas do portal
 	if portal_particles:

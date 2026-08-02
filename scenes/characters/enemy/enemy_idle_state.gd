@@ -25,7 +25,10 @@ func _on_enter() -> void:
 
 ## Processa a lógica do estado a cada frame
 func _on_process(_delta: float) -> void:
-	pass
+	# Troca de fade → idle assim que o spawn terminar
+	if enemy and not enemy._is_spawning:
+		if animated_sprite_2d and animated_sprite_2d.animation != "idle":
+			animated_sprite_2d.play("idle")
 
 
 ## Processa a física do estado a cada frame
@@ -42,8 +45,11 @@ func _on_next_transitions() -> void:
 	if not controle_de_animacao_ativo:
 		return
 	
-	# Não faz transições enquanto o spawn está acontecendo
+	# Não faz transições enquanto o spawn está acontecendo ou no cooldown pós-spawn
 	if enemy._is_spawning:
+		return
+	
+	if enemy._post_spawn_cooldown > 0.0:
 		return
 	
 	# Se o player existe e está próximo, transiciona para Chase
