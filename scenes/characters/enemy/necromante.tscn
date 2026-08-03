@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://c6jqhg7ik2s2w"]
+[gd_scene format=3 uid="uid://c6jqhg7ik2s2w"]
 
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
 [ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
 
 [sub_resource type="Gradient" id="Gradient_8uoqn"]
+offsets = PackedFloat32Array(0, 0.46721312)
+colors = PackedColorArray(0.55817705, 0.058702536, 0.07683813, 1, 0.11858138, 0.11858139, 0.11858136, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xa4wr"]
 gradient = SubResource("Gradient_8uoqn")
@@ -259,7 +261,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jm3vt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -291,7 +293,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3a8tx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"dead",
 "speed": 5.0
 }, {
@@ -323,7 +325,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6kkl4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fade",
 "speed": 5.0
 }, {
@@ -352,7 +354,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fuyk2")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -381,7 +383,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dvqn8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"run",
 "speed": 3.0
 }]
@@ -393,34 +395,30 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_72liy"]
 radius = 10.049875
 
-[node name="Necromante" type="CharacterBody2D"]
+[node name="Necromante" type="CharacterBody2D" unique_id=1594382901]
 y_sort_enabled = true
 script = ExtResource("1_o72mc")
 chase_speed = 30.0
 
-[node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
-visible = false
+[node name="PortalSpawnComponent" parent="." unique_id=28957563 instance=ExtResource("2_o72mc")]
 spawn_duration = 3.0
 
-[node name="BallNecromante" parent="." instance=ExtResource("9_xa4wr")]
-visible = false
+[node name="BallNecromante" parent="." unique_id=1665097497 instance=ExtResource("9_xa4wr")]
 position = Vector2(23, -35)
 
-[node name="RightFoot" type="GPUParticles2D" parent="."]
-visible = false
+[node name="RightFoot" type="GPUParticles2D" parent="." unique_id=358157070]
 position = Vector2(5, -2)
 amount = 40
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
-[node name="LeftFoot" type="GPUParticles2D" parent="."]
-visible = false
+[node name="LeftFoot" type="GPUParticles2D" parent="." unique_id=527625162]
 position = Vector2(-3, 0)
 amount = 40
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1174414900]
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(5, -48)
@@ -429,36 +427,36 @@ animation = &"fade"
 autoplay = "fade"
 speed_scale = 0.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1866761823]
 position = Vector2(6, -21)
 shape = SubResource("CapsuleShape2D_i0x2j")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=24753048 node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("5_1u4bh")
 initial_node_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=424555510]
 script = ExtResource("6_tgg1u")
 
-[node name="Chase" type="Node" parent="StateMachine"]
+[node name="Chase" type="Node" parent="StateMachine" unique_id=677993905]
 script = ExtResource("7_32dsg")
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=392337908]
 script = ExtResource("8_eu1gg")
 
-[node name="HitComponent" parent="." instance=ExtResource("9_b78sl")]
+[node name="HitComponent" parent="." unique_id=317672612 instance=ExtResource("9_b78sl")]
 collision_layer = 4
 collision_mask = 2
 hit_damage = 10
 
-[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent" unique_id=1943758192]
 position = Vector2(3, -11)
 shape = SubResource("CircleShape2D_72liy")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
 
-[node name="HurtComponent" parent="." instance=ExtResource("10_a8y1b")]
+[node name="HurtComponent" parent="." unique_id=634022388 instance=ExtResource("10_a8y1b")]
 tool = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=250934517]
 position = Vector2(7, -21)
 shape = SubResource("CapsuleShape2D_i0x2j")

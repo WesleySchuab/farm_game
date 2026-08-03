@@ -1,6 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1ajdsb5gmp2j"]
+[gd_scene load_steps=10 format=3 uid="uid://b1ajdsb5gmp2j"]
 
 [ext_resource type="Script" uid="uid://dyq8v1n4m3kxp" path="res://scenes/effects/portal_spawn_component.gd" id="1_mtpsg"]
+
+[sub_resource type="Gradient" id="Gradient_mtpsg"]
+offsets = PackedFloat32Array(0, 0.45901638)
+colors = PackedColorArray(0.69375503, 0.087517016, 0.11278897, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o72mc"]
+gradient = SubResource("Gradient_mtpsg")
 
 [sub_resource type="Gradient" id="Gradient_htvfh"]
 offsets = PackedFloat32Array(0, 0.47302905, 1)
@@ -20,7 +27,9 @@ initial_velocity_max = 25.0
 gravity = Vector3(0, -20, 0)
 scale_min = 0.0
 scale_max = 2.0
+color = Color(0.28651282, 0.015224052, 0.021624472, 1)
 color_ramp = SubResource("GradientTexture1D_ls60r")
+color_initial_ramp = SubResource("GradientTexture1D_o72mc")
 
 [sub_resource type="Gradient" id="Gradient_wec2n"]
 offsets = PackedFloat32Array(0, 0.47302905, 1)
@@ -40,6 +49,7 @@ initial_velocity_max = 25.0
 gravity = Vector3(0, -20, 0)
 scale_min = 0.0
 scale_max = 2.0
+color = Color(0.89639235, 0.101253204, 0.09616845, 1)
 color_ramp = SubResource("GradientTexture1D_s2lt0")
 
 [node name="PortalSpawnComponent" type="Node2D" node_paths=PackedStringArray("portal_particles", "portal_particles2")]

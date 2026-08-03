@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bnfv246qi62yl"]
+[gd_scene load_steps=6 format=3 uid="uid://bnfv246qi62yl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s7wsd"]
 
@@ -10,6 +10,7 @@ spread = 180.0
 initial_velocity_min = 15.0
 initial_velocity_max = 30.0
 gravity = Vector3(0, 98, 0)
+color = Color(0.18431373, 0.003921569, 0.003921569, 1)
 
 [sub_resource type="Gradient" id="Gradient_ls60r"]
 offsets = PackedFloat32Array(0, 0.53526974)
@@ -34,20 +35,20 @@ color = Color(0.33333334, 0, 0.6666667, 1)
 color_ramp = SubResource("GradientTexture1D_s7rlf")
 turbulence_enabled = true
 
-[node name="BallNecromante" type="Area2D" unique_id=224733760]
+[node name="BallNecromante" type="Area2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=334640276]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_s7wsd")
 
-[node name="CoreAura" type="GPUParticles2D" parent="." unique_id=178121840]
+[node name="CoreAura" type="GPUParticles2D" parent="."]
 amount = 20
 lifetime = 0.3
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_0cvp5")
 
-[node name="TrailAura" type="GPUParticles2D" parent="." unique_id=1195651170]
+[node name="TrailAura" type="GPUParticles2D" parent="."]
 amount = 60
 trail_lifetime = 0.8
 process_material = SubResource("ParticleProcessMaterial_s7wsd")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1227793875]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
