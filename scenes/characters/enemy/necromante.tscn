@@ -25,7 +25,7 @@ emission_box_extents = Vector3(1, 1, 1)
 spread = 24.882
 initial_velocity_min = -15.0
 initial_velocity_max = 10.0
-gravity = Vector3(0, -10, 0)
+gravity = Vector3(0, -20, 0)
 scale_min = 2.0
 scale_max = 2.0
 color = Color(0.4745098, 0.043137256, 0.05882353, 1)
@@ -247,9 +247,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jm3vt")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -313,7 +313,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"fade",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -388,19 +388,20 @@ script = ExtResource("1_o72mc")
 chase_speed = 30.0
 chase_distance = 200.0
 attack_distance = 100.0
+post_spawn_delay = 2.0
 
 [node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
 spawn_duration = 3.0
 
-[node name="RightFoot" type="GPUParticles2D" parent="."]
+[node name="UpAura" type="GPUParticles2D" parent="."]
 position = Vector2(5, -2)
 amount = 10
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
-[node name="LeftFoot" type="GPUParticles2D" parent="."]
+[node name="DownAura" type="GPUParticles2D" parent="."]
 position = Vector2(4, 3)
-amount = 40
+amount = 30
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
@@ -409,9 +410,8 @@ texture_filter = 1
 texture_repeat = 2
 position = Vector2(5, -48)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"idle"
+animation = &"fade"
 autoplay = "fade"
-frame_progress = 0.2124942
 speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -431,6 +431,7 @@ script = ExtResource("7_32dsg")
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("8_eu1gg")
 projectile_scene = ExtResource("9_xa4wr")
+projectile_spawn_offset = Vector2(5, 0)
 
 [node name="HitComponent" parent="." instance=ExtResource("9_b78sl")]
 collision_layer = 4
@@ -438,7 +439,7 @@ collision_mask = 2
 hit_damage = 10
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
-position = Vector2(3, -11)
+position = Vector2(23, -61)
 shape = SubResource("CircleShape2D_72liy")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
 

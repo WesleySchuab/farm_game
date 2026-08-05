@@ -25,8 +25,8 @@ func _on_enter() -> void:
 
 ## Processa a lógica do estado a cada frame
 func _on_process(_delta: float) -> void:
-	# Troca de fade → idle assim que o spawn terminar
-	if enemy and not enemy._is_spawning:
+	# Só troca de fade → idle quando o cooldown pós-spawn terminar
+	if enemy and not enemy._is_spawning and enemy._post_spawn_cooldown <= 0.0:
 		if animated_sprite_2d and animated_sprite_2d.animation != "idle":
 			animated_sprite_2d.play("idle")
 

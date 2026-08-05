@@ -18,7 +18,7 @@ signal spawn_complete
 @export var target_sprite: CanvasItem
 
 ## Duração total da animação de spawn em segundos
-@export var spawn_duration: float = 4.0
+@export var spawn_duration: float = 6.0
 
 ## Nós CollisionShape2D a desabilitar durante o spawn
 @export var disable_collisions: Array[CollisionShape2D] = []

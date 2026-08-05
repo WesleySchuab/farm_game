@@ -8,7 +8,7 @@ var save_component: SaveLevelDataComponent
 	
 
 func _input(event: InputEvent) -> void:
-	if not event.is_pressed():
+	if not event is InputEventKey or not event.is_pressed():
 		return
 	
 	match event.as_text_keycode():

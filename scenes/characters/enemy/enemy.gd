@@ -20,7 +20,7 @@ var current_health: float = 30.0
 @export var chase_distance: float = 150.0
 
 ## Distância para atacar o player
-@export var attack_distance: float = 40.0
+@export var attack_distance: float = 80.0
 
 ## Direção que o inimigo está olhando
 var enemy_direction: Vector2 = Vector2.DOWN
@@ -56,7 +56,9 @@ var _is_spawning: bool = true
 
 ## Timer pós-spawn: impede transições por um curto período após o spawn terminar
 var _post_spawn_cooldown: float = 0.0
-const POST_SPAWN_DELAY: float = 0.5
+
+## Tempo (em segundos) que o inimigo permanece na animação "fade" após o portal sumir
+@export var post_spawn_delay: float = 0.5
 
 ## Tempo do último ataque (usado para cooldown entre ataques)
 var last_attack_time: float = -9999.0
@@ -114,7 +116,7 @@ func _play_spawn_animation() -> void:
 ## Callback chamado quando a animação de spawn termina
 func _on_spawn_complete() -> void:
 	_is_spawning = false
-	_post_spawn_cooldown = POST_SPAWN_DELAY
+	_post_spawn_cooldown = post_spawn_delay
 	
 	# Reativa colisões
 	if hit_component_collision_shape:

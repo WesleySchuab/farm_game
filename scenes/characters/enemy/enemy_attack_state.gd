@@ -27,6 +27,10 @@ var _time_in_attack: float = 0.0
 ## Projétil lançado no ataque (ex: BallNecromante). Se null, usa hitbox melee.
 @export var projectile_scene: PackedScene = null
 
+## Offset de spawn do projétil (relativo à posição do inimigo)
+## Ex: Necromante usa Vector2(5, 0) para alinhar com o sprite no eixo X
+@export var projectile_spawn_offset: Vector2 = Vector2.ZERO
+
 ## Velocidade do projétil
 @export var projectile_speed: float = 150.0
 
@@ -100,11 +104,11 @@ func _on_process(delta: float) -> void:
 ## Lança o projétil na direção do player
 func _spawn_projectile() -> void:
 	var ball = projectile_scene.instantiate()
-	ball.global_position = enemy.global_position
+	ball.global_position = enemy.global_position + projectile_spawn_offset
 	ball.direction = enemy.get_direction_to_player()
 	ball.speed = projectile_speed
 	enemy.get_parent().add_child(ball)
-	print("💀 [ATTACK STATE] Projétil lançado na direção do player!")
+	print("💀 [ATTACK STATE] Projétil lançado! Offset: ", projectile_spawn_offset)
 
 
 ## Processa a física do estado a cada frame
