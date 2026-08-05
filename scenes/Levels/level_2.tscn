@@ -208,7 +208,7 @@ position = Vector2(491.00003, 480)
 position = Vector2(217.00003, 356.00003)
 
 [node name="Necromante" parent="." instance=ExtResource("19_r0w8p")]
-position = Vector2(17, 285)
+position = Vector2(-22, 286)
 
 [node name="CollectablesItens" type="Node2D" parent="."]
 visible = false

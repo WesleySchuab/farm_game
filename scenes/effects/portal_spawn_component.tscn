@@ -65,7 +65,6 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_mtpsg")
 
 [node name="PortalParticles2" type="GPUParticles2D" parent="."]
-visible = false
 position = Vector2(0, 10)
 amount = 300
 process_material = SubResource("ParticleProcessMaterial_cnhev")

@@ -16,15 +16,21 @@ var time_since_last_attack: float = 0.0
 @export var min_attack_duration: float = 0.5
 var _time_in_attack: float = 0.0
 
-## Delay (em segundos) antes de ativar o hitbox após iniciar a animação
+## Delay (em segundos) antes de ativar o hitbox / lançar projétil após iniciar a animação
 ## Deve corresponder ao frame de "impacto" da animação de ataque
 @export var hitbox_enable_delay: float = 2
+
+## Projétil lançado no ataque (ex: BallNecromante). Se null, usa hitbox melee.
+@export var projectile_scene: PackedScene = null
+
+## Velocidade do projétil
+@export var projectile_speed: float = 150.0
 
 ## Flag que controla se a animação de ataque está tocando
 var _attack_animation_started: bool = false
 
-## Flag que controla se o hitbox já foi ativado neste ataque
-var _hitbox_enabled: bool = false
+## Flag que controla se o ataque (hitbox ou projétil) já foi executado neste ciclo
+var _attack_executed: bool = false
 
 
 func _ready() -> void:
@@ -43,7 +49,7 @@ func _on_enter() -> void:
 	time_since_last_attack = attack_cooldown  # Permite ataque imediatamente
 	_time_in_attack = 0.0
 	_attack_animation_started = false
-	_hitbox_enabled = false
+	_attack_executed = false
 	
 	# Toca a animação de ataque PRIMEIRO (wind-up visual)
 	if animated_sprite_2d:
@@ -65,18 +71,32 @@ func _on_process(delta: float) -> void:
 	time_since_last_attack += delta
 	_time_in_attack += delta
 	
-	# Ativa o hitbox com delay, sincronizado com o frame de impacto da animação
-	if not _hitbox_enabled and _time_in_attack >= hitbox_enable_delay:
-		if enemy:
+	# Executa o ataque com delay, sincronizado com o frame de impacto da animação
+	if not _attack_executed and _time_in_attack >= hitbox_enable_delay:
+		if projectile_scene and enemy and enemy.player:
+			# Lança projétil na direção do player
+			_spawn_projectile()
+		elif enemy:
+			# Ataque melee (hitbox)
 			enemy.enable_hit_box()
-			_hitbox_enabled = true
-			print("🔴 [ATTACK STATE] Hitbox ATIVADA no frame de impacto! (t=%.2fs)" % _time_in_attack)
+		_attack_executed = true
+		print("🔴 [ATTACK STATE] Ataque executado! (t=%.2fs)" % _time_in_attack)
 	
 	# Quando a animação de ataque terminar (não-loop), volta a perseguir
 	# Isso permite que o inimigo ataque novamente após o cooldown
 	if _attack_animation_started and animated_sprite_2d and not animated_sprite_2d.is_playing():
 		print("🔴 [ATTACK STATE] Animação terminou! Voltando para Chase")
 		transition.emit("chase")
+
+
+## Lança o projétil na direção do player
+func _spawn_projectile() -> void:
+	var ball = projectile_scene.instantiate()
+	ball.global_position = enemy.global_position
+	ball.direction = enemy.get_direction_to_player()
+	ball.speed = projectile_speed
+	enemy.get_parent().add_child(ball)
+	print("💀 [ATTACK STATE] Projétil lançado na direção do player!")
 
 
 ## Processa a física do estado a cada frame

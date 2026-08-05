@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://de8tna6jgv3oy"]
+
+[ext_resource type="Script" uid="uid://cu6q3o52ait6i" path="res://scenes/effects/explosion_necromante.gd" id="1_im5e4"]
+
+[sub_resource type="Gradient" id="Gradient_im5e4"]
+offsets = PackedFloat32Array(0, 0.5036765)
+colors = PackedColorArray(0.4745098, 0.043137256, 0.05882353, 1, 0.8700448, 0.5767995, 0.2626906, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oeaq7"]
+gradient = SubResource("Gradient_im5e4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tnevw"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 6.27
+spread = 180.0
+initial_velocity_min = 80.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 1.5
+scale_max = 3.0
+color = Color(0.4745098, 0.043137256, 0.05882353, 1)
+color_ramp = SubResource("GradientTexture1D_oeaq7")
+
+[node name="ExplosionNecromante" type="Node2D"]
+script = ExtResource("1_im5e4")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 80
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_tnevw")
