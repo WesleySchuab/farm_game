@@ -7,6 +7,22 @@ var save_component: SaveLevelDataComponent
 
 	
 
+func _input(event: InputEvent) -> void:
+	if not event.is_pressed():
+		return
+	
+	match event.as_text_keycode():
+		"S":
+			_on_star_game_button_pressed()
+		"V":
+			if SaveGameManager.allow_save_game:
+				_on_save_game_button_pressed()
+		"Escape":
+			_on_exit_button_pressed()
+		"R":
+			_on_restart_pressed()
+
+
 func _ready() -> void:
 	save_component = get_tree().get_first_node_in_group("save_level_data_component")
 	save_game_button.disabled = !SaveGameManager.allow_save_game

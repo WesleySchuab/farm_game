@@ -17,8 +17,10 @@ spread = 180.0
 initial_velocity_min = 80.0
 initial_velocity_max = 200.0
 gravity = Vector3(0, 0, 0)
-scale_min = 1.5
+scale_min = 2.0
 scale_max = 3.0
+scale_over_velocity_min = 2.0
+scale_over_velocity_max = 2.0
 color = Color(0.4745098, 0.043137256, 0.05882353, 1)
 color_ramp = SubResource("GradientTexture1D_oeaq7")
 
@@ -27,7 +29,7 @@ script = ExtResource("1_im5e4")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 80
+amount = 160
 lifetime = 0.6
 one_shot = true
 explosiveness = 1.0

@@ -20,6 +20,10 @@ var _time_in_attack: float = 0.0
 ## Deve corresponder ao frame de "impacto" da animação de ataque
 @export var hitbox_enable_delay: float = 2
 
+## Duração total do estado de ataque (fallback para animações em loop)
+## Deve ser >= hitbox_enable_delay + tempo da animação pós-impacto
+@export var attack_total_duration: float = 3.0
+
 ## Projétil lançado no ataque (ex: BallNecromante). Se null, usa hitbox melee.
 @export var projectile_scene: PackedScene = null
 
@@ -82,10 +86,14 @@ func _on_process(delta: float) -> void:
 		_attack_executed = true
 		print("🔴 [ATTACK STATE] Ataque executado! (t=%.2fs)" % _time_in_attack)
 	
-	# Quando a animação de ataque terminar (não-loop), volta a perseguir
-	# Isso permite que o inimigo ataque novamente após o cooldown
-	if _attack_animation_started and animated_sprite_2d and not animated_sprite_2d.is_playing():
-		print("🔴 [ATTACK STATE] Animação terminou! Voltando para Chase")
+	# Sai do estado de ataque quando:
+	# 1. Tempo mínimo passou E a animação terminou (não-loop), OU
+	# 2. Tempo total do ataque passou (fallback para animações em loop como necromante)
+	var can_exit_by_animation = _attack_animation_started and animated_sprite_2d and not animated_sprite_2d.is_playing()
+	var can_exit_by_timer = _time_in_attack >= attack_total_duration
+	
+	if _time_in_attack >= min_attack_duration and (can_exit_by_animation or can_exit_by_timer):
+		print("🔴 [ATTACK STATE] Saindo! (anim: %s | timer: %s) → Voltando para Chase" % [can_exit_by_animation, can_exit_by_timer])
 		transition.emit("chase")
 
 

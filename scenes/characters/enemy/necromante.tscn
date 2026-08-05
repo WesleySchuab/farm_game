@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://c6jqhg7ik2s2w"]
+[gd_scene load_steps=62 format=3 uid="uid://c6jqhg7ik2s2w"]
 
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
 [ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
@@ -25,7 +25,7 @@ emission_box_extents = Vector3(1, 1, 1)
 spread = 24.882
 initial_velocity_min = -15.0
 initial_velocity_max = 10.0
-gravity = Vector3(0, 5, 0)
+gravity = Vector3(0, -10, 0)
 scale_min = 2.0
 scale_max = 2.0
 color = Color(0.4745098, 0.043137256, 0.05882353, 1)
@@ -34,10 +34,6 @@ color_ramp = SubResource("GradientTexture1D_xa4wr")
 [sub_resource type="AtlasTexture" id="AtlasTexture_xa4wr"]
 atlas = ExtResource("2_8uoqn")
 region = Rect2(0, 256, 160, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o72mc"]
-atlas = ExtResource("2_8uoqn")
-region = Rect2(160, 256, 160, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kvh4t"]
 atlas = ExtResource("2_8uoqn")
@@ -50,10 +46,6 @@ region = Rect2(480, 256, 160, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bllkn"]
 atlas = ExtResource("2_8uoqn")
 region = Rect2(640, 256, 160, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1u4bh"]
-atlas = ExtResource("2_8uoqn")
-region = Rect2(800, 256, 160, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgg1u"]
 atlas = ExtResource("2_8uoqn")
@@ -226,9 +218,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_xa4wr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o72mc")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_kvh4t")
 }, {
 "duration": 1.0,
@@ -236,9 +225,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bllkn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1u4bh")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tgg1u")
@@ -397,23 +383,23 @@ radius = 10.049875
 
 [node name="Necromante" type="CharacterBody2D"]
 y_sort_enabled = true
-position = Vector2(0, -3)
+position = Vector2(-4, -4)
 script = ExtResource("1_o72mc")
 chase_speed = 30.0
-chase_distance = 300.0
-attack_distance = 300.0
+chase_distance = 200.0
+attack_distance = 100.0
 
 [node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
 spawn_duration = 3.0
 
 [node name="RightFoot" type="GPUParticles2D" parent="."]
 position = Vector2(5, -2)
-amount = 40
+amount = 10
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
 [node name="LeftFoot" type="GPUParticles2D" parent="."]
-position = Vector2(-3, 0)
+position = Vector2(4, 3)
 amount = 40
 lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
@@ -423,8 +409,9 @@ texture_filter = 1
 texture_repeat = 2
 position = Vector2(5, -48)
 sprite_frames = SubResource("SpriteFrames_0uc76")
-animation = &"fade"
+animation = &"idle"
 autoplay = "fade"
+frame_progress = 0.2124942
 speed_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
