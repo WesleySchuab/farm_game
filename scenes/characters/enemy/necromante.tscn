@@ -392,6 +392,7 @@ chase_distance = 250.0
 attack_distance = 100.0
 post_spawn_delay = 2.0
 enemy_type = "Necromante"
+sprite_faces_right = true
 
 [node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
 spawn_duration = 3.0
