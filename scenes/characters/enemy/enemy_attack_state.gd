@@ -76,6 +76,9 @@ func _on_enter() -> void:
 
 ## Processa a lógica do estado a cada frame
 func _on_process(delta: float) -> void:
+	if enemy and enemy.is_dead:
+		return
+	
 	time_since_last_attack += delta
 	_time_in_attack += delta
 	
@@ -113,6 +116,8 @@ func _spawn_projectile() -> void:
 
 ## Processa a física do estado a cada frame
 func _on_physics_process(_delta: float) -> void:
+	if enemy and enemy.is_dead:
+		return
 	if not controle_de_animacao_ativo:
 		return
 	
@@ -131,6 +136,9 @@ func _on_physics_process(_delta: float) -> void:
 func _on_next_transitions() -> void:
 	if enemy == null:
 		enemy = owner as Enemy
+	
+	if enemy and enemy.is_dead:
+		return
 	
 	if not controle_de_animacao_ativo or not enemy.player:
 		return

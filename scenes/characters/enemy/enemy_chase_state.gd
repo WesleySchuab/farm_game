@@ -32,6 +32,8 @@ func _on_process(_delta: float) -> void:
 ## Processa a física do estado a cada frame
 ## Calcula direção até o player e se move
 func _on_physics_process(_delta: float) -> void:
+	if enemy and enemy.is_dead:
+		return
 	if not controle_de_animacao_ativo:
 		return
 	
@@ -61,13 +63,20 @@ func _on_next_transitions() -> void:
 	if enemy == null:
 		enemy = owner as Enemy
 	
+	if enemy and enemy.is_dead:
+		return
+	
 	if not controle_de_animacao_ativo or not enemy.player:
 		return
 	
 	var distance = enemy.get_distance_to_player()
 	
+	# 🔍 Debug: mostra quem o inimigo está perseguindo
+	if enemy.player:
+		print("🟡 [CHASE STATE] Perseguindo: ", enemy.player.name, " | Distância: %.2f" % distance)
+	
 	# Se o player está muito perto, transiciona para Attack (respeitando cooldown)
-	if distance <= enemy.attack_distance:
+	if distance <= enemy.attack_distance and enemy.can_attack:
 		var current_time = Time.get_ticks_msec() / 1000.0
 		var time_since_attack = current_time - enemy.last_attack_time
 		if time_since_attack >= enemy.attack_cooldown:

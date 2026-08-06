@@ -19,11 +19,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		print("🎵 Música %s" % ["DESMUTADA" if is_muted else "MUTADA"])
 
 func start_game() -> void:
-	SceneManager.load_main_scene_container()
-	SceneManager.load_level("Level2") 
+	SceneManager.start_game()
 	SaveGameManager.load_game()
 	SaveGameManager.allow_save_game = true
-	#AudioManager.play_level_music()
 
 func exit_game() -> void:
 	get_tree().quit()

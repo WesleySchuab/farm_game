@@ -15,7 +15,7 @@ const ARROW_SCENE: PackedScene = preload("res://scenes/objects/weapons/arrow.tsc
 @export var arrow_speed: float = 300.0
 
 ## Dano causado pela flecha
-@export var arrow_damage: int = 10
+@export var arrow_damage: int = 15
 
 ## Tempo máximo de segurança para evitar travar no estado (fallback)
 @export var shoot_timeout: float = 3.0

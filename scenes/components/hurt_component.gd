@@ -25,6 +25,14 @@ func _on_area_entered(area: Area2D) -> void:
 	if hit_component == null:
 		print("❌ Área não é HitComponent")
 		return
+	
+	# 🛡️ Anti friendly-fire: ignora dano entre inimigos
+	var hit_owner = hit_component.get_parent()
+	var hurt_owner = get_parent()
+	if hit_owner.is_in_group("enemies") and hurt_owner.is_in_group("enemies"):
+		print("🛡️ [FRIENDLY FIRE] Ignorado! Ambos são inimigos.")
+		return
+	
 	print("✅ É HitComponent! Tool esperada: ", DataTypes.Tools.keys()[tool], " | Tool recebida: ", DataTypes.Tools.keys()[hit_component.current_tool])
 	if tool == hit_component.current_tool:
 		hurt.emit(hit_component.hit_damage)

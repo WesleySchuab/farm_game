@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://c6jqhg7ik2s2w"]
+[gd_scene load_steps=64 format=3 uid="uid://c6jqhg7ik2s2w"]
 
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
 [ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_b78sl"]
 [ext_resource type="PackedScene" uid="uid://bnfv246qi62yl" path="res://scenes/attack/ball_necromante.tscn" id="9_xa4wr"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
+[ext_resource type="Script" path="res://scenes/characters/enemy/boss_summon_state.gd" id="12_8uoqn"]
+[ext_resource type="PackedScene" uid="uid://ibaoccj46mfl" path="res://scenes/characters/enemy/enemy.tscn" id="13_xa4wr"]
 
 [sub_resource type="Gradient" id="Gradient_8uoqn"]
 offsets = PackedFloat32Array(0, 0.46721312)
@@ -386,9 +388,10 @@ y_sort_enabled = true
 position = Vector2(-4, -4)
 script = ExtResource("1_o72mc")
 chase_speed = 30.0
-chase_distance = 200.0
+chase_distance = 250.0
 attack_distance = 100.0
 post_spawn_delay = 2.0
+enemy_type = "Necromante"
 
 [node name="PortalSpawnComponent" parent="." instance=ExtResource("2_o72mc")]
 spawn_duration = 3.0
@@ -429,9 +432,9 @@ script = ExtResource("6_tgg1u")
 script = ExtResource("7_32dsg")
 
 [node name="Attack" type="Node" parent="StateMachine"]
-script = ExtResource("8_eu1gg")
-projectile_scene = ExtResource("9_xa4wr")
-projectile_spawn_offset = Vector2(5, 0)
+script = ExtResource("12_8uoqn")
+summon_scenes = Array[PackedScene]([ExtResource("13_xa4wr")])
+summon_count = 1
 
 [node name="HitComponent" parent="." instance=ExtResource("9_b78sl")]
 collision_layer = 4

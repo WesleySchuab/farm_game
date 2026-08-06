@@ -13,8 +13,8 @@ extends CharacterBody2D
 @export var chase_speed: float = 40.0
 
 ## Vida do inimigo
-@export var max_health: float = 30.0
-var current_health: float = 30.0
+@export var max_health: float = 80.0
+var current_health: float = 80.0
 
 ## Distância mínima para começar a perseguir o player
 @export var chase_distance: float = 150.0
@@ -31,12 +31,20 @@ var player: Node2D = null
 ## Variável de controle para o inimigo morrer
 var is_dead: bool = false
 
+## Controle para bosses: se false, o chase state NÃO transita para attack
+## Usado pelo boss_summon_state para limitar invocações a 1 ciclo
+var can_attack: bool = true
+
 ## Controla se a sprite está flipada
 var is_flipped: bool = false
 
 ## Orientação padrão do sprite: true = olha para direita, false = olha para esquerda
 ## MushMario: false (sprite olha pra esquerda) | Necromante: true (sprite olha pra direita)
 @export var sprite_faces_right: bool = true
+
+## Tipo de inimigo (usado para registro e comportamentos especiais)
+## Ex: "Necromante", "MushMario", "" (genérico)
+@export var enemy_type: String = ""
 
 ## Referência à sprite animada
 var animated_sprite_2d: AnimatedSprite2D
@@ -70,14 +78,20 @@ var last_attack_time: float = -9999.0
 func _ready() -> void:
 	# Busca o player na cena através do grupo
 	var players = get_tree().get_nodes_in_group("player")
+	print("👹 [ENEMY] _ready() de ", name, " | Grupo 'player' tem ", players.size(), " nós")
 	if players.size() > 0:
 		player = players[0]
-		print("👹 [ENEMY] Player encontrado: ", player.name)
+		print("👹 [ENEMY] ", name, " - Player encontrado: ", player.name)
 	else:
-		print("❌ [ENEMY] Player NÃO encontrado!")
+		print("❌ [ENEMY] ", name, " - Player NÃO encontrado! Nós na árvore: ", get_tree().root.get_child_count())
 	
 	# Adicionar inimigo ao grupo de inimigos
 	add_to_group("enemies")
+	print("👹 [ENEMY] ", name, " adicionado ao grupo 'enemies'")
+	
+	# Registra aparição do Necromante no registro global
+	if enemy_type == "Necromante":
+		NecromancerRegistry.register_appearance()
 	
 	# Conectar ao sinal de morte do player para parar quando player morre
 	if EventBus:
@@ -103,7 +117,7 @@ func _ready() -> void:
 		if animated_sprite_2d:
 			animated_sprite_2d.play("idle")
 	
-	print("👹 [ENEMY] Inimigo inicializado - Chase Distance: ", chase_distance, " | Attack Distance: ", attack_distance)
+	print("👹 [ENEMY] ", name, " inicializado | player=", player.name if player else "NULL", " | Chase: ", chase_distance, " | Attack: ", attack_distance)
 
 
 ## Toca a animação do inimigo emergindo de um portal (delega ao PortalSpawnComponent)
@@ -200,6 +214,8 @@ func on_hurt(hit_damage: int) -> void:
 
 ## Função para morrer
 func morrer() -> void:
+	if is_dead:
+		return
 	is_dead = true
 	print("👹 Inimigo derrotado!")
 	
@@ -207,6 +223,114 @@ func morrer() -> void:
 	#EventBus.enemy_died.emit()
 	
 	set_physics_process(false)
+	
+	# Desabilita hitbox de ataque
+	disable_hit_box()
+	
+	# Desabilita hurtbox (não pode mais tomar dano)
+	if hurt_component:
+		var hurt_shape = hurt_component.get_node_or_null("CollisionShape2D")
+		if hurt_shape:
+			hurt_shape.disabled = true
+	
+	# Desliga aura (partículas de buff do necromante)
+	var up_aura = get_node_or_null("UpAura") as GPUParticles2D
+	if up_aura:
+		up_aura.emitting = false
+	var down_aura = get_node_or_null("DownAura") as GPUParticles2D
+	if down_aura:
+		down_aura.emitting = false
+	
+	# Ativa portal de despawning (partículas reaparecem enquanto ele morre)
+	if portal_spawn_component:
+		if portal_spawn_component.portal_particles:
+			portal_spawn_component.portal_particles.emitting = true
+			portal_spawn_component.portal_particles.restart()
+		if portal_spawn_component.portal_particles2:
+			portal_spawn_component.portal_particles2.emitting = true
+			portal_spawn_component.portal_particles2.restart()
+	
+	# Toca animação "fade" ao contrário (frame 8 → 0)
+	if animated_sprite_2d:
+		var sprite_frames = animated_sprite_2d.sprite_frames
+		if sprite_frames and sprite_frames.has_animation("fade"):
+			var frame_count: int = sprite_frames.get_frame_count("fade")
+			# Calcula duração total: frames / (anim_speed * speed_scale)
+			var anim_speed: float = sprite_frames.get_animation_speed("fade")
+			var current_scale: float = abs(animated_sprite_2d.speed_scale)
+			var duration: float = frame_count / (anim_speed * current_scale)
+			
+			# Garante que a animação não vai loopar durante o reverse
+			sprite_frames.set_animation_loop("fade", false)
+			
+			# Começa do último frame e toca ao contrário
+			animated_sprite_2d.frame = frame_count - 1
+			animated_sprite_2d.speed_scale = -current_scale
+			animated_sprite_2d.play("fade")
+			
+			# Aguarda a duração total da animação reversa
+			await get_tree().create_timer(duration).timeout
+	
+	queue_free()
+
+
+## Faz o inimigo desaparecer com efeito de portal (igual à morte)
+## Usado pelo boss_summon_state quando o ciclo de invocação termina
+func desaparecer() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	print("👹 ", name, " desaparecendo após invocação!")
+	
+	# Notifica o registro que o Necromante desapareceu
+	if enemy_type == "Necromante":
+		NecromancerRegistry.necromancer_vanished.emit(NecromancerRegistry.total_appearances)
+	
+	set_physics_process(false)
+	
+	# Desabilita hitbox de ataque
+	disable_hit_box()
+	
+	# Desabilita hurtbox (não pode mais tomar dano)
+	if hurt_component:
+		var hurt_shape = hurt_component.get_node_or_null("CollisionShape2D")
+		if hurt_shape:
+			hurt_shape.disabled = true
+	
+	# Desliga aura (partículas de buff do necromante)
+	var up_aura = get_node_or_null("UpAura") as GPUParticles2D
+	if up_aura:
+		up_aura.emitting = false
+	var down_aura = get_node_or_null("DownAura") as GPUParticles2D
+	if down_aura:
+		down_aura.emitting = false
+	
+	# Ativa portal de despawning
+	if portal_spawn_component:
+		if portal_spawn_component.portal_particles:
+			portal_spawn_component.portal_particles.emitting = true
+			portal_spawn_component.portal_particles.restart()
+		if portal_spawn_component.portal_particles2:
+			portal_spawn_component.portal_particles2.emitting = true
+			portal_spawn_component.portal_particles2.restart()
+	
+	# Toca animação "fade" ao contrário (frame final → 0)
+	if animated_sprite_2d:
+		var sprite_frames = animated_sprite_2d.sprite_frames
+		if sprite_frames and sprite_frames.has_animation("fade"):
+			var frame_count: int = sprite_frames.get_frame_count("fade")
+			var anim_speed: float = sprite_frames.get_animation_speed("fade")
+			var current_scale: float = abs(animated_sprite_2d.speed_scale)
+			var duration: float = frame_count / (anim_speed * current_scale)
+			
+			sprite_frames.set_animation_loop("fade", false)
+			
+			animated_sprite_2d.frame = frame_count - 1
+			animated_sprite_2d.speed_scale = -current_scale
+			animated_sprite_2d.play("fade")
+			
+			await get_tree().create_timer(duration).timeout
+	
 	queue_free()
 
 

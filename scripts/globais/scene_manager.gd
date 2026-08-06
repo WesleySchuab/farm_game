@@ -5,7 +5,9 @@ var main_scene_root_path: String = "/root/MainScene"
 var main_scene_level_root_path: String = "/root/MainScene/GameRoot/LevelRoot"
 
 var level_scenes : Dictionary = {
-	"Level2" : "res://scenes/levels/level_2.tscn"
+	"Level1" : "res://scenes/levels/level_1.tscn",
+	"Level2" : "res://scenes/levels/level_2.tscn",
+	"Level3" : "res://scenes/levels/level_3.tscn"
 }
 
 func load_main_scene_container() -> void:
