@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1ajdsb5gmp2j"]
+[gd_scene load_steps=13 format=3 uid="uid://b1ajdsb5gmp2j"]
 
 [ext_resource type="Script" uid="uid://dyq8v1n4m3kxp" path="res://scenes/effects/portal_spawn_component.gd" id="1_mtpsg"]
 
@@ -52,6 +52,26 @@ scale_max = 2.0
 color = Color(0.89639235, 0.101253204, 0.09616845, 1)
 color_ramp = SubResource("GradientTexture1D_s2lt0")
 
+[sub_resource type="Gradient" id="Gradient_s2lt0"]
+offsets = PackedFloat32Array(0, 0.46721312)
+colors = PackedColorArray(0.55817705, 0.058702536, 0.07683813, 1, 0.11858138, 0.11858139, 0.11858136, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xa4wr"]
+gradient = SubResource("Gradient_s2lt0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dnqpv"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 24.882
+initial_velocity_min = -15.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -20, 0)
+scale_min = 2.0
+scale_max = 2.0
+color = Color(0.4745098, 0.043137256, 0.05882353, 1)
+color_ramp = SubResource("GradientTexture1D_xa4wr")
+
 [node name="PortalSpawnComponent" type="Node2D" node_paths=PackedStringArray("portal_particles", "portal_particles2")]
 script = ExtResource("1_mtpsg")
 portal_particles = NodePath("PortalParticles")
@@ -68,3 +88,9 @@ process_material = SubResource("ParticleProcessMaterial_mtpsg")
 position = Vector2(0, 10)
 amount = 300
 process_material = SubResource("ParticleProcessMaterial_cnhev")
+
+[node name="UpAura" type="GPUParticles2D" parent="."]
+position = Vector2(5, -2)
+amount = 50
+lifetime = 1.8
+process_material = SubResource("ParticleProcessMaterial_dnqpv")

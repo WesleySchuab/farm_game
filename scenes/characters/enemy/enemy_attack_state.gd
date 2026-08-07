@@ -91,6 +91,12 @@ func _on_process(delta: float) -> void:
 			# Ataque melee (hitbox)
 			enemy.enable_hit_box()
 		_attack_executed = true
+		# 🔊 Toca som de ataque via SFXComponent
+		var sfx = enemy.get_node_or_null("SFXComponent")
+		if sfx:
+			sfx.attack_triggered.emit()
+		else:
+			print("🔴 [ATTACK STATE] ⚠️ SFXComponent não encontrado em ", enemy.name)
 		print("🔴 [ATTACK STATE] Ataque executado! (t=%.2fs)" % _time_in_attack)
 	
 	# Sai do estado de ataque quando:

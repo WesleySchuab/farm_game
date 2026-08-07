@@ -17,13 +17,35 @@ extends NodeState
 # Dentro do SEU script de transições:
 var controle_de_animacao_ativo: bool = true
 
+# 🔊 Timer de passos
+var _footstep_timer: float = 0.0
+const FOOTSTEP_WALK_INTERVAL: float = 0.45
+const FOOTSTEP_RUN_INTERVAL: float = 0.28
+
 func _ready() -> void:
 	# Se conecta ao sinal de morte
 	EventBus.player_died.connect(_on_player_died)
 
 ## Processa a lógica do estado a cada frame
-func _on_process(_delta : float) -> void:
-	pass
+func _on_process(delta : float) -> void:
+	# 🔊 Passos: lê input DIRETO (não depende de static direction atrasada)
+	var moving: bool = (
+		Input.is_action_pressed("walk_left") or
+		Input.is_action_pressed("walk_right") or
+		Input.is_action_pressed("walk_up") or
+		Input.is_action_pressed("walk_down")
+	)
+	if moving:
+		var wants_to_run: bool = Input.is_action_pressed("run")
+		var interval: float = FOOTSTEP_RUN_INTERVAL if wants_to_run else FOOTSTEP_WALK_INTERVAL
+		_footstep_timer += delta
+		if _footstep_timer >= interval:
+			_footstep_timer = 0.0
+			var sfx = player.get_node_or_null("SFXComponent")
+			if sfx:
+				sfx.footstep_triggered.emit()
+	else:
+		_footstep_timer = 0.0
 
 ## Processa a física do movimento a cada frame
 ## Obtém a direção do input, atualiza a animação correspondente (andar ou correr)
@@ -126,6 +148,8 @@ func _on_enter() -> void:
 ## Executado quando o estado é finalizado
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
+	_footstep_timer = 0.0
+	AudioManager.stop_all_2d()
 	# animated_sprite_2d.speed_scale = 1.0 # Reseta a escala de velocidade ao sair (se usou o opcional)
 
 func _on_player_died() -> void:

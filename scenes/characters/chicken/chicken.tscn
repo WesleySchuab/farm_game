@@ -106,6 +106,7 @@ animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 navigation_agent_2d = NodePath("../../NavigationAgent2D")
 
 [node name="ChickenCluck1SFX" parent="." instance=ExtResource("6_hv82h")]
+volume_db = -80
 
 [node name="AudioPlaytimeComponent" parent="." node_paths=PackedStringArray("audio_playtime_player2D") instance=ExtResource("7_wh5lc")]
 wait_time = 6.0

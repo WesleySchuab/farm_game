@@ -112,6 +112,14 @@ func _ready() -> void:
 	# Configura o componente de spawn (se existir)
 	if portal_spawn_component:
 		portal_spawn_component.spawn_complete.connect(_on_spawn_complete)
+		# Desabilita colisões e física durante o spawn para evitar
+		# que o inimigo colida com o boss que o invocou
+		portal_spawn_component.disable_collisions = [
+			$CollisionShape2D,
+			$HurtComponent/CollisionShape2D,
+			$HitComponent/HitComponentCollisionShape2D,
+		]
+		portal_spawn_component.disable_physics_on = [self]
 		portal_spawn_component.play_spawn()
 	else:
 		# Sem portal: libera o idle imediatamente e toca animação

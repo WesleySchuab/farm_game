@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ibaoccj46mfl"]
+[gd_scene load_steps=40 format=3 uid="uid://ibaoccj46mfl"]
 
 [ext_resource type="Texture2D" uid="uid://c24iv5urjf0d" path="res://game/assets/characters/enemy/mushroom/Mushroom-Idle.png" id="1_7jlhe"]
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_uqam8"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_44pfb"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_hurtc"]
 [ext_resource type="PackedScene" uid="uid://b1ajdsb5gmp2j" path="res://scenes/effects/portal_spawn_component.tscn" id="11_icfsp"]
+[ext_resource type="Script" path="res://scenes/components/sfx_component.gd" id="12_sfxcomp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0uc76"]
 atlas = ExtResource("2_pwjhn")
@@ -209,6 +210,7 @@ radius = 10.049875
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
 chase_speed = 30.0
+sprite_faces_right = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -253,3 +255,7 @@ shape = SubResource("CapsuleShape2D_i0x2j")
 
 [node name="PortalSpawnComponent" parent="." instance=ExtResource("11_icfsp")]
 visible = false
+
+[node name="SFXComponent" type="Node" parent="."]
+script = ExtResource("12_sfxcomp")
+attack_sfx = 4

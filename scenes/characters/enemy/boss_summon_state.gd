@@ -79,6 +79,13 @@ func _on_enter() -> void:
 	if enemy:
 		enemy.last_attack_time = Time.get_ticks_msec() / 1000.0
 	
+	# 🔊 Toca som de invocação
+	var sfx = enemy.get_node_or_null("SFXComponent")
+	if sfx:
+		sfx.summon_triggered.emit()
+	else:
+		print("💀 [BOSS SUMMON] ⚠️ SFXComponent não encontrado em ", enemy.name)
+	
 	print("💀 [BOSS SUMMON] Iniciando ritual de invocação...")
 
 

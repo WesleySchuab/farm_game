@@ -105,6 +105,7 @@ animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 navigation_agent_2d = NodePath("../../NavigationAgent2D")
 
 [node name="CowMooSFX" parent="." instance=ExtResource("6_cgos1")]
+volume_db = -80
 
 [node name="AudioPlaytimeComponent" parent="." node_paths=PackedStringArray("audio_playtime_player2D") instance=ExtResource("7_gsrfl")]
 wait_time = 7.0

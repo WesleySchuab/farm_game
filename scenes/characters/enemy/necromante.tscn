@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://c6jqhg7ik2s2w"]
+[gd_scene load_steps=65 format=3 uid="uid://c6jqhg7ik2s2w"]
 
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_o72mc"]
 [ext_resource type="Texture2D" uid="uid://cpdad4b5gequr" path="res://game/assets/characters/enemy/necromante/Necromancer_creativekind-Sheet.png" id="2_8uoqn"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
 [ext_resource type="Script" path="res://scenes/characters/enemy/boss_summon_state.gd" id="12_8uoqn"]
 [ext_resource type="PackedScene" uid="uid://ibaoccj46mfl" path="res://scenes/characters/enemy/enemy.tscn" id="13_xa4wr"]
+[ext_resource type="Script" path="res://scenes/components/sfx_component.gd" id="14_sfxcomp"]
 
 [sub_resource type="Gradient" id="Gradient_8uoqn"]
 offsets = PackedFloat32Array(0, 0.46721312)
@@ -453,3 +454,8 @@ tool = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
 position = Vector2(7, -21)
 shape = SubResource("CapsuleShape2D_i0x2j")
+
+[node name="SFXComponent" type="Node" parent="."]
+script = ExtResource("14_sfxcomp")
+attack_sfx = 6
+summon_sfx = 5
