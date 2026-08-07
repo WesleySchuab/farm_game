@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="fallen_realm2"
 run/main_scene="uid://crfiq1tjsrdgy"
-config/features=PackedStringArray("4.5", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [audio]
@@ -28,7 +28,7 @@ buses/default_bus_layout="uid://cu25fbwj5ayn"
 ToolManager="*res://scripts/globais/tool_manager.gd"
 InventoryManager="*res://scripts/globais/inventory_manager.gd"
 SaveGameManager="*res://scripts/globais/save_game_manager.gd"
-DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+DialogueManager="*uid://pewt4eh8gwec"
 GameDialogueManager="*res://scripts/globais/game_dialogue_manager.gd"
 GameManager="*res://scripts/globais/game_manager.gd"
 DayAndNightCycleManager="*res://scripts/globais/day_and_night_cycle_manager.gd"

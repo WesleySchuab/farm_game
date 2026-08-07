@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://cvkorhnyofafy"]
+[gd_resource type="Theme" format=3 uid="uid://cvkorhnyofafy"]
 
 [ext_resource type="Texture2D" uid="uid://baeisbo88x5g7" path="res://game/basic_ui_sprit.png" id="1_tge16"]
 [ext_resource type="FontFile" uid="uid://b76qq71u1mxyf" path="res://game/assets/ui/fonts/pixelFont-7-8x14-sproutLands.ttf" id="1_xukoe"]

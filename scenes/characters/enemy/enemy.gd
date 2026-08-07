@@ -10,7 +10,7 @@ extends CharacterBody2D
 @onready var hurt_component: HurtComponent = $HurtComponent
 
 ## Velocidade de movimentação do inimigo
-@export var chase_speed: float = 40.0
+@export var chase_speed: float = 50.0
 
 ## Vida do inimigo
 @export var max_health: float = 80.0
@@ -65,7 +65,7 @@ var _is_spawning: bool = true
 var _post_spawn_cooldown: float = 0.0
 
 ## Tempo (em segundos) que o inimigo permanece na animação "fade" após o portal sumir
-@export var post_spawn_delay: float = 0.5
+@export var post_spawn_delay: float = 0.4
 
 ## Tempo do último ataque (usado para cooldown entre ataques)
 var last_attack_time: float = -9999.0

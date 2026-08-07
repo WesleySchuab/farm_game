@@ -35,6 +35,9 @@ var controle_de_animacao_ativo: bool = true
 ## Quantos ciclos de invocação o boss pode fazer (1 = invoca apenas uma vez)
 @export var max_summon_cycles: int = 1
 
+## Cena do portal que aparece antes de cada inimigo spawnar
+@export var portal_enemies_scene: PackedScene
+
 ## Cooldown entre summons (gerenciado pelo Enemy.attack_cooldown)
 ## Este estado usa enemy.last_attack_time para respeitar o cooldown
 
@@ -45,6 +48,7 @@ var _spawn_counter: int = 0
 var _spawn_timer: float = 0.0
 var _summon_cycles_done: int = 0
 var _vanishing: bool = false
+var _portal_active: bool = false
 
 
 func _ready() -> void:
@@ -70,6 +74,7 @@ func _on_enter() -> void:
 	_summon_executed = false
 	_spawn_counter = 0
 	_spawn_timer = 0.0
+	_portal_active = false
 	
 	# Toca a animação de "attack" como ritual de invocação
 	if animated_sprite_2d:
@@ -108,9 +113,12 @@ func _on_process(delta: float) -> void:
 	
 	# Spawna inimigos um por um com intervalo
 	if _summon_started and not _summon_executed:
+		if _portal_active:
+			return  # espera o portal atual terminar
 		_spawn_timer += delta
 		if _spawn_timer >= spawn_interval and _spawn_counter < summon_count:
 			_spawn_timer = 0.0
+			_portal_active = true
 			_spawn_one_enemy(_spawn_counter)
 			_spawn_counter += 1
 		
@@ -135,41 +143,43 @@ func _on_process(delta: float) -> void:
 
 
 ## Spawna um único inimigo na posição designada
+## Primeiro cria o portal, espera a animação, depois spawna o inimigo
 func _spawn_one_enemy(index: int) -> void:
 	if not enemy or summon_scenes.is_empty():
 		return
 	
-	# Escolhe uma cena (aleatória ou cíclica)
-	var scene = summon_scenes[index % summon_scenes.size()]
-	var spawned_enemy = scene.instantiate()
-	
 	# Define posição de spawn relativa ao boss
 	var offset = spawn_offsets[index % spawn_offsets.size()]
-	spawned_enemy.global_position = enemy.global_position + offset
+	var spawn_pos: Vector2 = enemy.global_position + offset
 	
-	# 🔍 DEBUG: verifica estado do boss antes do spawn
-	print("💀 [BOSS SUMMON] Spawn #", index + 1, " | Boss player: ", enemy.player.name if enemy.player else "NULL")
-	print("💀 [BOSS SUMMON] Spawn #", index + 1, " | Grupo 'player' tem ", get_tree().get_nodes_in_group("player").size(), " nós")
+	print("💀 [BOSS SUMMON] Abrindo portal #", index + 1, " em ", spawn_pos)
 	
-	# Adiciona ao mesmo parent do boss (a cena do nível)
-	# ⚠️ add_child dispara _ready() que tenta encontrar o player via grupo
+	# Cria o portal na posição de spawn
+	if portal_enemies_scene:
+		var portal = portal_enemies_scene.instantiate()
+		portal.global_position = spawn_pos
+		enemy.get_parent().add_child(portal)
+		portal.play_spawn()
+		await portal.spawn_complete
+		portal.queue_free()
+	
+	# Agora spawna o inimigo
+	var scene = summon_scenes[index % summon_scenes.size()]
+	var spawned_enemy = scene.instantiate()
+	spawned_enemy.global_position = spawn_pos
+	
 	enemy.get_parent().add_child(spawned_enemy)
 	
-	# 🔧 Força o player do inimigo spawnado a ser o mesmo player que o boss está mirando
-	# (sobrescreve qualquer valor que _ready() possa ter definido incorretamente)
+	# Força o player do inimigo spawnado
 	if enemy.player:
 		spawned_enemy.player = enemy.player
-		print("💀 [BOSS SUMMON] ✓ player FORÇADO para: ", enemy.player.name)
 	else:
-		print("💀 [BOSS SUMMON] ❌ Boss está sem player! Tentando achar via grupo...")
 		var players = get_tree().get_nodes_in_group("player")
 		if players.size() > 0:
 			spawned_enemy.player = players[0]
-			print("💀 [BOSS SUMMON] ✓ player encontrado via grupo: ", players[0].name)
-		else:
-			print("💀 [BOSS SUMMON] ❌ Nenhum nó no grupo 'player'! O player existe na cena?")
 	
-	print("💀 [BOSS SUMMON] Inimigo #", index + 1, " invocado | Alvo FINAL: ", spawned_enemy.player.name if spawned_enemy.player else "NULL")
+	print("💀 [BOSS SUMMON] Inimigo #", index + 1, " invocado via portal!")
+	_portal_active = false
 
 
 func _on_physics_process(_delta: float) -> void:

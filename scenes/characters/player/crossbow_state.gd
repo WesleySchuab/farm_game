@@ -8,6 +8,9 @@ extends NodeState
 ## Referência ao componente de sprite animado
 @export var animated_sprite_2d: AnimatedSprite2D
 
+## Componente de SFX para tocar som de disparo
+@export var sfx_component: SFXComponent
+
 ## Cena da flecha instanciada ao disparar
 const ARROW_SCENE: PackedScene = preload("res://scenes/objects/weapons/arrow.tscn")
 
@@ -36,6 +39,10 @@ func _on_enter() -> void:
 	
 	_play_shoot_animation()
 	_shoot_arrow()
+	
+	# Toca o som de disparo da besta
+	if sfx_component:
+		sfx_component.attack_triggered.emit()
 
 
 ## Processa a lógica do estado a cada frame

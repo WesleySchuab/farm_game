@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=33 format=3 uid="uid://8i5gd41smlvv"]
+[gd_resource type="Theme" format=3 uid="uid://8i5gd41smlvv"]
 
 [ext_resource type="Texture2D" uid="uid://baeisbo88x5g7" path="res://game/basic_ui_sprit.png" id="1_ui_theme"]
 [ext_resource type="FontVariation" uid="uid://dg0y7bmhlkbmt" path="res://game/assets/ui/fonts/zx_palm_variation.tres" id="2_68i34"]

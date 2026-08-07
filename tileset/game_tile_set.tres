@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=24 format=3 uid="uid://b2x23mbkgbkno"]
+[gd_resource type="TileSet" format=3 uid="uid://b2x23mbkgbkno"]
 
 [ext_resource type="Texture2D" uid="uid://dxhh1y0iaask2" path="res://game/assets/tilesets/water.png" id="1_x3013"]
 [ext_resource type="PackedScene" uid="uid://dwi2308ajj6mv" path="res://scenes/houses/large_house.tscn" id="2_kn61u"]

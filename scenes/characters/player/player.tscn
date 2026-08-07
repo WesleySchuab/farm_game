@@ -905,10 +905,11 @@ script = ExtResource("9_42irl")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 
-[node name="Crossbow" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
+[node name="Crossbow" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d", "sfx_component")]
 script = ExtResource("13_crssb")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+sfx_component = NodePath("../../SFXComponent")
 
 [node name="HitComponent" parent="." instance=ExtResource("10_3xnwo")]
 current_tool = 0

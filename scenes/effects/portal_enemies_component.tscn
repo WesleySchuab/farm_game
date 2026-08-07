@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://ctapyx3vdeojk"]
+
+[ext_resource type="Script" uid="uid://dyq8v1n4m3kxp" path="res://scenes/effects/portal_spawn_component.gd" id="1_6ta8t"]
+
+[sub_resource type="Gradient" id="Gradient_mtpsg"]
+offsets = PackedFloat32Array(0, 0.45901638)
+colors = PackedColorArray(0.69375503, 0.087517016, 0.11278897, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o72mc"]
+gradient = SubResource("Gradient_mtpsg")
+
+[sub_resource type="Gradient" id="Gradient_htvfh"]
+offsets = PackedFloat32Array(0, 0.47302905, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.18431373, 0.003921569, 0.003921569, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ls60r"]
+gradient = SubResource("Gradient_htvfh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mtpsg"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 1, 100)
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 25.0
+gravity = Vector3(10, -2, 10)
+scale_min = 1.5
+scale_max = 2.0
+color = Color(0.28651282, 0.015224052, 0.021624472, 1)
+color_ramp = SubResource("GradientTexture1D_ls60r")
+color_initial_ramp = SubResource("GradientTexture1D_o72mc")
+
+[sub_resource type="Gradient" id="Gradient_wec2n"]
+offsets = PackedFloat32Array(0, 0.47302905, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.18431373, 0.003921569, 0.003921569, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s2lt0"]
+gradient = SubResource("Gradient_wec2n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cnhev"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 1, 100)
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, -1, 0)
+scale_min = 0.0
+scale_max = 2.0
+color = Color(0.89639235, 0.101253204, 0.09616845, 1)
+color_ramp = SubResource("GradientTexture1D_s2lt0")
+
+[sub_resource type="Gradient" id="Gradient_s2lt0"]
+offsets = PackedFloat32Array(0, 0.46721312)
+colors = PackedColorArray(0.55817705, 0.058702536, 0.07683813, 1, 0.11858138, 0.11858139, 0.11858136, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xa4wr"]
+gradient = SubResource("Gradient_s2lt0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dnqpv"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 24.882
+initial_velocity_min = -15.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -20, 0)
+scale_min = 2.0
+scale_max = 2.0
+color = Color(0.4745098, 0.043137256, 0.05882353, 1)
+color_ramp = SubResource("GradientTexture1D_xa4wr")
+
+[node name="PortalEnemiesComponent" type="Node2D" unique_id=1625141128 node_paths=PackedStringArray("portal_particles", "portal_particles2")]
+script = ExtResource("1_6ta8t")
+portal_particles = NodePath("PortalParticles")
+portal_particles2 = NodePath("PortalParticles2")
+spawn_duration = 1.5
+
+[node name="PortalParticles" type="GPUParticles2D" parent="." unique_id=113805018]
+position = Vector2(0, 10)
+amount = 350
+lifetime = 2.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_mtpsg")
+
+[node name="PortalParticles2" type="GPUParticles2D" parent="." unique_id=1068974491]
+position = Vector2(0, 10)
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_cnhev")
+
+[node name="UpAura" type="GPUParticles2D" parent="." unique_id=1828576865]
+position = Vector2(5, -2)
+amount = 50
+lifetime = 1.8
+process_material = SubResource("ParticleProcessMaterial_dnqpv")
