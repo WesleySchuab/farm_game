@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://voe5r2l5gvhh"
+path="res://.godot/imported/storage_chest.dialogue-fcc4c4ab8c7c204e73cea57e840c78b9.tres"
+
+[deps]
+
+source_file="res://dialogue/conversations/storage_chest.dialogue"
+dest_files=["res://.godot/imported/storage_chest.dialogue-fcc4c4ab8c7c204e73cea57e840c78b9.tres"]
+
+[params]
+
+defaults=true

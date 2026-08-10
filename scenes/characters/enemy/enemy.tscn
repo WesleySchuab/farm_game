@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ibaoccj46mfl"]
+[gd_scene format=3 uid="uid://ibaoccj46mfl"]
 
 [ext_resource type="Texture2D" uid="uid://c24iv5urjf0d" path="res://game/assets/characters/enemy/mushroom/Mushroom-Idle.png" id="1_7jlhe"]
 [ext_resource type="Script" uid="uid://dvjqtx3su0cj8" path="res://scenes/characters/enemy/enemy.gd" id="1_uqam8"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_44pfb"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_hurtc"]
 [ext_resource type="PackedScene" uid="uid://b1ajdsb5gmp2j" path="res://scenes/effects/portal_spawn_component.tscn" id="11_icfsp"]
-[ext_resource type="Script" path="res://scenes/components/sfx_component.gd" id="12_sfxcomp"]
+[ext_resource type="Script" uid="uid://drtvr5vjqngwk" path="res://scenes/components/sfx_component.gd" id="12_sfxcomp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0uc76"]
 atlas = ExtResource("2_pwjhn")
@@ -142,7 +142,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_emon8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack",
 "speed": 4.0
 }, {
@@ -165,7 +165,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_icfsp")
 }],
-"loop": false,
+"loop": 0,
 "name": &"idle",
 "speed": 3.0
 }, {
@@ -194,7 +194,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qvr0l")
 }],
-"loop": false,
+"loop": 0,
 "name": &"run",
 "speed": 5.0
 }]
@@ -206,13 +206,12 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_72liy"]
 radius = 10.049875
 
-[node name="MushMario" type="CharacterBody2D"]
+[node name="MushMario" type="CharacterBody2D" unique_id=1143138871]
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
 chase_speed = 30.0
-sprite_faces_right = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=595899569]
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(1, -29)
@@ -220,42 +219,42 @@ sprite_frames = SubResource("SpriteFrames_0uc76")
 animation = &"idle"
 speed_scale = 0.6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728694747]
 position = Vector2(1, -14)
 shape = SubResource("CapsuleShape2D_i0x2j")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=1431679439 node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("5_pu3g4")
 initial_node_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1227079731]
 script = ExtResource("6_uqhpy")
 
-[node name="Chase" type="Node" parent="StateMachine"]
+[node name="Chase" type="Node" parent="StateMachine" unique_id=1736091674]
 script = ExtResource("7_i0x2j")
 
-[node name="Attack" type="Node" parent="StateMachine"]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=32715165]
 script = ExtResource("8_44pfb")
 
-[node name="HitComponent" parent="." instance=ExtResource("9_44pfb")]
+[node name="HitComponent" parent="." unique_id=1475391861 instance=ExtResource("9_44pfb")]
 collision_layer = 4
 collision_mask = 2
 hit_damage = 10
 
-[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent" unique_id=723228486]
 shape = SubResource("CircleShape2D_72liy")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)
 
-[node name="HurtComponent" parent="." instance=ExtResource("10_hurtc")]
+[node name="HurtComponent" parent="." unique_id=1817968429 instance=ExtResource("10_hurtc")]
 tool = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=140059625]
 position = Vector2(1, -14)
 shape = SubResource("CapsuleShape2D_i0x2j")
 
-[node name="PortalSpawnComponent" parent="." instance=ExtResource("11_icfsp")]
+[node name="PortalSpawnComponent" parent="." unique_id=1377189249 instance=ExtResource("11_icfsp")]
 visible = false
 
-[node name="SFXComponent" type="Node" parent="."]
+[node name="SFXComponent" type="Node" parent="." unique_id=1420549089]
 script = ExtResource("12_sfxcomp")
 attack_sfx = 4

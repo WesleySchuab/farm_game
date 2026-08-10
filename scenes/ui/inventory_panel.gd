@@ -12,8 +12,8 @@ func _ready() -> void:
 
 func on_inventory_changed() -> void:
 	var inventory : Dictionary = InventoryManager.inventory
-	if inventory.has("log"):
-		log_label.text = str(inventory["log"])
+	if inventory.has("wood"):
+		log_label.text = str(inventory["wood"])
 	if inventory.has("stone"):
 		stone_label.text = str(inventory["stone"])
 	if inventory.has("corn"):

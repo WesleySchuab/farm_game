@@ -17,7 +17,8 @@ extends Node
 #   1 = Level 2 (Necromante + Mushrooms)
 #   2 = Level 3 (Novo inimigo)
 # ═══════════════════════════════════════════════
-const DEV_START_LEVEL: int = 1
+# Sempre um numero a menos do nome que o level leva
+const DEV_START_LEVEL: int = 0
 
 # ── Caminhos da estrutura ──
 const MAIN_SCENE_PATH: String = "res://scenes/main_scene.tscn"

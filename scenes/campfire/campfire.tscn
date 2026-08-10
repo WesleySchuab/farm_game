@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cnjdnj4k0vroj"]
+
+[ext_resource type="Script" uid="uid://dm54sr4lefyfx" path="res://scenes/campfire/campfire.gd" id="1_56ahn"]
+[ext_resource type="Texture2D" uid="uid://dsq84bhlavp5e" path="res://game/assets/Objects/fire_big.png" id="2_5yci7"]
+[ext_resource type="PackedScene" uid="uid://c2ey656s5cb3p" path="res://scenes/components/interactable_component.tscn" id="3_interact"]
+[ext_resource type="PackedScene" uid="uid://c4n7smm36tfvm" path="res://scenes/components/interactable_label_component.tscn" id="4_label"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcaur"]
+size = Vector2(17, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 40.0
+
+[node name="Campfire" type="Node2D" unique_id=659782925]
+position = Vector2(1, -9)
+scale = Vector2(2, 2)
+script = ExtResource("1_56ahn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=157698098]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_vcaur")
+
+[node name="InteractableComponent" parent="." unique_id=1201334210 instance=ExtResource("3_interact")]
+position = Vector2(-2.5, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=1271977336]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=685746370]
+texture = ExtResource("2_5yci7")
+
+[node name="FireParticles" type="GPUParticles2D" parent="." unique_id=1687946290]
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=641547958]
+
+[node name="InteractableLabelComponent" parent="." unique_id=1988570537 instance=ExtResource("4_label")]
+offset_left = -36.0
+offset_top = -43.5
+offset_right = -18.0
+offset_bottom = -25.5

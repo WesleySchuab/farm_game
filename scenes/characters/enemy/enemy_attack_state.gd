@@ -114,7 +114,8 @@ func _on_process(delta: float) -> void:
 func _spawn_projectile() -> void:
 	var ball = projectile_scene.instantiate()
 	ball.global_position = enemy.global_position + projectile_spawn_offset
-	ball.direction = enemy.get_direction_to_player()
+	# Calcula direção da posição REAL da bola até o player (não dos pés do inimigo)
+	ball.direction = (enemy.player.global_position - ball.global_position).normalized()
 	ball.speed = projectile_speed
 	enemy.get_parent().add_child(ball)
 	print("💀 [ATTACK STATE] Projétil lançado! Offset: ", projectile_spawn_offset)

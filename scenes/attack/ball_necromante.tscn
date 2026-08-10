@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnfv246qi62yl"]
+[gd_scene format=3 uid="uid://bnfv246qi62yl"]
 
 [ext_resource type="Script" uid="uid://b2p76am3x508q" path="res://scenes/attack/ball_necromante.gd" id="1_kwbmj"]
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="2_kufqf"]
@@ -52,36 +52,37 @@ turbulence_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_kufqf"]
 radius = 10.049875
 
-[node name="BallNecromante" type="Area2D"]
+[node name="BallNecromante" type="Area2D" unique_id=558061610]
 position = Vector2(0, -5)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_kwbmj")
-damage = 30
+damage = 20
+knockback_mode = 1
 explosion_scene = ExtResource("2_sdbpx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=971131419]
 shape = SubResource("CircleShape2D_s7wsd")
 
-[node name="CoreAura" type="GPUParticles2D" parent="."]
+[node name="CoreAura" type="GPUParticles2D" parent="." unique_id=635210774]
 amount = 200
 lifetime = 0.46
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_0cvp5")
 
-[node name="TrailAura" type="GPUParticles2D" parent="."]
+[node name="TrailAura" type="GPUParticles2D" parent="." unique_id=740116803]
 amount = 60
 trail_lifetime = 0.8
 process_material = SubResource("ParticleProcessMaterial_s7wsd")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1371059098]
 
-[node name="HitComponent" parent="." instance=ExtResource("2_kufqf")]
+[node name="HitComponent" parent="." unique_id=450001649 instance=ExtResource("2_kufqf")]
 collision_layer = 4
 collision_mask = 2
 hit_damage = 10
 
-[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
+[node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent" unique_id=1162770038]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_kufqf")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)

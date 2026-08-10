@@ -17,7 +17,7 @@ extends CharacterBody2D
 var current_health: float = 80.0
 
 ## Distância mínima para começar a perseguir o player
-@export var chase_distance: float = 150.0
+@export var chase_distance: float = 200.0
 
 ## Distância para atacar o player
 @export var attack_distance: float = 30.0

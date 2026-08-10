@@ -1,0 +1,4 @@
+~ start
+Marlow: A fogueira está acesa. Vou colocar mais lenha.
+do GameDialogueManager.action_add_fuel_to_campfire()
+=> END
