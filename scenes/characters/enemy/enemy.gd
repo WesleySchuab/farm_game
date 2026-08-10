@@ -4,10 +4,15 @@ extends CharacterBody2D
 ## Classe principal do inimigo
 ## Gerencia o inimigo controlado por IA com máquina de estados
 
+const WORLD_HEALTH_BAR = preload("res://scenes/components/world_health_bar.tscn")
+
 @onready var hit_component: HitComponent = $HitComponent
 
 ## Componente que detecta quando o inimigo é atingido por flechas (Crossbow)
 @onready var hurt_component: HurtComponent = $HurtComponent
+
+## Barra de vida no mundo
+var health_bar: WorldHealthBar
 
 ## Velocidade de movimentação do inimigo
 @export var chase_speed: float = 50.0
@@ -108,6 +113,9 @@ func _ready() -> void:
 	# Obter referência ao collision shape do hit component
 	hit_component_collision_shape = get_node("HitComponent/HitComponentCollisionShape2D")
 	_hitbox_default_position = hit_component_collision_shape.position
+	
+	# Cria e configura a barra de vida no mundo
+	_create_health_bar()
 	
 	# Configura o componente de spawn (se existir)
 	if portal_spawn_component:
@@ -211,6 +219,9 @@ func get_direction_to_player() -> Vector2:
 func adicionar_vida(quantidade: float) -> void:
 	current_health = clampf(current_health + quantidade, 0.0, max_health)
 	
+	if health_bar:
+		health_bar.update_value(current_health)
+	
 	if current_health <= 0.0:
 		morrer()
 
@@ -219,6 +230,17 @@ func adicionar_vida(quantidade: float) -> void:
 func on_hurt(hit_damage: int) -> void:
 	print("👹 [ENEMY] Recebeu ", hit_damage, " de dano! Vida atual: ", current_health)
 	adicionar_vida(-hit_damage)
+
+
+## Cria e configura a barra de vida no mundo
+func _create_health_bar() -> void:
+	health_bar = WORLD_HEALTH_BAR.instantiate()
+	health_bar.configure(Color(0.8, 0.2, 0.2), Color(0.15, 0.15, 0.15, 0.8), 5)
+	health_bar.setup(max_health)
+	health_bar.hide_when_full = true
+	# Posiciona acima do inimigo (ajuste de altura pode variar por tipo)
+	health_bar.position = Vector2(0, -40)
+	add_child(health_bar)
 
 
 ## Função para morrer
@@ -232,6 +254,10 @@ func morrer() -> void:
 	#EventBus.enemy_died.emit()
 	
 	set_physics_process(false)
+	
+	# Esconde barra de vida
+	if health_bar:
+		health_bar.hide()
 	
 	# Desabilita hitbox de ataque
 	disable_hit_box()

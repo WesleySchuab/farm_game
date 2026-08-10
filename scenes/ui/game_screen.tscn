@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnb21jumvnft5"]
+[gd_scene format=3 uid="uid://dnb21jumvnft5"]
 
 [ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="PackedScene" uid="uid://cfwswekht6j1n" path="res://scenes/emotes_panel.tscn" id="2_0kkfd"]
@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://cacjrq658rpcd" path="res://scenes/ui/health_bar.tscn" id="6_nwa5a"]
 [ext_resource type="PackedScene" uid="uid://7vhqefqoiqc0" path="res://scenes/action_prompt.tscn" id="6_ooiym"]
 
-[node name="GameScreen" type="CanvasLayer"]
+[node name="GameScreen" type="CanvasLayer" unique_id=2027225783]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2050001558]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,40 +22,40 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = ExtResource("1_e2vrk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=645529731]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="InventoryPanel" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_gusqm")]
+[node name="InventoryPanel" parent="MarginContainer/VBoxContainer" unique_id=1776575802 instance=ExtResource("3_gusqm")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="ToolsPanel" parent="MarginContainer" instance=ExtResource("2_gusqm")]
+[node name="ToolsPanel" parent="MarginContainer" unique_id=542143023 instance=ExtResource("2_gusqm")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="DayAndNightPanel" parent="MarginContainer" instance=ExtResource("4_gkbp4")]
+[node name="DayAndNightPanel" parent="MarginContainer" unique_id=1802210323 instance=ExtResource("4_gkbp4")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="EmotesPanel" parent="." instance=ExtResource("2_0kkfd")]
+[node name="EmotesPanel" parent="." unique_id=700116782 instance=ExtResource("2_0kkfd")]
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 61.0
 offset_bottom = 60.0
 size_flags_horizontal = 4
 
-[node name="ActionPrompt" parent="." instance=ExtResource("6_ooiym")]
-offset_left = -101.0
-offset_top = -103.0
-offset_right = -51.0
-offset_bottom = -53.0
+[node name="ActionPrompt" parent="." unique_id=1207700610 instance=ExtResource("6_ooiym")]
+offset_left = -295.0
+offset_top = -94.0
+offset_right = -145.0
+offset_bottom = -44.0
 
-[node name="HealthBar" parent="." instance=ExtResource("6_nwa5a")]
+[node name="HealthBar" parent="." unique_id=1013264914 instance=ExtResource("6_nwa5a")]
 offset_left = -36.0
 offset_top = 11.0
 offset_right = -36.0

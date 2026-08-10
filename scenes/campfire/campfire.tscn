@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c4n7smm36tfvm" path="res://scenes/components/interactable_label_component.tscn" id="4_label"]
 [ext_resource type="Texture2D" uid="uid://cy7vvfv4isbjh" path="res://game/assets/Objects/fire/fire_big2.png" id="5_8pjve"]
 [ext_resource type="Texture2D" uid="uid://evvxjcxw6m22" path="res://game/assets/Objects/fire/fire_big3.png" id="5_auago"]
+[ext_resource type="PackedScene" uid="uid://dlsrvp8y5fjvc" path="res://scenes/components/world_health_bar.tscn" id="5_healthbar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcaur"]
 size = Vector2(17, 16)
@@ -81,6 +82,8 @@ frame_progress = 0.6899041
 [node name="FireParticles" type="GPUParticles2D" parent="." unique_id=1687946290]
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=641547958]
+
+[node name="WorldHealthBar" parent="." unique_id=-2039862889 instance=ExtResource("5_healthbar")]
 
 [node name="InteractableLabelComponent" parent="." unique_id=1988570537 instance=ExtResource("4_label")]
 offset_left = -36.0

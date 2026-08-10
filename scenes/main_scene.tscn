@@ -21,7 +21,7 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 [node name="Player" parent="GameRoot" unique_id=1156919991 instance=ExtResource("3_rt2n2")]
-position = Vector2(121, 283)
+position = Vector2(182, 237)
 
 [node name="Camera2D" type="Camera2D" parent="GameRoot/Player" unique_id=1708413689]
 

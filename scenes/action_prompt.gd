@@ -10,7 +10,10 @@ extends Panel
 
 func _ready() -> void:
 	visible = false
-	
+
+	# Destaca a tecla com cor diferente para diferenciá-la do texto
+	key_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))  # amarelo/dourado
+
 	EventBus.show_action_prompt.connect(_on_show_action_prompt)
 	EventBus.hide_action_prompt.connect(_on_hide_action_prompt)
 

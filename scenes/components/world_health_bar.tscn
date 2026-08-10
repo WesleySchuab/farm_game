@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dlsrvp8y5fjvc"]
+
+[ext_resource type="Script" path="res://scenes/components/world_health_bar.gd" id="1_script"]
+
+[node name="WorldHealthBar" type="ProgressBar"]
+custom_minimum_size = Vector2(40, 6)
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 20.0
+offset_bottom = -24.0
+theme_override_font_sizes/font_size = 0
+theme_override_styles/background = null
+theme_override_styles/fill = null
+max_value = 100.0
+value = 100.0
+show_percentage = false
+script = ExtResource("1_script")

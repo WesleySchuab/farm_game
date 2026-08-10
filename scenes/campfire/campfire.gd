@@ -3,7 +3,7 @@ extends Node2D
 
 ## Combustível atual e máximo
 @export var max_fuel: float = 100.0
-@export var fuel_drain_rate: float = 2.0  # por segundo
+@export var fuel_drain_rate: float = 0.2  # por segundo
 @export var fuel_per_wood: float = 25.0   # quanto cada madeira adiciona
 @export var is_lit: bool = true
 
@@ -14,9 +14,15 @@ var in_range: bool = false
 @onready var interact_label: Control = $InteractableLabelComponent
 @onready var fire_particles: GPUParticles2D = $FireParticles
 @onready var point_light: PointLight2D = $PointLight2D
+@onready var health_bar: WorldHealthBar = $WorldHealthBar
 
 func _ready() -> void:
 	_fuel_level = max_fuel
+	
+	# Configura a barra de combustível (laranja/âmbar)
+	health_bar.configure(Color(1.0, 0.55, 0.0), Color(0.15, 0.1, 0.05, 0.8), 5)
+	health_bar.setup(max_fuel)
+	health_bar.hide_when_full = true
 	
 	# Conecta aos sinais do InteractableComponent (padrão testado e funcional)
 	interactable_component.interactable_activated.connect(_on_interactable_activated)
@@ -40,6 +46,7 @@ func _process(delta: float) -> void:
 	# Drena combustível ao longo do tempo
 	_fuel_level = max(0.0, _fuel_level - fuel_drain_rate * delta)
 	_update_visuals()
+	health_bar.update_value(_fuel_level)
 
 	if _fuel_level <= 0.0:
 		_extinguish()
@@ -110,6 +117,7 @@ func _try_add_fuel_from_inventory() -> void:
 ## Adiciona combustível e reacende se necessário
 func _add_fuel(amount: float) -> void:
 	_fuel_level = min(max_fuel, _fuel_level + amount)
+	health_bar.update_value(_fuel_level)
 	if not is_lit and _fuel_level > 0:
 		_ignite()
 
@@ -118,6 +126,7 @@ func _ignite() -> void:
 	is_lit = true
 	fire_particles.emitting = true
 	point_light.enabled = true
+	health_bar.show()
 	EventBus.campfire_lit.emit()
 	print("🔥 [CAMPFIRE] Fogueira acesa!")
 
@@ -126,5 +135,6 @@ func _extinguish() -> void:
 	is_lit = false
 	fire_particles.emitting = false
 	point_light.enabled = false
+	health_bar.hide()
 	EventBus.campfire_died.emit()
 	print("🔥 [CAMPFIRE] Fogueira apagou! Sem combustível.")
