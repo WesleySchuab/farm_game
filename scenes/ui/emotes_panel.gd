@@ -5,8 +5,9 @@ extends Panel
 
 
 func _ready() -> void:
-	#action_prompt.visible = false
-	animated_sprite_2d.play("right_click")
+	action_prompt.visible = false
+	#animated_sprite_2d.play("right_click")
+	pass
 	
 	
 	

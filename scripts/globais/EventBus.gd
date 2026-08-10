@@ -9,3 +9,7 @@ signal player_died
 signal campfire_lit
 signal campfire_died
 signal campfire_fuel_changed(fuel: float, max_fuel: float)
+
+## Sinais para controlar o Action Prompt (UI)
+signal show_action_prompt(key: String, label: String)
+signal hide_action_prompt

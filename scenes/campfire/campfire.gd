@@ -1,8 +1,6 @@
 class_name Campfire
 extends Node2D
 
-var balloon_scene = preload("res://dialogue/game_dialogue_balloon.tscn")
-
 ## Combustível atual e máximo
 @export var max_fuel: float = 100.0
 @export var fuel_drain_rate: float = 2.0  # por segundo
@@ -25,8 +23,8 @@ func _ready() -> void:
 	interactable_component.interactable_deactivated.connect(_on_interactable_deactivated)
 	interact_label.hide()
 	
-	# Conecta ao sinal de diálogo para adicionar lenha (acionado pelo .dialogue)
-	GameDialogueManager.add_fuel_to_campfire.connect(_on_add_fuel_from_dialogue)
+	# Conecta ao sinal de inventário para atualizar prompt quando madeira mudar
+	InventoryManager.inventory_changed.connect(_on_inventory_changed)
 	
 	# Garante que as partículas e luz comecem no estado correto
 	if is_lit:
@@ -57,33 +55,43 @@ func _update_visuals() -> void:
 
 ## Chamado quando o player entra na área de interação (via InteractableComponent)
 func _on_interactable_activated() -> void:
-	interact_label.show()
 	in_range = true
 	print("🔥 [CAMPFIRE] Jogador entrou no alcance da fogueira")
+	_update_action_prompt()
 
 ## Chamado quando o player sai da área de interação (via InteractableComponent)
 func _on_interactable_deactivated() -> void:
-	interact_label.hide()
 	in_range = false
 	print("🔥 [CAMPFIRE] Jogador saiu do alcance da fogueira")
+	_hide_action_prompt()
 
-## Detecta input do player para interagir com a fogueira
+## Atualiza o Action Prompt baseado na proximidade e madeira disponível
+func _update_action_prompt() -> void:
+	if not in_range:
+		return
+	
+	var madeira: int = InventoryManager.get_inventory_count("wood")
+	if madeira > 0:
+		EventBus.show_action_prompt.emit("I", "Abastecer")
+	else:
+		_hide_action_prompt()
+
+## Esconde o Action Prompt
+func _hide_action_prompt() -> void:
+	EventBus.hide_action_prompt.emit()
+
+## Callback quando o inventário muda (para atualizar prompt em tempo real)
+func _on_inventory_changed() -> void:
+	if in_range:
+		_update_action_prompt()
+
+## Detecta input do player para abastecer a fogueira via Action Prompt
 func _unhandled_input(event: InputEvent) -> void:
 	if not in_range:
 		return
 	
-	if event.is_action_pressed("show_dialogue"):
-		interact_label.hide()
-		print("🔥 [CAMPFIRE] Tecla E pressionada, abrindo diálogo...")
-		
-		var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
-		get_tree().root.add_child(balloon)
-		balloon.start(load("res://dialogue/conversations/campfire.dialogue"), "start")
-
-## Chamado pelo diálogo via GameDialogueManager para adicionar lenha
-func _on_add_fuel_from_dialogue() -> void:
-	print("🔥 [CAMPFIRE] Diálogo: adicionar lenha...")
-	_try_add_fuel_from_inventory()
+	if event.is_action_pressed("interact"):
+		_try_add_fuel_from_inventory()
 
 ## Tenta usar madeira do inventário para abastecer
 func _try_add_fuel_from_inventory() -> void:
@@ -95,6 +103,9 @@ func _try_add_fuel_from_inventory() -> void:
 	InventoryManager.remove_collectable("wood")
 	_add_fuel(fuel_per_wood)
 	print("🔥 [CAMPFIRE] Madeira adicionada! +", fuel_per_wood, " de combustível. Total: ", _fuel_level, "/", max_fuel)
+	
+	# Atualiza o prompt (some se acabou a madeira)
+	_update_action_prompt()
 
 ## Adiciona combustível e reacende se necessário
 func _add_fuel(amount: float) -> void:

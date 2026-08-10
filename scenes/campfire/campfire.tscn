@@ -1,15 +1,61 @@
 [gd_scene format=3 uid="uid://cnjdnj4k0vroj"]
 
 [ext_resource type="Script" uid="uid://dm54sr4lefyfx" path="res://scenes/campfire/campfire.gd" id="1_56ahn"]
-[ext_resource type="Texture2D" uid="uid://dsq84bhlavp5e" path="res://game/assets/Objects/fire_big.png" id="2_5yci7"]
+[ext_resource type="Texture2D" uid="uid://dfy3v0fodhqt" path="res://game/assets/Objects/fire/fire_big.png" id="3_6jn8c"]
 [ext_resource type="PackedScene" uid="uid://c2ey656s5cb3p" path="res://scenes/components/interactable_component.tscn" id="3_interact"]
+[ext_resource type="Texture2D" uid="uid://wkacn5lgqlop" path="res://game/assets/Objects/fire/fire_big1.png" id="4_auago"]
 [ext_resource type="PackedScene" uid="uid://c4n7smm36tfvm" path="res://scenes/components/interactable_label_component.tscn" id="4_label"]
+[ext_resource type="Texture2D" uid="uid://cy7vvfv4isbjh" path="res://game/assets/Objects/fire/fire_big2.png" id="5_8pjve"]
+[ext_resource type="Texture2D" uid="uid://evvxjcxw6m22" path="res://game/assets/Objects/fire/fire_big3.png" id="5_auago"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcaur"]
 size = Vector2(17, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
 radius = 40.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bacyy"]
+atlas = ExtResource("5_8pjve")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk2pn"]
+atlas = ExtResource("3_6jn8c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pjve"]
+atlas = ExtResource("5_auago")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki1b5"]
+atlas = ExtResource("4_auago")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auago"]
+atlas = ExtResource("5_auago")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cb7n4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bacyy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk2pn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pjve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki1b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auago")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 1.0
+}]
 
 [node name="Campfire" type="Node2D" unique_id=659782925]
 position = Vector2(1, -9)
@@ -26,8 +72,11 @@ position = Vector2(-2.5, 2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=1271977336]
 shape = SubResource("CircleShape2D_interact")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=685746370]
-texture = ExtResource("2_5yci7")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=537634610]
+position = Vector2(-1, -5.5)
+sprite_frames = SubResource("SpriteFrames_cb7n4")
+autoplay = "default"
+frame_progress = 0.6899041
 
 [node name="FireParticles" type="GPUParticles2D" parent="." unique_id=1687946290]
 
