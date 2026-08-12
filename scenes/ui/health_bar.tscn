@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cacjrq658rpcd"]
+[gd_scene format=3 uid="uid://cacjrq658rpcd"]
 
 [ext_resource type="Script" uid="uid://b8pu3rit1aopc" path="res://scenes/ui/health_bar.gd" id="1_1vcc2"]
 
@@ -31,15 +31,15 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_detail = 6
 
-[node name="HealthBar" type="ProgressBar"]
+[node name="HealthBar" type="ProgressBar" unique_id=1785256765]
 anchors_preset = -1
 anchor_left = 0.15625
 anchor_top = 0.008333334
 anchor_right = 0.3125
 anchor_bottom = 0.083333336
-offset_top = -2.0000002
+offset_top = -2.006667
 offset_right = 20.0
-offset_bottom = -4.0
+offset_bottom = -19.506668
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.29803923, 0.2, 0.24705882, 1)
 theme_override_colors/font_outline_color = Color(0.26666668, 0.7058824, 0.30980393, 1)
