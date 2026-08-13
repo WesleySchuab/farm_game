@@ -44,7 +44,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
 			get_tree().root.add_child(balloon)
-			balloon.start(load("res://dialogue/conversations/storage_chest.dialogue"), dialogue_start_command)
+			
+			var start_command = dialogue_start_command
+			if _is_storage_empty():
+				start_command = dialogue_start_command + "_empty"
+			
+			balloon.start(load("res://dialogue/conversations/storage_chest.dialogue"), start_command)
+
+
+func _is_storage_empty() -> bool:
+	var stored: int = InventoryManager.get_stored_amount(storage_item)
+	var inventory: Dictionary = InventoryManager.inventory
+	var carried: int = inventory.get(storage_item, 0)
+	return stored <= 0 and carried <= 0
 
 
 func on_store_item(item: String) -> void:

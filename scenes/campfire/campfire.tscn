@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dm54sr4lefyfx" path="res://scenes/campfire/campfire.gd" id="1_56ahn"]
 [ext_resource type="Texture2D" uid="uid://dfy3v0fodhqt" path="res://game/assets/Objects/fire/fire_big.png" id="3_6jn8c"]
+[ext_resource type="Texture2D" uid="uid://dprw7srxhitxb" path="res://game/assets/Objects/fire/fogo0.png" id="3_hk2pn"]
 [ext_resource type="PackedScene" uid="uid://c2ey656s5cb3p" path="res://scenes/components/interactable_component.tscn" id="3_interact"]
 [ext_resource type="Texture2D" uid="uid://wkacn5lgqlop" path="res://game/assets/Objects/fire/fire_big1.png" id="4_auago"]
 [ext_resource type="PackedScene" uid="uid://c4n7smm36tfvm" path="res://scenes/components/interactable_label_component.tscn" id="4_label"]
@@ -35,6 +36,10 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("5_auago")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_iffde"]
+atlas = ExtResource("3_hk2pn")
+region = Rect2(0, 0, 32, 21)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_cb7n4"]
 animations = [{
 "frames": [{
@@ -56,6 +61,14 @@ animations = [{
 "loop": 1,
 "name": &"default",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iffde")
+}],
+"loop": 0,
+"name": &"extinguished",
+"speed": 1.0
 }]
 
 [node name="Campfire" type="Node2D" unique_id=659782925]
@@ -76,7 +89,6 @@ shape = SubResource("CircleShape2D_interact")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=537634610]
 position = Vector2(-1, -5.5)
 sprite_frames = SubResource("SpriteFrames_cb7n4")
-autoplay = "default"
 frame_progress = 0.6899041
 
 [node name="FireParticles" type="GPUParticles2D" parent="." unique_id=1687946290]

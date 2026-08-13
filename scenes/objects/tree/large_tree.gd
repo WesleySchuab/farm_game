@@ -37,7 +37,7 @@ func on_max_damaged_reached() -> void:
 	queue_free()
 	
 func add_log_scenes()-> void :
-	var drop_count: int = 5
+	var drop_count: int = 4
 	for i in drop_count:
 		var log_instance = log_scene.instantiate() as Node2D
 		log_instance.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))

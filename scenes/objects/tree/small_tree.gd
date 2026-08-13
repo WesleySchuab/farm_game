@@ -15,7 +15,6 @@ var log_scene = preload("res://scenes/objects/tree/log.tscn")
 func _ready() -> void:
 	# Duplica o material para que cada instância tenha seu próprio shader
 	material = material.duplicate()
-	
 	hurt_component.hurt.connect(on_hurt)
 	damage_component.max_damaged_reached.connect(on_max_damaged_reached)
 
@@ -39,9 +38,8 @@ func on_max_damaged_reached() -> void:
 	queue_free()
 	
 func add_log_scenes()-> void :
-	var drop_count: int = 3
+	var drop_count: int = 2
 	for i in drop_count:
 		var log_instance = log_scene.instantiate() as Node2D
-		log_instance.global_position = global_position + Vector2(randf_range(-15, 15), randf_range(-15, 15))
+		log_instance.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 		get_parent().add_child(log_instance)
-	

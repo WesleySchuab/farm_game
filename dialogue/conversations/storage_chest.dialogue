@@ -10,6 +10,10 @@ Baú de Milho: Este é o depósito de milho para o inverno.
 	Marlow: Vou deixar como está.
 => END
 
+~ star_corn_storage_empty
+Baú de Milho: Não seja preguiçoso! Vá conseguir alguns milhos.
+=> END
+
 ~ star_tomato_storage
 Baú de Tomate: Este é o depósito de tomates para o inverno.
 - Guardar tomate
@@ -20,4 +24,8 @@ Baú de Tomate: Este é o depósito de tomates para o inverno.
 	do GameDialogueManager.action_withdraw_item("tomato")
 - Sair
 	Marlow: Vou deixar como está.
+=> END
+
+~ star_tomato_storage_empty
+Baú de Tomate: Não seja preguiçoso! Vá conseguir alguns tomates.
 => END

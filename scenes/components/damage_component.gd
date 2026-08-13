@@ -6,7 +6,7 @@ extends Node2D
 ## Rastreia dano acumulado e emite sinal quando o dano máximo é atingido
 
 ## Quantidade máxima de dano que o objeto pode receber antes de ser destruído/morrer
-@export var max_damage = 1
+@export var max_damage = 2
 
 ## Quantidade atual de dano acumulado no objeto
 @export var current_damage = 0

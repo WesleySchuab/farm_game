@@ -5,13 +5,14 @@ extends Node2D
 @export var max_fuel: float = 100.0
 @export var fuel_drain_rate: float = 0.2  # por segundo
 @export var fuel_per_wood: float = 25.0   # quanto cada madeira adiciona
-@export var is_lit: bool = true
+@export var is_lit: bool = false
 
 var _fuel_level: float
 var in_range: bool = false
 
 @onready var interactable_component: InteractableComponents = $InteractableComponent
 @onready var interact_label: Control = $InteractableLabelComponent
+@onready var fire_sprite: AnimatedSprite2D = $Sprite2D
 @onready var fire_particles: GPUParticles2D = $FireParticles
 @onready var point_light: PointLight2D = $PointLight2D
 @onready var health_bar: WorldHealthBar = $WorldHealthBar
@@ -32,11 +33,13 @@ func _ready() -> void:
 	# Conecta ao sinal de inventário para atualizar prompt quando madeira mudar
 	InventoryManager.inventory_changed.connect(_on_inventory_changed)
 	
-	# Garante que as partículas e luz comecem no estado correto
+	# Garante que as partículas, luz e animação comecem no estado correto
 	if is_lit:
+		fire_sprite.play("default")
 		fire_particles.emitting = true
 		point_light.enabled = true
 	else:
+		fire_sprite.play("extinguished")
 		fire_particles.emitting = false
 		point_light.enabled = false
 
@@ -124,6 +127,7 @@ func _add_fuel(amount: float) -> void:
 ## Acende a fogueira
 func _ignite() -> void:
 	is_lit = true
+	fire_sprite.play("default")
 	fire_particles.emitting = true
 	point_light.enabled = true
 	health_bar.show()
@@ -133,6 +137,7 @@ func _ignite() -> void:
 ## Apaga a fogueira
 func _extinguish() -> void:
 	is_lit = false
+	fire_sprite.play("extinguished")
 	fire_particles.emitting = false
 	point_light.enabled = false
 	health_bar.hide()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cb7mcig4m2m6f"]
+[gd_scene format=3 uid="uid://cb7mcig4m2m6f"]
 
 [ext_resource type="Shader" uid="uid://ts0jvrm2hm8d" path="res://scenes/objects/shake.gdshader" id="1_3kdbo"]
 [ext_resource type="Texture2D" uid="uid://b7721ifaarcpm" path="res://game/assets/Objects/basic_grass_biom_things.png" id="1_rwc7r"]
@@ -19,28 +19,29 @@ region = Rect2(0, 0, 16, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_4lwb8"]
 radius = 4.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_52be4"]
-size = Vector2(14, 22)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kdbo"]
+size = Vector2(10.833334, 25)
 
-[node name="SmallTree" type="Sprite2D"]
+[node name="SmallTree" type="Sprite2D" unique_id=115039690]
 material = SubResource("ShaderMaterial_mw1op")
 position = Vector2(-1, -12)
 scale = Vector2(1.2, 1.2)
 texture = SubResource("AtlasTexture_1bff3")
 script = ExtResource("2_0ai8s")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1658444739]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=108085284]
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_4lwb8")
 
-[node name="HurtComponent" parent="." instance=ExtResource("3_3kdbo")]
+[node name="HurtComponent" parent="." unique_id=999870888 instance=ExtResource("3_3kdbo")]
+tool = 1
 
-[node name="HurtComponentCollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
-position = Vector2(0, -1)
-shape = SubResource("RectangleShape2D_52be4")
-debug_color = Color(0.7948884, 0.28005373, 0.8008117, 0.41960785)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=1723765391]
+position = Vector2(-0.41666657, -1.5)
+shape = SubResource("RectangleShape2D_3kdbo")
+debug_color = Color(0.8915669, 0.19916445, 0.6386805, 0.41960785)
 
-[node name="DamageComponent" parent="." instance=ExtResource("4_mw1op")]
+[node name="DamageComponent" parent="." unique_id=1434159348 instance=ExtResource("4_mw1op")]
 max_damage = 2
