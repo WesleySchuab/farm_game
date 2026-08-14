@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://b4ehd24ab2lor"
+path="res://.godot/imported/guide_night_warning.dialogue-b26ea2c26d1681b8bbe1a5faaea8c5a3.tres"
+
+[deps]
+
+source_file="res://dialogue/conversations/guide_night_warning.dialogue"
+dest_files=["res://.godot/imported/guide_night_warning.dialogue-b26ea2c26d1681b8bbe1a5faaea8c5a3.tres"]
+
+[params]
+
+defaults=true

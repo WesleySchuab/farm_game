@@ -24,6 +24,9 @@ func _ready() -> void:
 	health_bar.configure(Color(1.0, 0.55, 0.0), Color(0.15, 0.1, 0.05, 0.8), 5)
 	health_bar.setup(max_fuel)
 	health_bar.hide_when_full = true
+	# Começa invisível; só aparece quando a fogueira for acesa
+	if not is_lit:
+		health_bar.hide()
 	
 	# Conecta aos sinais do InteractableComponent (padrão testado e funcional)
 	interactable_component.interactable_activated.connect(_on_interactable_activated)

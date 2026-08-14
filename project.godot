@@ -154,7 +154,7 @@ interact={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://dialogue/conversations/test.dialogue", "res://dialogue/conversations/guide.dialogue", "res://dialogue/conversations/chest.dialogue", "res://dialogue/conversations/storage_chest.dialogue", "res://dialogue/conversations/campfire.dialogue")
+locale/translations_pot_files=PackedStringArray("res://dialogue/conversations/test.dialogue", "res://dialogue/conversations/guide.dialogue", "res://dialogue/conversations/chest.dialogue", "res://dialogue/conversations/storage_chest.dialogue", "res://dialogue/conversations/campfire.dialogue", "res://dialogue/conversations/guide_night_warning.dialogue")
 
 [layer_names]
 

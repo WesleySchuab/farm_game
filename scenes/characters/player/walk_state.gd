@@ -52,6 +52,11 @@ func _on_process(delta : float) -> void:
 ## Atualiza a direção do jogador e move o personagem
 func _on_physics_process(_delta : float) -> void:
 	
+	# ⏸️ Congelado (evento/cutscene) — não se move
+	if not player.movement_enabled:
+		player.velocity = Vector2.ZERO
+		return
+
 	var direction: Vector2 = GameInputEvents.movement_input()
 	
 	if not controle_de_animacao_ativo: 
@@ -136,6 +141,11 @@ func _on_next_transitions() -> void:
 	if player.knockback_velocity != Vector2.ZERO:
 		return
 	
+	# ⏸️ Congelado — volta para idle
+	if not player.movement_enabled:
+		transition.emit("idle")
+		return
+
 	if !GameInputEvents.movement_input():
 		transition.emit("idle")
 	if player.current_tool == DataTypes.Tools.AxeWood && GameInputEvents.use_tool():

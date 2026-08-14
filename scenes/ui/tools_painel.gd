@@ -7,6 +7,7 @@ extends PanelContainer
 
 func _ready() -> void:
 	ToolManager.enable_tool.connect(on_enable_tool_button)
+	ToolManager.highlight_tool.connect(on_highlight_tool_button)
 	
 	tool_tilling.disabled = true
 	tool_tilling.focus_mode = Control.FOCUS_NONE
@@ -58,13 +59,45 @@ func on_enable_tool_button(tool:DataTypes.Tools) -> void:
 		tool_tilling.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.WaterCrops:
 		tool_watering_can.disabled = false
-		tool_tilling.focus_mode = Control.FOCUS_ALL
+		tool_watering_can.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.PlantCorn:
 		tool_corn.disabled = false
 		tool_corn.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.PlantTomato:
 		tool_tomato.disabled = false
 		tool_tomato.focus_mode = Control.FOCUS_ALL
+
+
+func on_highlight_tool_button(tool: DataTypes.Tools) -> void:
+	var button: Button = _get_tool_button(tool)
+	if button == null:
+		return
+	ToolManager.select_tool(tool)
+	button.grab_focus()
+	_pulse_highlight(button)
+
+
+func _get_tool_button(tool: DataTypes.Tools) -> Button:
+	match tool:
+		DataTypes.Tools.TillGround:
+			return tool_tilling
+		DataTypes.Tools.WaterCrops:
+			return tool_watering_can
+		DataTypes.Tools.PlantCorn:
+			return tool_corn
+		DataTypes.Tools.PlantTomato:
+			return tool_tomato
+		_:
+			return null
+
+
+func _pulse_highlight(button: Button) -> void:
+	button.pivot_offset = button.size / 2.0
+	var original_scale: Vector2 = button.scale
+	var tween := create_tween()
+	tween.set_loops(3)
+	tween.tween_property(button, "scale", original_scale * 1.2, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(button, "scale", original_scale, 0.15).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func _on_tool_axe_pressed() -> void:

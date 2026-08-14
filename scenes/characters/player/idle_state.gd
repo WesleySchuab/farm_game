@@ -55,6 +55,10 @@ func _on_next_transitions() -> void:
 	# ⏸️ KNOCKBACK ATIVO — não transiciona para walk nem ferramentas
 	if player.knockback_velocity != Vector2.ZERO:
 		return
+
+	# ⏸️ Congelado — não transiciona para walk nem ferramentas
+	if not player.movement_enabled:
+		return
 	
 	# Se houver movimentação chama a transição andando	
 	# Se clicar com o botão esquerdo do mouse chama a animação correspondente

@@ -18,6 +18,9 @@ var player_direction: Vector2
 # Variável de controle para o player não ficar morrendo de fome em loop a cada frame
 var is_dead: bool = false
 
+## Quando false, o jogador não pode se mover (usado em eventos/cutscenes)
+var movement_enabled: bool = true
+
 # --- SISTEMA DE KNOCKBACK ---
 ## Velocidade atual do knockback — usada por outros scripts para detectar se está ativo
 var knockback_velocity: Vector2 = Vector2.ZERO
@@ -55,6 +58,15 @@ func _on_time_tick(_day: int, _hour: int, _minute: int) -> void:
 	pass
 	#adicionar_vida(-0.1) # Valor negativo faz perder vida
 	#print("Relógio bateu! Vida atual: ", current_health) # <-- ADICIONE ESSA LINHA PARA TESTAR
+
+## Congela o jogador (usado em eventos como o aviso noturno do guia)
+func freeze() -> void:
+	movement_enabled = false
+	velocity = Vector2.ZERO
+
+## Libera o movimento do jogador
+func unfreeze() -> void:
+	movement_enabled = true
 
 # Função simples que adiciona vida (se positivo) ou retira vida (se negativo)
 func adicionar_vida(quantidade: float) -> void:
