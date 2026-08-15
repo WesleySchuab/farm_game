@@ -26,6 +26,9 @@ enum SFX {
 	# ── Animais ──
 	CHICKEN_CLUCK_1, CHICKEN_CLUCK_2, CHICKEN_CLUCK_3,
 	COW_MOO,
+	# ── Ferramentas ──
+	PICKAXE_HIT,
+	AXE_HIT,
 }
 
 const SFX_PATHS := {
@@ -40,6 +43,8 @@ const SFX_PATHS := {
 	SFX.CHICKEN_CLUCK_2: "res://game/assets/audio/sfx/chicken-cluck-2.ogg",
 	SFX.CHICKEN_CLUCK_3: "res://game/assets/audio/sfx/chicken-cluck-3.ogg",
 	SFX.COW_MOO: "res://game/assets/audio/sfx/cow-moo.ogg",
+	SFX.PICKAXE_HIT: "res://game/assets/audio/music/picareta.mp3",
+	SFX.AXE_HIT: "res://game/assets/audio/music/machado.mp3",
 }
 
 # Grupos de variação (para play_sfx_varied_at)

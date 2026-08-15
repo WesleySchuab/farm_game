@@ -20,12 +20,13 @@ region = Rect2(128, 16, 16, 16)
 radius = 5.0990195
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5pald"]
-radius = 7.0
+radius = 4.0
 
 [node name="Rock" type="Sprite2D" unique_id=261798739]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_8i8v8")
 position = Vector2(0, -2)
+scale = Vector2(1.2, 1.2)
 texture = SubResource("AtlasTexture_ms1l0")
 script = ExtResource("2_bntui")
 
