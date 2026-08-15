@@ -71,10 +71,25 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_83dg8"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, -30, 0)
+color = Color(1, 1, 0.654902, 1)
+
+[sub_resource type="Gradient" id="Gradient_hk2pn"]
+colors = PackedColorArray(0.99607843, 0.7294118, 0.015686275, 1, 0.74558026, 0.7455802, 0.7455802, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8rqvy"]
+gradient = SubResource("Gradient_hk2pn")
+
 [node name="Campfire" type="Node2D" unique_id=659782925]
 position = Vector2(1, -9)
 scale = Vector2(2, 2)
 script = ExtResource("1_56ahn")
+light_energy = 0.7
+light_texture_scale = 0.8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=157698098]
 position = Vector2(-0.5, 0)
@@ -92,8 +107,15 @@ sprite_frames = SubResource("SpriteFrames_cb7n4")
 frame_progress = 0.6899041
 
 [node name="FireParticles" type="GPUParticles2D" parent="." unique_id=1687946290]
+process_material = SubResource("ParticleProcessMaterial_83dg8")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=641547958]
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color(0.23137255, 0.23137255, 0.23137255, 0)
+shadow_filter_smooth = 0.8
+texture = SubResource("GradientTexture1D_8rqvy")
+texture_scale = 6.03
 
 [node name="WorldHealthBar" parent="." unique_id=-2039862889 instance=ExtResource("5_healthbar")]
 

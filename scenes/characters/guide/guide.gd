@@ -8,10 +8,8 @@ var balloon_scene = preload("res://dialogue/game_dialogue_balloon.tscn")
 @export var stop_distance: float = 40.0
 
 @onready var interactable_component: InteractableComponents = $InteractableComponent
-@onready var interactable_label_component: Control = $InteractableComponent/InteractableLabelComponent
 @onready var quest_indicator: Label = $QuestIndicator
 
-var in_range: bool
 var _has_talked: bool = false
 
 # Controle do aviso noturno (19:00)
@@ -23,12 +21,11 @@ var _walk_target: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	interactable_component.interactable_activated.connect(on_interactable_activated)
-	interactable_component.interactable_deactivated.connect(on_interactable_deactivated)
-	interactable_label_component.hide()
 	
 	GameDialogueManager.give_crop_seeds.connect(on_give_crop_seeds)
 	
 	_animate_quest_indicator()
+	_update_quest_indicator_visibility(_get_current_hour())
 	
 	# Aviso noturno: às 19h o guia vai até o jogador
 	DayAndNightCycleManager.time_tick.connect(_on_time_tick)
@@ -52,22 +49,36 @@ func _hide_quest_indicator() -> void:
 
 
 func on_interactable_activated() -> void:
-	interactable_label_component.show()
-	in_range = true
+	_start_guide_dialogue()
 
 
-func on_interactable_deactivated() -> void:
-	interactable_label_component.hide()
-	in_range = false
+## Abre o diálogo automaticamente quando o player se aproxima (apenas entre 05:00 e 17:00)
+func _start_guide_dialogue() -> void:
+	if _has_talked:
+		return
+	var hour: int = _get_current_hour()
+	if hour < 5 or hour >= 17:
+		return
+	_hide_quest_indicator()
+	var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
+	get_tree().root.add_child(balloon)
+	balloon.start(load("res://dialogue/conversations/guide.dialogue"), "start")
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if in_range:
-		if event.is_action_pressed("show_dialogue"):
-			_hide_quest_indicator()
-			var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
-			get_tree().root.add_child(balloon)
-			balloon.start(load("res://dialogue/conversations/guide.dialogue"), "start")
+## Retorna a hora atual do ciclo dia/noite (0-23)
+func _get_current_hour() -> int:
+	var total_minutes: int = int(DayAndNightCycleManager.time / DayAndNightCycleManager.GAME_MINUTE_DURATION)
+	var day_minutes: int = total_minutes % DayAndNightCycleManager.MINUTES_PER_DAY
+	@warning_ignore("integer_division")
+	var hour: int = int(day_minutes / DayAndNightCycleManager.MINUTES_PER_HOUR)
+	return hour
+
+
+## Mostra/esconde o indicador de quest conforme a hora do dia
+func _update_quest_indicator_visibility(hour: int) -> void:
+	if _has_talked:
+		return
+	quest_indicator.visible = hour >= 5 and hour < 17
 
 
 func on_give_crop_seeds() -> void:
@@ -90,6 +101,8 @@ func _physics_process(delta: float) -> void:
 
 ## Escuta o relógio do jogo para disparar o aviso às 19h
 func _on_time_tick(_day: int, hour: int, _minute: int) -> void:
+	_update_quest_indicator_visibility(hour)
+	
 	if _night_warning_triggered:
 		return
 	# Dispara uma única vez, às 19h, se a fogueira ainda não estiver acesa
@@ -126,3 +139,6 @@ func _end_night_warning() -> void:
 	if player != null:
 		player.unfreeze()
 	_walking_to_player = false
+	# Destaca o machado para o jogador cortar lenha
+	ToolManager.enable_tool_button(DataTypes.Tools.AxeWood)
+	ToolManager.highlight_tool_button(DataTypes.Tools.AxeWood)

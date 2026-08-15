@@ -40,7 +40,7 @@ func on_max_damaged_reached() -> void:
 ## Adiciona uma cena de tronco (log) na posição da pedra quando ela é destruída
 ## Instancia a cena pré-carregada e a adiciona ao pai na mesma posição global
 func add_stone_scenes()-> void :
-	var drop_count: int = 2
+	var drop_count: int = 4
 	for i in drop_count:
 		var log_instance = stone_scene.instantiate() as Node2D
 		log_instance.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))

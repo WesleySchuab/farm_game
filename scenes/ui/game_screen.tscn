@@ -50,10 +50,10 @@ offset_bottom = 60.0
 size_flags_horizontal = 4
 
 [node name="ActionPrompt" parent="." unique_id=1207700610 instance=ExtResource("6_ooiym")]
-offset_left = -295.0
-offset_top = -94.0
-offset_right = -145.0
-offset_bottom = -44.0
+offset_left = -394.0
+offset_top = -92.0
+offset_right = -244.0
+offset_bottom = -42.0
 
 [node name="HealthBar" parent="." unique_id=1013264914 instance=ExtResource("6_nwa5a")]
 offset_left = -36.0

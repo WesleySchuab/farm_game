@@ -9,7 +9,7 @@ func _ready() -> void:
 	ToolManager.enable_tool.connect(on_enable_tool_button)
 	ToolManager.highlight_tool.connect(on_highlight_tool_button)
 	
-	tool_tilling.disabled = true
+	tool_tilling.disabled = false
 	tool_tilling.focus_mode = Control.FOCUS_NONE
 	
 	tool_watering_can.disabled = false
@@ -66,6 +66,9 @@ func on_enable_tool_button(tool:DataTypes.Tools) -> void:
 	elif tool == DataTypes.Tools.PlantTomato:
 		tool_tomato.disabled = false
 		tool_tomato.focus_mode = Control.FOCUS_ALL
+	elif tool == DataTypes.Tools.AxeWood:
+		tool_axe.disabled = false
+		tool_axe.focus_mode = Control.FOCUS_ALL
 
 
 func on_highlight_tool_button(tool: DataTypes.Tools) -> void:
@@ -87,6 +90,8 @@ func _get_tool_button(tool: DataTypes.Tools) -> Button:
 			return tool_corn
 		DataTypes.Tools.PlantTomato:
 			return tool_tomato
+		DataTypes.Tools.AxeWood:
+			return tool_axe
 		_:
 			return null
 

@@ -28,8 +28,8 @@ func _on_body_entered(body: Node2D) -> void:
 			
 		else:
 			# Se NÃO for vaca nem galinha (ex: madeira, pedra, tomate), vai para o inventário
-			InventoryManager.add_collectable(collectable_name)
 			#print("Item enviado para o inventário: ", collectable_name)
+			pass
 		
 		# De qualquer forma, remove o objeto coletado do mapa
 		get_parent().queue_free()

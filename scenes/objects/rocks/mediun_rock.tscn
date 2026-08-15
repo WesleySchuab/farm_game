@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ciw6y65dt2tmy"]
+
+[ext_resource type="Shader" uid="uid://ts0jvrm2hm8d" path="res://scenes/objects/shake.gdshader" id="1_84hc1"]
+[ext_resource type="Texture2D" uid="uid://c110lnvhf1rnc" path="res://game/assets/tilesets/summer and spring items.png" id="2_84hc1"]
+[ext_resource type="Script" uid="uid://dqrygmb5bg0nd" path="res://scenes/objects/rocks/mediun_rock.gd" id="3_84hc1"]
+[ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="4_edm2g"]
+[ext_resource type="PackedScene" uid="uid://neuxvuy2leph" path="res://scenes/components/damage_component.tscn" id="5_s6sgm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8i8v8"]
+resource_local_to_scene = true
+shader = ExtResource("1_84hc1")
+shader_parameter/shake_intensity = 0.0
+shader_parameter/shake_speed = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fggc"]
+atlas = ExtResource("2_84hc1")
+region = Rect2(64, 114, 33, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ab37s"]
+radius = 11.18034
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5pald"]
+radius = 12.369317
+
+[node name="MediunRock" type="Sprite2D" unique_id=261798739]
+material = SubResource("ShaderMaterial_8i8v8")
+position = Vector2(0, -2)
+texture = SubResource("AtlasTexture_8fggc")
+script = ExtResource("3_84hc1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1131517805]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=686475909]
+visible = false
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_ab37s")
+
+[node name="HurtComponent" parent="." unique_id=937582229 instance=ExtResource("4_edm2g")]
+tool = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=1995553272]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_5pald")
+debug_color = Color(0.845127, 0.31235853, 0.55669516, 0.41960785)
+
+[node name="DamageComponent" parent="." unique_id=1472068110 instance=ExtResource("5_s6sgm")]
+max_damage = 4

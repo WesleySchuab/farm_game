@@ -23,22 +23,22 @@ radius = 5.0990195
 radius = 7.0
 
 [node name="Rock" type="Sprite2D" unique_id=261798739]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_8i8v8")
 position = Vector2(0, -2)
 texture = SubResource("AtlasTexture_ms1l0")
 script = ExtResource("2_bntui")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1131517805]
-collision_mask = 8
+collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=686475909]
-visible = false
 shape = SubResource("CircleShape2D_ab37s")
 
 [node name="HurtComponent" parent="." unique_id=937582229 instance=ExtResource("3_8i8v8")]
+tool = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=1995553272]
-visible = false
 shape = SubResource("CircleShape2D_5pald")
 debug_color = Color(0.845127, 0.31235853, 0.55669516, 0.41960785)
 

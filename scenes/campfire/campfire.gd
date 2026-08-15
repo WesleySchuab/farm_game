@@ -7,8 +7,16 @@ extends Node2D
 @export var fuel_per_wood: float = 25.0   # quanto cada madeira adiciona
 @export var is_lit: bool = false
 
+## Brilho da luz da fogueira (menor = mais fraca)
+@export var light_energy: float = 1.0
+## Raio da luz da fogueira (menor = menor área iluminada)
+@export var light_texture_scale: float = 1.0
+
 var _fuel_level: float
 var in_range: bool = false
+
+## Textura radial da luz da fogueira (falloff suave)
+const CAMPFIRE_LIGHT_TEXTURE: Texture2D = preload("res://scenes/campfire/campfire_light_texture.tres")
 
 @onready var interactable_component: InteractableComponents = $InteractableComponent
 @onready var interact_label: Control = $InteractableLabelComponent
@@ -35,6 +43,9 @@ func _ready() -> void:
 	
 	# Conecta ao sinal de inventário para atualizar prompt quando madeira mudar
 	InventoryManager.inventory_changed.connect(_on_inventory_changed)
+	
+	# Aplica a textura radial para a luz ficar com formato de fogueira
+	point_light.texture = CAMPFIRE_LIGHT_TEXTURE
 	
 	# Garante que as partículas, luz e animação comecem no estado correto
 	if is_lit:
@@ -63,8 +74,8 @@ func _update_visuals() -> void:
 	if fire_particles.process_material is ParticleProcessMaterial:
 		fire_particles.process_material.scale_min = ratio * 2.0
 		fire_particles.process_material.scale_max = ratio * 4.0
-	point_light.energy = ratio * 2.0
-	point_light.texture_scale = ratio * 3.0
+	point_light.energy = ratio * light_energy
+	point_light.texture_scale = ratio * light_texture_scale
 
 ## Chamado quando o player entra na área de interação (via InteractableComponent)
 func _on_interactable_activated() -> void:

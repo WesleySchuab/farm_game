@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4pcch7rtkfwf"]
+[gd_scene load_steps=11 format=3 uid="uid://b4pcch7rtkfwf"]
 
 [ext_resource type="Script" uid="uid://dypreu3xcilmn" path="res://scenes/characters/guide/guide.gd" id="1_pdv8u"]
 [ext_resource type="Shader" uid="uid://bvuepm0keuqfh" path="res://scenes/characters/guide/replace_color.gdshader" id="1_rl4q2"]
 [ext_resource type="Texture2D" uid="uid://1jilajjsh762" path="res://game/assets/characters/basic_charakter_spritesheet.png" id="2_g6y3g"]
 [ext_resource type="PackedScene" uid="uid://c2ey656s5cb3p" path="res://scenes/components/interactable_component.tscn" id="4_qnx84"]
-[ext_resource type="PackedScene" uid="uid://c4n7smm36tfvm" path="res://scenes/components/interactable_label_component.tscn" id="5_xo3ut"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvxhl"]
 shader = ExtResource("1_rl4q2")
@@ -72,10 +71,3 @@ frame_progress = 0.71460795
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_d7sry")
-
-[node name="InteractableLabelComponent" parent="InteractableComponent" instance=ExtResource("5_xo3ut")]
-offset_left = -30.0
-offset_top = -34.0
-offset_right = -12.0
-offset_bottom = -16.0
-metadata/_edit_use_anchors_ = true

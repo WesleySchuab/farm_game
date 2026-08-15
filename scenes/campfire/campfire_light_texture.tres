@@ -1,0 +1,13 @@
+[gd_resource type="GradientTexture2D" format=3 uid="uid://b43sdfyoamrfy"]
+
+[sub_resource type="Gradient" id="Gradient_campfire"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.86655724, 0.7020967, 2.0792484e-05, 1, 0.9999998, 0.7388538, 0.3108448, 0.7, 1, 0.55, 0.15, 0)
+
+[resource]
+gradient = SubResource("Gradient_campfire")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
