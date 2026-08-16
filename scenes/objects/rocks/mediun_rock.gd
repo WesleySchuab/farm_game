@@ -26,6 +26,8 @@ func on_hurt(hit_damage: int )-> void:
 	# Inicia a animação de tremor
 	material.set_shader_parameter("shake_intensity", 0.4)
 	
+	AudioManager.play_sfx_at(AudioManager.SFX.PICKAXE_HIT, global_position,-4) 
+	
 	# Aguarda e depois para a animação
 	await get_tree().create_timer(0.5).timeout
 	material.set_shader_parameter("shake_intensity", 0.0)

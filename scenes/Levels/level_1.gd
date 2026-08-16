@@ -3,6 +3,7 @@ extends Node2D
 func _ready():
 	# Inicia a música do nível através do AudioManager
 	#AudioManager.play_level_music()
+	AudioManager.play_sfx_at(AudioManager.SFX.AXE_HIT, global_position, -4)
 	pass
 
 

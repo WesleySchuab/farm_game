@@ -4,6 +4,7 @@ extends PanelContainer
 @onready var tool_watering_can: Button = $MarginContainer/HBoxContainer/ToolWateringCan
 @onready var tool_corn: Button = $MarginContainer/HBoxContainer/ToolCorn
 @onready var tool_tomato: Button = $MarginContainer/HBoxContainer/ToolTomato
+@onready var tool_rock: Button = $MarginContainer/HBoxContainer/ToolRock
 
 func _ready() -> void:
 	ToolManager.enable_tool.connect(on_enable_tool_button)
@@ -69,6 +70,9 @@ func on_enable_tool_button(tool:DataTypes.Tools) -> void:
 	elif tool == DataTypes.Tools.AxeWood:
 		tool_axe.disabled = false
 		tool_axe.focus_mode = Control.FOCUS_ALL
+	elif tool == DataTypes.Tools.BuildRock:
+		tool_rock.disabled = false
+		tool_rock.focus_mode = Control.FOCUS_ALL
 
 
 func on_highlight_tool_button(tool: DataTypes.Tools) -> void:
@@ -92,6 +96,8 @@ func _get_tool_button(tool: DataTypes.Tools) -> Button:
 			return tool_tomato
 		DataTypes.Tools.AxeWood:
 			return tool_axe
+		DataTypes.Tools.BuildRock:
+			return tool_rock
 		_:
 			return null
 
@@ -107,3 +113,7 @@ func _pulse_highlight(button: Button) -> void:
 
 func _on_tool_axe_pressed() -> void:
 	ToolManager.select_tool(DataTypes.Tools.AxeWood)
+
+
+func _on_tool_rock_pressed() -> void:
+	ToolManager.select_tool(DataTypes.Tools.BuildRock)

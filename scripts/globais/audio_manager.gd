@@ -29,6 +29,8 @@ enum SFX {
 	# ── Ferramentas ──
 	PICKAXE_HIT,
 	AXE_HIT,
+	# -- SOUNDTRACK --
+	OPENING_SOUNDTRACK
 }
 
 const SFX_PATHS := {
@@ -45,6 +47,7 @@ const SFX_PATHS := {
 	SFX.COW_MOO: "res://game/assets/audio/sfx/cow-moo.ogg",
 	SFX.PICKAXE_HIT: "res://game/assets/audio/music/picareta.mp3",
 	SFX.AXE_HIT: "res://game/assets/audio/music/machado.mp3",
+	SFX.OPENING_SOUNDTRACK: "res://game/assets/audio/music/opening_soundtrack.mp3",
 }
 
 # Grupos de variação (para play_sfx_varied_at)

@@ -869,7 +869,6 @@ animation = &"tilling_right"
 offset = Vector2(0, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1993277227]
-visible = false
 shape = SubResource("CircleShape2D_hss88")
 
 [node name="StateMachine" type="Node2D" parent="." unique_id=1212896751 node_paths=PackedStringArray("initial_node_state")]
@@ -918,7 +917,6 @@ collision_mask = 4
 script = ExtResource("12_bsn6e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtComponent" unique_id=576858979]
-visible = false
 shape = SubResource("CircleShape2D_bsn6e")
 
 [node name="SFXComponent" type="Node" parent="." unique_id=788090490]

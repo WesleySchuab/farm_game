@@ -13,7 +13,7 @@ extends Node
 ## ──────────────────────────────────────────────
 
 @export var pitch_range: float = 0.1
-@export var volume_db: float = 0.0
+@export var volume_db: float = -4
 @export var attack_sfx: int = -1
 @export var summon_sfx: int = -1
 @export var footstep_sfx: int = -1

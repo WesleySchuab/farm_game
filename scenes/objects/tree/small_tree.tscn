@@ -44,4 +44,3 @@ shape = SubResource("RectangleShape2D_3kdbo")
 debug_color = Color(0.8915669, 0.19916445, 0.6386805, 0.41960785)
 
 [node name="DamageComponent" parent="." unique_id=1434159348 instance=ExtResource("4_mw1op")]
-max_damage = 2

@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scenes/objects/rocks/rock_barrier.gd" id="1_rbg"]
+[ext_resource type="Texture2D" uid="uid://b7721ifaarcpm" path="res://game/assets/Objects/basic_grass_biom_things.png" id="2_rbt"]
+[ext_resource type="PackedScene" path="res://scenes/components/hurt_component.tscn" id="3_rbh"]
+[ext_resource type="PackedScene" path="res://scenes/components/damage_component.tscn" id="4_rbd"]
+[ext_resource type="PackedScene" path="res://scenes/components/save_data_component.tscn" id="5_rbs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rb"]
+atlas = ExtResource("2_rbt")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rb"]
+size = Vector2(16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rb"]
+radius = 8.0
+
+[node name="RockBarrier" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_rbg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_rb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rb")
+
+[node name="HurtComponent" parent="." instance=ExtResource("3_rbh")]
+tool = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
+shape = SubResource("CircleShape2D_rb")
+
+[node name="DamageComponent" parent="." instance=ExtResource("4_rbd")]
+max_damage = 3
+
+[node name="SaveDataComponent" parent="." instance=ExtResource("5_rbs")]

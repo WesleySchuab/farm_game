@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://8i5gd41smlvv" path="res://scenes/ui/game_ui_theme.tres" id="5_theme"]
 [ext_resource type="Texture2D" uid="uid://ce1djyr1nxpsk" path="res://game/assets/Objects/weapons/bow.png" id="6_yeomg"]
 [ext_resource type="Texture2D" uid="uid://cguvtgjgjfjxl" path="res://game/assets/Objects/weapons/axe.png" id="7_yu8o4"]
+[ext_resource type="Texture2D" uid="uid://b7721ifaarcpm" path="res://game/assets/Objects/basic_grass_biom_things.png" id="8_rock"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yeomg"]
 atlas = ExtResource("3_yeomg")
@@ -32,6 +33,10 @@ atlas = ExtResource("6_yeomg")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4oeoe"]
 atlas = ExtResource("7_yu8o4")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rock"]
+atlas = ExtResource("8_rock")
+region = Rect2(128, 16, 16, 16)
 
 [node name="ToolsPanel" type="PanelContainer" unique_id=835578904]
 anchors_preset = 2
@@ -110,9 +115,19 @@ icon = SubResource("AtlasTexture_4oeoe")
 icon_alignment = 1
 expand_icon = true
 
+[node name="ToolRock" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1734234386]
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+theme = ExtResource("5_theme")
+theme_type_variation = &"ToolButton"
+icon = SubResource("AtlasTexture_rock")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolTilling" to="." method="_on_tool_tilling_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolWateringCan" to="." method="_on_tool_watering_can_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolCorn" to="." method="_on_tool_corn_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolTomato" to="." method="_on_tool_tomato_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CrossBow" to="." method="_on_cross_bow_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/ToolAxe" to="." method="_on_tool_axe_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ToolRock" to="." method="_on_tool_rock_pressed"]

@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://b43tex181j2ne" path="res://scenes/objects/egg.tscn" id="12_iiv34"]
 [ext_resource type="PackedScene" uid="uid://cnjdnj4k0vroj" path="res://scenes/campfire/campfire.tscn" id="20_811s2"]
 [ext_resource type="PackedScene" uid="uid://d2sprmfkoeh47" path="res://scenes/objects/plants/corn.tscn" id="21_corn"]
+[ext_resource type="PackedScene" path="res://scenes/components/rock_barrier_cursor_component.tscn" id="22_rbcc"]
+[ext_resource type="Script" path="res://scenes/components/rock_barrier_cursor_component.gd" id="23_rbcg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssk4h"]
 size = Vector2(142, 30)
@@ -31,13 +33,13 @@ size = Vector2(142, 30)
 [sub_resource type="TileSet" id="TileSet_4xsrm"]
 tile_size = Vector2i(8, 8)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n1l4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0wj5"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
 shader_parameter/shake_speed = 20.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhe24"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n1l4"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
@@ -124,11 +126,11 @@ tile_set = SubResource("TileSet_4xsrm")
 position = Vector2(199, 77)
 
 [node name="MediunRock" parent="GameTileMap" unique_id=261798739 instance=ExtResource("10_0r5j3")]
-material = SubResource("ShaderMaterial_1n1l4")
+material = SubResource("ShaderMaterial_d0wj5")
 position = Vector2(-34, 287)
 
 [node name="Rock" parent="GameTileMap" unique_id=1093094308 instance=ExtResource("12_d0wj5")]
-material = SubResource("ShaderMaterial_yhe24")
+material = SubResource("ShaderMaterial_1n1l4")
 position = Vector2(35, 330)
 
 [node name="FieldCursorComponent" parent="." unique_id=1904321976 node_paths=PackedStringArray("grass_tilemap_layer", "tilled_soil_tilemap_layer") instance=ExtResource("3_xxpsm")]
@@ -141,6 +143,12 @@ script = ExtResource("6_14nfc")
 tilled_soil_tilemap_layer = NodePath("../GameTileMap/TiledSoil")
 
 [node name="CropFields" type="Node2D" parent="." unique_id=853177876]
+
+[node name="RockBarriers" type="Node2D" parent="." unique_id=910000001]
+
+[node name="RockBarrierCursorComponent" parent="." unique_id=910000002 node_paths=PackedStringArray("grass_tilemap_layer") instance=ExtResource("22_rbcc")]
+script = ExtResource("23_rbcg")
+grass_tilemap_layer = NodePath("../GameTileMap/Grass")
 
 [node name="Corn" parent="CropFields" unique_id=1875848229 instance=ExtResource("21_corn")]
 position = Vector2(-264, 40)
