@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://b0fjh3ljggqsb"]
 
 [ext_resource type="Script" uid="uid://bsqk52fjpb0or" path="res://scenes/Levels/level_1.gd" id="1_6qxha"]
-[ext_resource type="PackedScene" uid="uid://ie56xe27bjse" path="res://audio/music/on_the_farm_music.tscn" id="2_4i6gi"]
 [ext_resource type="PackedScene" uid="uid://fn47qucoxvy7" path="res://scenes/components/save_level_data_component.tscn" id="3_xi46r"]
 [ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://tileset/game_tile_set.tres" id="4_ttcij"]
 [ext_resource type="PackedScene" uid="uid://crtrngkor05ht" path="res://scenes/components/save_data_component.tscn" id="5_rbuvs"]
@@ -47,8 +46,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(238, 84, 358, 44, 647, 
 [node name="Level3" type="Node2D" unique_id=1979690884]
 y_sort_enabled = true
 script = ExtResource("1_6qxha")
-
-[node name="OnTheFarmMusic" parent="." unique_id=816848474 instance=ExtResource("2_4i6gi")]
 
 [node name="SaveLevelDataComponent" parent="." unique_id=594940559 instance=ExtResource("3_xi46r")]
 

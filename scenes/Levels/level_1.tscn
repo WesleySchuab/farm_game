@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://dycufinc85vru"]
 
 [ext_resource type="Script" uid="uid://bsqk52fjpb0or" path="res://scenes/Levels/level_1.gd" id="1_5gowt"]
-[ext_resource type="PackedScene" uid="uid://ie56xe27bjse" path="res://audio/music/on_the_farm_music.tscn" id="1_hk2jt"]
 [ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://tileset/game_tile_set.tres" id="1_ptgt0"]
 [ext_resource type="PackedScene" uid="uid://fn47qucoxvy7" path="res://scenes/components/save_level_data_component.tscn" id="1_vtd0g"]
 [ext_resource type="PackedScene" uid="uid://csmbx0s4y6lni" path="res://scenes/characters/chicken/chicken.tscn" id="3_3ydyl"]
@@ -25,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cnjdnj4k0vroj" path="res://scenes/campfire/campfire.tscn" id="20_811s2"]
 [ext_resource type="PackedScene" uid="uid://d2sprmfkoeh47" path="res://scenes/objects/plants/corn.tscn" id="21_corn"]
 [ext_resource type="PackedScene" path="res://scenes/components/rock_barrier_cursor_component.tscn" id="22_rbcc"]
-[ext_resource type="Script" path="res://scenes/components/rock_barrier_cursor_component.gd" id="23_rbcg"]
+[ext_resource type="Script" uid="uid://oslegf6dcd4x" path="res://scenes/components/rock_barrier_cursor_component.gd" id="23_rbcg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssk4h"]
 size = Vector2(142, 30)
@@ -33,13 +32,13 @@ size = Vector2(142, 30)
 [sub_resource type="TileSet" id="TileSet_4xsrm"]
 tile_size = Vector2i(8, 8)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0wj5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n1l4"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
 shader_parameter/shake_speed = 20.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n1l4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhe24"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
@@ -70,8 +69,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(238, 84, 358, 44, 647, 
 [node name="Level1" type="Node2D" unique_id=1967006252]
 y_sort_enabled = true
 script = ExtResource("1_5gowt")
-
-[node name="OnTheFarmMusic" parent="." unique_id=1762494473 instance=ExtResource("1_hk2jt")]
 
 [node name="SaveLevelDataComponent" parent="." unique_id=443203107 instance=ExtResource("1_vtd0g")]
 
@@ -126,11 +123,11 @@ tile_set = SubResource("TileSet_4xsrm")
 position = Vector2(199, 77)
 
 [node name="MediunRock" parent="GameTileMap" unique_id=261798739 instance=ExtResource("10_0r5j3")]
-material = SubResource("ShaderMaterial_d0wj5")
+material = SubResource("ShaderMaterial_1n1l4")
 position = Vector2(-34, 287)
 
 [node name="Rock" parent="GameTileMap" unique_id=1093094308 instance=ExtResource("12_d0wj5")]
-material = SubResource("ShaderMaterial_1n1l4")
+material = SubResource("ShaderMaterial_yhe24")
 position = Vector2(35, 330)
 
 [node name="FieldCursorComponent" parent="." unique_id=1904321976 node_paths=PackedStringArray("grass_tilemap_layer", "tilled_soil_tilemap_layer") instance=ExtResource("3_xxpsm")]
@@ -144,12 +141,6 @@ tilled_soil_tilemap_layer = NodePath("../GameTileMap/TiledSoil")
 
 [node name="CropFields" type="Node2D" parent="." unique_id=853177876]
 
-[node name="RockBarriers" type="Node2D" parent="." unique_id=910000001]
-
-[node name="RockBarrierCursorComponent" parent="." unique_id=910000002 node_paths=PackedStringArray("grass_tilemap_layer") instance=ExtResource("22_rbcc")]
-script = ExtResource("23_rbcg")
-grass_tilemap_layer = NodePath("../GameTileMap/Grass")
-
 [node name="Corn" parent="CropFields" unique_id=1875848229 instance=ExtResource("21_corn")]
 position = Vector2(-264, 40)
 
@@ -159,8 +150,13 @@ position = Vector2(-216, 56)
 [node name="Corn3" parent="CropFields" unique_id=1417774787 instance=ExtResource("21_corn")]
 position = Vector2(-168, 72)
 
+[node name="RockBarriers" type="Node2D" parent="." unique_id=910000001]
+
+[node name="RockBarrierCursorComponent" parent="." unique_id=910000002 node_paths=PackedStringArray("grass_tilemap_layer") instance=ExtResource("22_rbcc")]
+script = ExtResource("23_rbcg")
+grass_tilemap_layer = NodePath("../GameTileMap/Grass")
+
 [node name="Chickens" type="Node2D" parent="." unique_id=1958618271]
-visible = false
 y_sort_enabled = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Chickens" unique_id=489741354]
@@ -186,7 +182,6 @@ position = Vector2(1094, 553)
 position = Vector2(950.00006, 459.00003)
 
 [node name="Cows" type="Node2D" parent="." unique_id=282124107]
-visible = false
 y_sort_enabled = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Cows" unique_id=1769978269]
@@ -196,18 +191,6 @@ navigation_layers = 2
 
 [node name="Cow" parent="Cows" unique_id=1893552501 instance=ExtResource("4_vtxvj")]
 position = Vector2(1159, 75)
-
-[node name="Cow2" parent="Cows" unique_id=573624623 instance=ExtResource("4_vtxvj")]
-position = Vector2(1090, 188)
-
-[node name="Cow3" parent="Cows" unique_id=110955063 instance=ExtResource("4_vtxvj")]
-position = Vector2(1058, 66)
-
-[node name="Cow4" parent="Cows" unique_id=878700094 instance=ExtResource("4_vtxvj")]
-position = Vector2(1088, 252)
-
-[node name="Cow5" parent="Cows" unique_id=1119475861 instance=ExtResource("4_vtxvj")]
-position = Vector2(1180, 240)
 
 [node name="CowPastureBox" parent="." unique_id=1575652161 instance=ExtResource("10_14nfc")]
 position = Vector2(925, 127)
@@ -223,7 +206,6 @@ output_reward_scenes = Array[PackedScene]([ExtResource("12_iiv34")])
 position = Vector2(31.000004, 209.00002)
 
 [node name="FreeAnimals" type="Node2D" parent="." unique_id=1500556977]
-visible = false
 
 [node name="Cows" type="Node2D" parent="FreeAnimals" unique_id=483160787]
 
@@ -236,12 +218,6 @@ navigation_layers = 2
 [node name="Cow" parent="FreeAnimals/Cows" unique_id=915442166 instance=ExtResource("4_vtxvj")]
 position = Vector2(75.00003, 238)
 
-[node name="Cow3" parent="FreeAnimals/Cows" unique_id=1241035839 instance=ExtResource("4_vtxvj")]
-position = Vector2(101.000015, 281)
-
-[node name="Cow5" parent="FreeAnimals/Cows" unique_id=1309565400 instance=ExtResource("4_vtxvj")]
-position = Vector2(366, 432)
-
 [node name="Chickens" type="Node2D" parent="FreeAnimals" unique_id=2128871930]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="FreeAnimals/Chickens" unique_id=512707342]
@@ -252,20 +228,7 @@ navigation_polygon = SubResource("NavigationPolygon_5gowt")
 [node name="Chicken" parent="FreeAnimals/Chickens" unique_id=283719131 instance=ExtResource("3_3ydyl")]
 position = Vector2(1.0000305, 330)
 
-[node name="Chicken2" parent="FreeAnimals/Chickens" unique_id=280526276 instance=ExtResource("3_3ydyl")]
-position = Vector2(108, 299)
-
-[node name="Chicken3" parent="FreeAnimals/Chickens" unique_id=593673773 instance=ExtResource("3_3ydyl")]
-position = Vector2(335, 322)
-
-[node name="Chicken4" parent="FreeAnimals/Chickens" unique_id=1683765769 instance=ExtResource("3_3ydyl")]
-position = Vector2(491.00003, 480)
-
-[node name="Chicken5" parent="FreeAnimals/Chickens" unique_id=939357228 instance=ExtResource("3_3ydyl")]
-position = Vector2(217.00003, 356.00003)
-
 [node name="CollectablesItens" type="Node2D" parent="." unique_id=1624312914]
-visible = false
 
 [node name="Egg3" parent="CollectablesItens" unique_id=184783753 instance=ExtResource("12_iiv34")]
 position = Vector2(1003, 439)

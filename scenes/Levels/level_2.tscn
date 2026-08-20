@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=4 uid="uid://gg5obnlhb3x8"]
+[gd_scene load_steps=17 format=4 uid="uid://gg5obnlhb3x8"]
 
 [ext_resource type="Script" uid="uid://bsqk52fjpb0or" path="res://scenes/Levels/level_1.gd" id="1_6qxha"]
-[ext_resource type="PackedScene" uid="uid://ie56xe27bjse" path="res://audio/music/on_the_farm_music.tscn" id="2_4i6gi"]
 [ext_resource type="PackedScene" uid="uid://fn47qucoxvy7" path="res://scenes/components/save_level_data_component.tscn" id="3_xi46r"]
 [ext_resource type="TileSet" uid="uid://b2x23mbkgbkno" path="res://tileset/game_tile_set.tres" id="4_ttcij"]
 [ext_resource type="PackedScene" uid="uid://crtrngkor05ht" path="res://scenes/components/save_data_component.tscn" id="5_rbuvs"]
@@ -23,8 +22,6 @@ tile_size = Vector2i(8, 8)
 [node name="Level2" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_6qxha")
-
-[node name="OnTheFarmMusic" parent="." instance=ExtResource("2_4i6gi")]
 
 [node name="SaveLevelDataComponent" parent="." instance=ExtResource("3_xi46r")]
 

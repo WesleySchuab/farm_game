@@ -1,8 +1,11 @@
 class_name AnimalSoundComponent
 extends Node
 
-## Som do animal (vaca, galinha, etc)
-@export var animal_sound: AudioStream
+## Som do animal (ID do enum AudioManager.SFX)
+@export var animal_sfx: int = -1
+
+## Usa variação de samples (ex: clucks 1/2/3 da galinha)
+@export var use_variation: bool = true
 
 ## Intervalo de tempo entre sons (em segundos)
 @export var sound_interval: float = 5.0
@@ -14,34 +17,38 @@ extends Node
 @export var sound_chance: float = 0.5
 
 var time_since_last_sound: float = 0.0
-var animal_position: Vector2
 
 
 func _ready() -> void:
-	animal_position = get_parent().global_position
-	time_since_last_sound = randf_range(0, sound_interval)
+	time_since_last_sound = randf_range(0.0, sound_interval)
 
 
 func _process(delta: float) -> void:
-	if not animal_sound:
+	if animal_sfx < 0:
 		return
 	
 	time_since_last_sound += delta
-	animal_position = get_parent().global_position
 	
 	if time_since_last_sound >= sound_interval:
 		time_since_last_sound = 0.0
 		
 		# Chance de tocar o som
 		if randf() <= sound_chance:
-			play_animal_sound()
+			_play_animal_sound()
 
 
-func play_animal_sound() -> void:
+func _play_animal_sound() -> void:
 	"""Toca o som do animal através do AudioManager"""
-	AudioManager.play_sfx_2d(animal_sound, animal_position, volume_db)
+	var pos := _owner_pos()
+	if use_variation:
+		AudioManager.play_sfx_varied_at(animal_sfx, pos, 0.1, volume_db)
+	else:
+		AudioManager.play_sfx_at(animal_sfx, pos, volume_db)
 
 
-func _exit_tree() -> void:
-	"""Limpa quando o componente é removido"""
-	pass
+func _owner_pos() -> Vector2:
+	var parent = get_parent()
+	if parent is Node2D:
+		return parent.global_position
+	return Vector2.ZERO
+

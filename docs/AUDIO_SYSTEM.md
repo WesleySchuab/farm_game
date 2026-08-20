@@ -13,6 +13,8 @@ AudioManager
 ├── enum SFX              → IDs numéricos dos sons
 ├── SFX_PATHS             → dicionário {ID: caminho do arquivo}
 ├── SFX_VARIATIONS        → grupos de sons com variação (passos, galinha)
+├── enum MUSIC            → IDs numéricos das músicas
+├── MUSIC_PATHS           → dicionário {ID: caminho do arquivo}
 ├── music_player          → AudioStreamPlayer (bus "Music")
 ├── sfx_player            → AudioStreamPlayer (bus "SFX", sons globais/UI)
 └── sfx_pool_2d           → 16 AudioStreamPlayer2D (sons espaciais no mundo)
@@ -54,6 +56,34 @@ AudioManager.play_sfx_at(AudioManager.SFX.AXE_HIT, global_position, -4)
 | `play_sfx_at(id, pos, vol_db)` | Som espacial na posição do mundo (recomendado) |
 | `play_sfx_pitched(id, pitch_range, vol_db)` | Som global com pitch aleatório |
 | `play_sfx_varied_at(id, pos, pitch_range, vol_db)` | Espacial + variação de sample |
+| `play_music(id, vol_db, pitch)` | Toca música no bus Music |
+| `stop_music()` | Para a música atual |
+
+## Como adicionar uma música nova (3 passos)
+
+1. **Registrar no enum `MUSIC`**:
+
+```gdscript
+enum MUSIC {
+	ON_THE_FARM,
+	OPENING,
+}
+```
+
+2. **Mapear o caminho em `MUSIC_PATHS`**:
+
+```gdscript
+const MUSIC_PATHS := {
+	MUSIC.ON_THE_FARM: "res://game/assets/audio/music/On the Farm.ogg",
+	MUSIC.OPENING: "res://game/assets/audio/music/opening_soundtrack.mp3",
+}
+```
+
+3. **Tocar** onde precisar:
+
+```gdscript
+AudioManager.play_music(AudioManager.MUSIC.ON_THE_FARM)
+```
 
 ## Controle de volume
 
@@ -81,6 +111,16 @@ Volume global por categoria: painel **Audio** no editor, ou `audio/game_audio_bu
 - Sinais: `attack_triggered`, `summon_triggered`, `footstep_triggered`
 
 Exemplo no player (`player.tscn`): `attack_sfx = 3` (ARROW_SHOT).
+
+## AnimalSoundComponent (sons de animais)
+
+`scenes/components/animal_sound_component.gd` — timer + chance para sons de animais:
+
+- `animal_sfx` → ID do enum SFX (ex: `AudioManager.SFX.COW_MOO`)
+- `use_variation` → `true` usa variação de samples (galinha: cluck 1/2/3)
+- `sound_interval` / `sound_chance` / `volume_db` → configuração do timer
+
+Anexado em código nos animais (`chicken.gd`, `cow.gd`) via `AnimalSoundComponent.new()`.
 
 ## Onde ficam os arquivos
 
