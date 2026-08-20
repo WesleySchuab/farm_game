@@ -210,6 +210,7 @@ radius = 10.049875
 y_sort_enabled = true
 script = ExtResource("1_uqam8")
 chase_speed = 30.0
+enemy_type = "MushMario"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=595899569]
 texture_filter = 1

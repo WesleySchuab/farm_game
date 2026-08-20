@@ -238,8 +238,18 @@ func _create_health_bar() -> void:
 	health_bar.configure(Color(0.8, 0.2, 0.2), Color(0.15, 0.15, 0.15, 0.8), 5)
 	health_bar.setup(max_health)
 	health_bar.hide_when_full = true
-	# Posiciona acima do inimigo (ajuste de altura pode variar por tipo)
-	health_bar.position = Vector2(0, -40)
+
+	# Posiciona a barra acima da cabeça do inimigo. Alguns sprites são mais altos,
+	# então precisam de offset maior para não encobrir a cabeça/faces.
+	var offset_y: float = -40.0
+	var type_name: String = (enemy_type if enemy_type != "" else String(name)).to_lower()
+	if type_name.contains("necromante"):
+		offset_y = -75.0
+	elif type_name.contains("mush"):
+		offset_y = -55.0
+
+	health_bar.position = Vector2(0, offset_y)
+	health_bar.z_index = 10
 	add_child(health_bar)
 
 

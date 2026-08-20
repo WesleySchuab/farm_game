@@ -861,7 +861,7 @@ y_sort_enabled = true
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
 script = ExtResource("1_6avc5")
-current_tool = 2
+current_tool = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1967066574]
 sprite_frames = SubResource("SpriteFrames_kghjy")

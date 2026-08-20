@@ -106,27 +106,27 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_58f2p"]
 radius = 17.0
 
-[node name="Chest" type="StaticBody2D" unique_id=911102012]
+[node name="Chest" type="StaticBody2D" unique_id=1468962773]
 scale = Vector2(2, 2)
 script = ExtResource("1_8lg1y")
 dialogue_start_command = "star_corn_storage"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=133421913]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=772256937]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_umtkn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=373631760]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2012968824]
 sprite_frames = SubResource("SpriteFrames_f655e")
 animation = &"chest_close"
 autoplay = "chest_close"
 
-[node name="InteractableComponent" parent="." unique_id=98746217 instance=ExtResource("3_gb5am")]
+[node name="InteractableComponent" parent="." unique_id=2135422610 instance=ExtResource("3_gb5am")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=495342311]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=30653396]
 shape = SubResource("CircleShape2D_58f2p")
 debug_color = Color(0.7514004, 0.32381883, 0.820492, 0.41960785)
 
-[node name="InteractableLabelComponent" parent="." unique_id=1887929457 instance=ExtResource("4_n425q")]
+[node name="InteractableLabelComponent" parent="." unique_id=2032420641 instance=ExtResource("4_n425q")]
 offset_left = -25.0
 offset_top = -29.0
 offset_right = -7.0
