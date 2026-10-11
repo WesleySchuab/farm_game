@@ -68,12 +68,10 @@ func _process(delta: float) -> void:
 func on_hurt(hit_damage: int )-> void:
 	print("🌽 Corn on_hurt chamado! Dano: ", hit_damage, " | Já regado: ", growth_cycle_component.is_watered)
 	if !growth_cycle_component.is_watered:
+		growth_cycle_component.is_watered = true
 		print("💧 Iniciando processo de regar...")
 		watering_particles.emitting = true
-		await get_tree().create_timer(5.0).timeout
-		growth_cycle_component.is_watered = true
-		print("🌽 is_watered definido como TRUE imediatamente!")
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(8.0).timeout
 		watering_particles.emitting = false
 		print("💧 Partículas de água desligadas")
 	else:

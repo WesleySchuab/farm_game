@@ -161,6 +161,7 @@ output_reward_scenes = Array[PackedScene]([ExtResource("16_moj4v")])
 
 [node name="Guide" parent="." unique_id=1087641118 instance=ExtResource("17_04xhx")]
 position = Vector2(56.000015, 204)
+crop_seed_tutorial_enabled = false
 
 [node name="FreeAnimals" type="Node2D" parent="." unique_id=863566166]
 visible = false

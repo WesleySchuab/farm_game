@@ -17,5 +17,8 @@ signal hide_action_prompt
 ## Mostra animação de clique (ícone do botão direito)
 signal show_click_animation()
 
+## Mostra ícone da sacola de sementes
+signal show_seed_bag()
+
 ## Mostra aviso de ferramenta errada
 signal show_action_warning(label: String)

@@ -30,9 +30,9 @@ func _update_prompt() -> void:
 		EventBus.hide_action_prompt.emit()
 		return
 
-	# Ferramenta certa -> animação de clique; errada -> texto de aviso
+	# Ferramenta certa -> ícone da sacola de sementes; errada -> texto de aviso
 	match ToolManager.selected_tool:
 		DataTypes.Tools.PlantCorn, DataTypes.Tools.PlantTomato:
-			EventBus.show_click_animation.emit()
+			EventBus.show_seed_bag.emit()
 		_:
 			EventBus.show_action_warning.emit(wrong_tool_warning)

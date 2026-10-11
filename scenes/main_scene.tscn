@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://csiboqls2q1q6" path="res://game/assets/ui/mouse_icon.png" id="2_c16ls"]
 [ext_resource type="PackedScene" uid="uid://4g6smpubcbk5" path="res://scenes/characters/player/player.tscn" id="3_rt2n2"]
 [ext_resource type="PackedScene" uid="uid://dnb21jumvnft5" path="res://scenes/ui/game_screen.tscn" id="4_c16ls"]
+[ext_resource type="PackedScene" uid="uid://dycufinc85vru" path="res://scenes/Levels/level_1.tscn" id="4_rt2n2"]
 
 [node name="MainScene" type="Node" unique_id=2031456023]
 
@@ -21,9 +22,13 @@ y_sort_enabled = true
 [node name="LevelRoot" type="Node2D" parent="GameRoot" unique_id=1010209624]
 y_sort_enabled = true
 
+[node name="Level1" parent="GameRoot/LevelRoot" unique_id=1967006252 instance=ExtResource("4_rt2n2")]
+
 [node name="Player" parent="GameRoot" unique_id=1156919991 instance=ExtResource("3_rt2n2")]
-position = Vector2(74, 237)
+position = Vector2(-8, 40)
+current_tool = 2
 
 [node name="Camera2D" type="Camera2D" parent="GameRoot/Player" unique_id=1708413689]
+zoom = Vector2(1.3, 1.3)
 
 [node name="GameScreen" parent="." unique_id=13845100 instance=ExtResource("4_c16ls")]

@@ -1,5 +1,10 @@
 ~ start
-Marlow: Plante milho durante o dia, para alimentar os animais.
-E não se esqueça de regar!
-do GameDialogueManager.action_give_crop_seed()
+Marlow: Não espere a fome bater para plantar!
+Marlow: Há um solo especial onde as sementes nascem! [ENTER] 
+Marlow: Consegue encontrar ? [ENTER] 
+- Yes
+	Marlow: Pegue a Semente de milho. [ENTER] 
+	do GameDialogueManager.action_give_crop_seed()
+- No 
+	Marlow: Então se esforce mais!
 => END

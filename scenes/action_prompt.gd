@@ -13,10 +13,16 @@ extends Panel
 @export var click_animation_fps: float = 6.0
 @export var click_icon_size: float = 36.0
 
+## Ícone da sacola de sementes exibido no prompt de plantio
+@export var seed_bag_atlas: Texture2D = preload("res://game/assets/Objects/basic_plants.png")
+@export var seed_bag_region: Rect2 = Rect2(0, 0, 16, 16)
+@export var seed_bag_icon_size: float = 28.0
+
 @onready var key_label: Label = $Emote/ActionLabel
 @onready var action_label: Label = $Emote/ActionLabel2
 
 var _click_sprite: AnimatedSprite2D
+var _seed_bag_sprite: Sprite2D
 var _warning_label: Label
 
 
@@ -27,11 +33,13 @@ func _ready() -> void:
 	key_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))  # amarelo/dourado
 
 	_create_click_sprite()
+	_create_seed_bag_sprite()
 	_create_warning_label()
 
 	EventBus.show_action_prompt.connect(_on_show_action_prompt)
 	EventBus.hide_action_prompt.connect(_on_hide_action_prompt)
 	EventBus.show_click_animation.connect(_on_show_click_animation)
+	EventBus.show_seed_bag.connect(_on_show_seed_bag)
 	EventBus.show_action_warning.connect(_on_show_action_warning)
 
 
@@ -63,6 +71,26 @@ func _create_click_sprite() -> void:
 	add_child(_click_sprite)
 
 
+## Cria o ícone estático da sacola de sementes
+func _create_seed_bag_sprite() -> void:
+	var atlas := AtlasTexture.new()
+	atlas.atlas = seed_bag_atlas
+	atlas.region = seed_bag_region
+
+	_seed_bag_sprite = Sprite2D.new()
+	_seed_bag_sprite.name = "SeedBagSprite"
+	_seed_bag_sprite.visible = false
+	_seed_bag_sprite.centered = true
+	_seed_bag_sprite.texture = atlas
+
+	if seed_bag_region.size.x > 0.0 and seed_bag_region.size.y > 0.0:
+		var s: float = seed_bag_icon_size / maxf(seed_bag_region.size.x, seed_bag_region.size.y)
+		_seed_bag_sprite.scale = Vector2(s, s)
+
+	_seed_bag_sprite.position = Vector2(20, 25)
+	add_child(_seed_bag_sprite)
+
+
 ## Cria o label de aviso (ferramenta errada), centralizado no painel
 func _create_warning_label() -> void:
 	_warning_label = Label.new()
@@ -81,6 +109,7 @@ func _create_warning_label() -> void:
 func _on_show_action_prompt(key: String, label: String) -> void:
 	_click_sprite.visible = false
 	_click_sprite.stop()
+	_seed_bag_sprite.visible = false
 	_warning_label.visible = false
 	key_label.visible = true
 	action_label.visible = true
@@ -91,6 +120,7 @@ func _on_show_action_prompt(key: String, label: String) -> void:
 
 
 func _on_show_click_animation() -> void:
+	_seed_bag_sprite.visible = false
 	_warning_label.visible = false
 	key_label.visible = false
 	action_label.visible = false
@@ -99,9 +129,20 @@ func _on_show_click_animation() -> void:
 	visible = true
 
 
+func _on_show_seed_bag() -> void:
+	_click_sprite.visible = false
+	_click_sprite.stop()
+	_warning_label.visible = false
+	key_label.visible = false
+	action_label.visible = false
+	_seed_bag_sprite.visible = true
+	visible = true
+
+
 func _on_show_action_warning(label: String) -> void:
 	_click_sprite.visible = false
 	_click_sprite.stop()
+	_seed_bag_sprite.visible = false
 	key_label.visible = false
 	action_label.visible = false
 	_warning_label.text = label

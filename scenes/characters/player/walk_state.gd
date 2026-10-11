@@ -9,10 +9,10 @@ extends NodeState
 @export var animated_sprite_2d : AnimatedSprite2D
 
 ## Velocidade de movimento base (caminhada) em pixels por segundo
-@export var speed : int = 50
+@export var speed : int = 80
 
 ## Velocidade de corrida em pixels por segundo
-@export var run_speed : int = 90
+@export var run_speed : int = 100
 
 # Dentro do SEU script de transições:
 var controle_de_animacao_ativo: bool = true
@@ -148,8 +148,16 @@ func _on_next_transitions() -> void:
 
 	if !GameInputEvents.movement_input():
 		transition.emit("idle")
+	
+	# Ferramentas: permite usar a ferramenta também enquanto anda (mesmo padrão do idle)
 	if player.current_tool == DataTypes.Tools.AxeWood && GameInputEvents.use_tool():
 		transition.emit("Chopping")
+	if player.current_tool == DataTypes.Tools.TillGround && GameInputEvents.use_tool():
+		transition.emit("Tilling")
+	if player.current_tool == DataTypes.Tools.WaterCrops && player.is_near_unwatered_crop():
+		transition.emit("Watering")
+	if player.current_tool == DataTypes.Tools.Crossbow && GameInputEvents.use_tool():
+		transition.emit("Crossbow")
 
 ## Executado quando o estado é iniciado
 func _on_enter() -> void:

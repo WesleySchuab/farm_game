@@ -71,6 +71,7 @@ var _music_cache: Dictionary = {}
 var music_player: AudioStreamPlayer
 var sfx_player: AudioStreamPlayer
 var sfx_pool_2d: Array[AudioStreamPlayer2D] = []
+var is_muted: bool = false
 const SFX_POOL_SIZE := 16
 
 
@@ -178,6 +179,18 @@ func play_music(id: int, vol_db: float = 0.0, pitch: float = 1.0) -> void:
 
 func stop_music() -> void:
 	if music_player: music_player.stop()
+
+
+## Alterna o mute global de todos os buses de áudio do jogo.
+func toggle_mute() -> void:
+	var master_bus_index := AudioServer.get_bus_index("Master")
+	if master_bus_index < 0:
+		push_warning("🎵 [AudioManager] Bus Master não encontrado")
+		return
+
+	is_muted = not AudioServer.is_bus_mute(master_bus_index)
+	AudioServer.set_bus_mute(master_bus_index, is_muted)
+	print("🎵 [AudioManager] Áudio %s" % ("MUTADO" if is_muted else "DESMUTADO"))
 
 
 func _load_music(id: int) -> AudioStream:

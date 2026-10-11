@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bynb4p2aypey" path="res://scenes/components/world_health_bar.gd" id="1_script"]
 
 [node name="WorldHealthBar" type="ProgressBar" unique_id=1731690801]
-custom_minimum_size = Vector2(40, 6)
+custom_minimum_size = Vector2(40, 5)
 offset_left = -20.0
 offset_top = -30.0
 offset_right = 20.0
-offset_bottom = -24.0
+offset_bottom = -25.0
 theme_override_font_sizes/font_size = 0
 value = 100.0
 show_percentage = false

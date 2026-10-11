@@ -15,7 +15,7 @@ extends ProgressBar
 @export var bg_color: Color = Color(0.15, 0.15, 0.15, 0.8)
 
 ## Altura da barra em pixels
-@export var bar_height: int = 6
+@export var bar_height: int = 5
 
 ## Se true, esconde automaticamente quando o valor está cheio
 @export var hide_when_full: bool = true
@@ -51,10 +51,11 @@ func _create_styles() -> void:
 	add_theme_stylebox_override("fill", fill_style)
 	
 	custom_minimum_size = Vector2(40, bar_height)
+	size = Vector2(40, bar_height)
 
 
 ## Configura cores e altura (chame antes de setup se quiser customizar)
-func configure(color: Color, background: Color = Color(0.15, 0.15, 0.15, 0.8), height: int = 6) -> void:
+func configure(color: Color, background: Color = Color(0.15, 0.15, 0.15, 0.8), height: int = 5) -> void:
 	bar_color = color
 	bg_color = background
 	bar_height = height

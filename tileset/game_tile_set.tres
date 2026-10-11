@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://n334bjf2jnro" path="res://scenes/objects/tree/large_tree.tscn" id="5_j8du6"]
 [ext_resource type="PackedScene" uid="uid://cb7mcig4m2m6f" path="res://scenes/objects/tree/small_tree.tscn" id="6_qn3a5"]
 [ext_resource type="Texture2D" uid="uid://cphdgycmhtt8" path="res://game/assets/tilesets/grass.png" id="7_ehbru"]
+[ext_resource type="PackedScene" uid="uid://ciw6y65dt2tmy" path="res://scenes/objects/rocks/mediun_rock.tscn" id="7_psxi1"]
 [ext_resource type="Texture2D" uid="uid://c3cnerygovtv4" path="res://game/assets/tilesets/tilled_dirt_Wide.png" id="8_83irc"]
 [ext_resource type="Texture2D" uid="uid://b7721ifaarcpm" path="res://game/assets/Objects/basic_grass_biom_things.png" id="9_fj1iv"]
 [ext_resource type="Texture2D" uid="uid://dl8jf35vbafxi" path="res://game/assets/tilesets/fences.png" id="10_oqcms"]
@@ -29,6 +30,7 @@ scenes/2/scene = ExtResource("3_lofe0")
 scenes/3/scene = ExtResource("4_psxi1")
 scenes/4/scene = ExtResource("5_j8du6")
 scenes/5/scene = ExtResource("6_qn3a5")
+scenes/6/scene = ExtResource("7_psxi1")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgjhy"]
 texture = ExtResource("7_ehbru")

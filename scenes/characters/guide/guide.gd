@@ -6,11 +6,21 @@ var balloon_scene = preload("res://dialogue/game_dialogue_balloon.tscn")
 @export var walk_speed: float = 60.0
 ## Distância do jogador em que o guia para
 @export var stop_distance: float = 40.0
+## Tempo (em segundos) de espera após a primeira conversa para lembrar de regar
+@export var watering_reminder_delay: float = 60.0
+## Tempo (em segundos) que o aviso flutuante de regar fica visível
+@export var reminder_text_duration: float = 6.0
+@export var crop_seed_tutorial_enabled: bool = true
 
 @onready var interactable_component: InteractableComponents = $InteractableComponent
 @onready var quest_indicator: Label = $QuestIndicator
 
 var _has_talked: bool = false
+
+# Controle do lembrete de regar (após a primeira conversa)
+var _watering_reminder_active: bool = false
+var _warning_label: Label
+var _crop_fields: Node2D
 
 # Controle do aviso noturno (19:00)
 var _night_warning_triggered: bool = false
@@ -26,6 +36,7 @@ func _ready() -> void:
 	
 	_animate_quest_indicator()
 	_update_quest_indicator_visibility(_get_current_hour())
+	_create_warning_label()
 	
 	# Aviso noturno: às 19h o guia vai até o jogador
 	DayAndNightCycleManager.time_tick.connect(_on_time_tick)
@@ -45,7 +56,7 @@ func _hide_quest_indicator() -> void:
 	_has_talked = true
 	var tween = create_tween()
 	tween.tween_property(quest_indicator, "modulate:a", 0.0, 0.3)
-	tween.tween_callback(quest_indicator.queue_free)
+	tween.tween_callback(func() -> void: quest_indicator.visible = false)
 
 
 func on_interactable_activated() -> void:
@@ -54,12 +65,17 @@ func on_interactable_activated() -> void:
 
 ## Abre o diálogo automaticamente quando o player se aproxima (apenas entre 05:00 e 17:00)
 func _start_guide_dialogue() -> void:
+	if not crop_seed_tutorial_enabled:
+		return
+	# Lembrete de regar ativo: reforça o aviso em vez de reabrir a conversa inicial
+	if _watering_reminder_active:
+		_show_warning_label()
+		return
 	if _has_talked:
 		return
 	var hour: int = _get_current_hour()
 	if hour < 5 or hour >= 17:
 		return
-	_hide_quest_indicator()
 	var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(load("res://dialogue/conversations/guide.dialogue"), "start")
@@ -76,14 +92,106 @@ func _get_current_hour() -> int:
 
 ## Mostra/esconde o indicador de quest conforme a hora do dia
 func _update_quest_indicator_visibility(hour: int) -> void:
-	if _has_talked:
+	if not crop_seed_tutorial_enabled or _has_talked:
+		quest_indicator.visible = false
 		return
 	quest_indicator.visible = hour >= 5 and hour < 17
 
 
+## Enquanto o lembrete está ativo, esconde-o assim que todas as plantas forem regadas
+func _process(_delta: float) -> void:
+	if _watering_reminder_active and not _has_unwatered_crop():
+		_watering_reminder_active = false
+		_hide_reminder_indicator()
+
+
 func on_give_crop_seeds() -> void:
+	_hide_quest_indicator()
 	ToolManager.enable_tool_button(DataTypes.Tools.PlantCorn)
 	ToolManager.highlight_tool_button(DataTypes.Tools.PlantCorn)
+	_start_watering_reminder_timer()
+
+
+# --- LEMBRETE DE REGAR ---
+
+## Cria o rótulo flutuante de aviso exibido acima do guia
+func _create_warning_label() -> void:
+	_warning_label = Label.new()
+	_warning_label.name = "WateringWarning"
+	_warning_label.visible = false
+	_warning_label.text = "Regue as plantações!"
+	_warning_label.label_settings = quest_indicator.label_settings
+	_warning_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_warning_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_warning_label.position = Vector2(-90, -72)
+	_warning_label.size = Vector2(180, 24)
+	add_child(_warning_label)
+
+
+## Agenda o lembrete de regar para depois de 'watering_reminder_delay' segundos
+func _start_watering_reminder_timer() -> void:
+	var timer := Timer.new()
+	timer.name = "WateringReminderTimer"
+	timer.one_shot = true
+	timer.wait_time = watering_reminder_delay
+	timer.timeout.connect(_on_watering_reminder_timeout)
+	add_child(timer)
+	timer.start()
+
+
+## Disparado quando o tempo do lembrete termina: só avisa se ainda existir planta sem regar
+func _on_watering_reminder_timeout() -> void:
+	if _watering_reminder_active:
+		return
+	if not _has_unwatered_crop():
+		return
+	_watering_reminder_active = true
+	_show_quest_indicator()
+	_show_warning_label()
+
+
+## Encontra (e cacheia) o container de culturas do nível
+func _get_crop_fields() -> Node2D:
+	if _crop_fields == null:
+		_crop_fields = get_parent().find_child("CropFields") as Node2D
+	return _crop_fields
+
+
+## Verifica se existe alguma cultura plantada que ainda não foi regada
+func _has_unwatered_crop() -> bool:
+	var crop_fields := _get_crop_fields()
+	if crop_fields == null:
+		return false
+	for child in crop_fields.get_children():
+		var growth := child.get_node_or_null("GrowthCycleComponent") as GrowthCycleComponent
+		if growth != null and not growth.is_watered:
+			return true
+	return false
+
+
+## Mostra novamente o indicador de quest acima do guia
+func _show_quest_indicator() -> void:
+	quest_indicator.visible = true
+	quest_indicator.modulate.a = 1.0
+
+
+## Exibe o aviso flutuante e o esconde após alguns segundos
+func _show_warning_label() -> void:
+	if _warning_label == null:
+		return
+	_warning_label.visible = true
+	_warning_label.modulate.a = 1.0
+	var tween := create_tween()
+	tween.tween_interval(reminder_text_duration)
+	tween.tween_property(_warning_label, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(func() -> void: _warning_label.visible = false)
+
+
+## Esconde o lembrete quando todas as plantas já foram regadas
+func _hide_reminder_indicator() -> void:
+	quest_indicator.visible = false
+	if _warning_label != null:
+		_warning_label.visible = false
 
 
 # --- AVISO NOTURNO (19:00) ---

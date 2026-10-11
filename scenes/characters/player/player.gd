@@ -15,6 +15,11 @@ var player_direction: Vector2
 ## Ferramenta atualmente equipada pelo jogador
 @export var current_tool: DataTypes.Tools = DataTypes.Tools.None
 
+## Distância (em px) para considerar que o player está perto de uma cultura
+@export var watering_range: float = 40.0
+
+var _crop_fields: Node2D
+
 # Variável de controle para o player não ficar morrendo de fome em loop a cada frame
 var is_dead: bool = false
 
@@ -55,8 +60,7 @@ func on_tool_selected(tool :DataTypes.Tools)-> void:
 	
 # A cada minuto que passa no relógio do jogo, o player perde vida
 func _on_time_tick(_day: int, _hour: int, _minute: int) -> void:
-	pass
-	#adicionar_vida(-0.1) # Valor negativo faz perder vida
+	adicionar_vida(-0.1) # Valor negativo faz perder vida
 	#print("Relógio bateu! Vida atual: ", current_health) # <-- ADICIONE ESSA LINHA PARA TESTAR
 
 ## Congela o jogador (usado em eventos como o aviso noturno do guia)
@@ -139,3 +143,27 @@ func disable_player_hitbox() -> void:
 		return
 	hit_component_collision_shape.disabled = true
 	hit_component_collision_shape.position = Vector2.ZERO
+
+# --- DETECÇÃO DE CULTURAS PRÓXIMAS ---
+
+## Encontra (e cacheia) o container de culturas do nível
+func _get_crop_fields() -> Node2D:
+	if _crop_fields == null or not is_instance_valid(_crop_fields):
+		var scene := get_tree().current_scene
+		if scene != null:
+			_crop_fields = scene.find_child("CropFields", true, false) as Node2D
+	return _crop_fields
+
+## Verifica se há alguma cultura sem regar perto do player
+func is_near_unwatered_crop() -> bool:
+	var crop_fields := _get_crop_fields()
+	if crop_fields == null:
+		return false
+	for child in crop_fields.get_children():
+		if not (child is Node2D):
+			continue
+		var growth := child.get_node_or_null("GrowthCycleComponent") as GrowthCycleComponent
+		if growth != null and not growth.is_watered:
+			if global_position.distance_to(child.global_position) <= watering_range:
+				return true
+	return false

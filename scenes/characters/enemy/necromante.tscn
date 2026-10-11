@@ -409,6 +409,7 @@ lifetime = 1.8
 process_material = SubResource("ParticleProcessMaterial_8uoqn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=996500857]
+y_sort_enabled = true
 texture_filter = 1
 texture_repeat = 2
 position = Vector2(2, -47)

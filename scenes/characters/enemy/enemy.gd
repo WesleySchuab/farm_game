@@ -7,6 +7,7 @@ extends CharacterBody2D
 const WORLD_HEALTH_BAR = preload("res://scenes/components/world_health_bar.tscn")
 
 @onready var hit_component: HitComponent = $HitComponent
+@onready var state_machine: NodeStateMachine = $StateMachine
 
 ## Componente que detecta quando o inimigo é atingido por flechas (Crossbow)
 @onready var hurt_component: HurtComponent = $HurtComponent
@@ -230,6 +231,13 @@ func adicionar_vida(quantidade: float) -> void:
 func on_hurt(hit_damage: int) -> void:
 	print("👹 [ENEMY] Recebeu ", hit_damage, " de dano! Vida atual: ", current_health)
 	adicionar_vida(-hit_damage)
+	if is_dead or player == null or _is_spawning or _post_spawn_cooldown > 0.0:
+		return
+	if state_machine.current_node_state_name != "idle":
+		return
+
+	update_flip(get_direction_to_player())
+	state_machine.transition_to("chase")
 
 
 ## Cria e configura a barra de vida no mundo

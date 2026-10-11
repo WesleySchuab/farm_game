@@ -7,7 +7,7 @@ extends Node
 signal crop_maturity
 signal crop_harvesting
 
-var is_watered: bool
+var is_watered: bool = true
 var starting_day: int = 0
 
 func _ready() -> void:

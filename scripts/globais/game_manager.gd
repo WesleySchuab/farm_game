@@ -5,18 +5,21 @@ var game_menu_screen = preload("res://scenes/ui/game_menu_screen.tscn")
 func _ready():
 	await get_tree().process_frame
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_echo():
+		return
+
+	if event.is_action_pressed("mute"):
+		AudioManager.toggle_mute()
+		get_viewport().set_input_as_handled()
+		return
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("game_menu"):
 		# Para TODOS os áudios através do AudioManager
 		AudioManager.stop_all_audio_in_scene()
 		show_game_menu_screen()
-	
-	# Tecla M: alterna (muta/desmuta) a música
-	if event is InputEventKey and event.pressed and event.keycode == KEY_M:
-		var bus_idx = AudioServer.get_bus_index("Music")
-		var is_muted = AudioServer.is_bus_mute(bus_idx)
-		AudioServer.set_bus_mute(bus_idx, not is_muted)
-		print("🎵 Música %s" % ["DESMUTADA" if is_muted else "MUTADA"])
 
 func start_game() -> void:
 	SceneManager.start_game()

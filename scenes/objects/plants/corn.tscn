@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://cfn1fktxo41jo" path="res://resources/scene_data_resource.tres" id="8_310os"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ucl7"]
-size = Vector2(10, 9)
+size = Vector2(14.545454, 11.818182)
 
 [node name="Corn" type="Node2D" unique_id=1449805772]
 scale = Vector2(1.1, 1.1)
@@ -35,7 +35,7 @@ collision_layer = 48
 collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=464221056]
-position = Vector2(-1, 2.5)
+position = Vector2(-0.909091, 2.636364)
 shape = SubResource("RectangleShape2D_5ucl7")
 
 [node name="SaveDataComponent" parent="." unique_id=301328157 instance=ExtResource("7_q3ekf")]

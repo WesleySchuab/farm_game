@@ -25,6 +25,8 @@ func _on_body_entered(body: Node2D) -> void:
 		elif collectable_name == "egg":
 			body.adicionar_vida(15.0) # Galinha dá ovo/carne (cura 15)
 			#print("Você coletou recursos da egg e recuperou vida!")
+		elif collectable_name == "apple":
+			body.adicionar_vida(10.0) 
 			
 		else:
 			# Se NÃO for vaca nem galinha (ex: madeira, pedra, tomate), vai para o inventário
