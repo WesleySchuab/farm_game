@@ -23,6 +23,7 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 [node name="Level1" parent="GameRoot/LevelRoot" unique_id=1967006252 instance=ExtResource("4_rt2n2")]
+position = Vector2(-115, 0)
 
 [node name="Player" parent="GameRoot" unique_id=1156919991 instance=ExtResource("3_rt2n2")]
 position = Vector2(-8, 40)

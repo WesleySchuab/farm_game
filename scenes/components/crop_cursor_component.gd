@@ -34,7 +34,7 @@ func get_cell_under_mouse() -> void:
 	cell_position = tilled_soil_tilemap_layer.local_to_map(mouse_position)
 	cell_source_id = tilled_soil_tilemap_layer.get_cell_source_id(cell_position)
 	local_cell_position = tilled_soil_tilemap_layer.map_to_local(cell_position)
-	distance = player.global_position.distance_to(local_cell_position)
+	distance = player.global_position.distance_to(tilled_soil_tilemap_layer.to_global(local_cell_position))
 
 func _auto_plant_if_on_tilled_soil() -> void:
 	var tool: DataTypes.Tools = ToolManager.selected_tool
@@ -67,16 +67,18 @@ func _plant_crop_at_cell(cell: Vector2i, tool: DataTypes.Tools) -> void:
 
 	if tool == DataTypes.Tools.PlantCorn:
 		var corn_instance := corn_plant_scene.instantiate() as Node2D
+		# Adiciona antes de posicionar: fora da árvore o global_position é tratado
+		# como local e seria deslocado pela transformação do CropFields/Level.
+		crop_fields.add_child(corn_instance)
 		corn_instance.global_position = plant_global_pos
 		var corn_growth := corn_instance.get_node("GrowthCycleComponent") as GrowthCycleComponent
 		corn_growth.is_watered = false
-		crop_fields.add_child(corn_instance)
 	elif tool == DataTypes.Tools.PlantTomato:
 		var tomato_instance := tomato_plant_scene.instantiate() as Node2D
+		crop_fields.add_child(tomato_instance)
 		tomato_instance.global_position = plant_global_pos
 		var tomato_growth := tomato_instance.get_node("GrowthCycleComponent") as GrowthCycleComponent
 		tomato_growth.is_watered = false
-		crop_fields.add_child(tomato_instance)
 
 
 func _has_crop_at_cell(cell: Vector2i) -> bool:
@@ -92,9 +94,10 @@ func _has_crop_at_cell(cell: Vector2i) -> bool:
 func remove_crop()-> void :
 	if distance < 20.0:
 		var crop_nodes = get_parent().find_child("CropFields").get_children()
-		
+		var cell_global_position := tilled_soil_tilemap_layer.to_global(local_cell_position)
+
 		for node: Node2D in crop_nodes:
-			if node.global_position == local_cell_position:
+			if node.global_position.distance_to(cell_global_position) < 8.0:
 				node.queue_free()
 				
 func _get_or_create_cropfields() -> Node2D:

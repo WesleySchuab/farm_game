@@ -59,9 +59,11 @@ func on_enable_tool_button(tool:DataTypes.Tools) -> void:
 		tool_tilling.disabled = false
 		tool_tilling.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.WaterCrops:
+		tool_watering_can.visible = true
 		tool_watering_can.disabled = false
 		tool_watering_can.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.PlantCorn:
+		tool_corn.visible = true
 		tool_corn.disabled = false
 		tool_corn.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.PlantTomato:

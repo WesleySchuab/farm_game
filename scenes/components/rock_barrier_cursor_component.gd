@@ -33,7 +33,7 @@ func get_cell_under_mouse() -> void:
 	mouse_position = grass_tilemap_layer.get_local_mouse_position()
 	cell_position = grass_tilemap_layer.local_to_map(mouse_position)
 	local_cell_position = grass_tilemap_layer.map_to_local(cell_position)
-	distance = player.global_position.distance_to(local_cell_position)
+	distance = player.global_position.distance_to(grass_tilemap_layer.to_global(local_cell_position))
 
 
 ## Coloca uma barreira na célula sob o mouse, consumindo 1 pedra do inventário
@@ -42,13 +42,16 @@ func add_barrier() -> void:
 		return
 	if InventoryManager.get_inventory_count("stone") <= 0:
 		return
-	if _has_barrier_at(local_cell_position):
+	# Posição da célula em coordenadas GLOBAIS (local_cell_position é local ao tilemap)
+	var cell_global_position := grass_tilemap_layer.to_global(local_cell_position)
+	if _has_barrier_at(cell_global_position):
 		return
 
 	InventoryManager.remove_collectable("stone")
 	var barrier: Node2D = rock_barrier_scene.instantiate()
-	barrier.global_position = local_cell_position
+	# Adiciona antes de posicionar: fora da árvore o global_position é tratado como local
 	_get_or_create_rockbarriers().add_child(barrier)
+	barrier.global_position = cell_global_position
 
 
 ## Remove a barreira da célula sob o mouse e devolve 1 pedra
@@ -58,8 +61,9 @@ func remove_barrier() -> void:
 	var container = _get_rockbarriers()
 	if container == null:
 		return
+	var cell_global_position := grass_tilemap_layer.to_global(local_cell_position)
 	for node: Node2D in container.get_children():
-		if node.global_position.distance_to(local_cell_position) < 8.0:
+		if node.global_position.distance_to(cell_global_position) < 8.0:
 			node.queue_free()
 			InventoryManager.add_collectable("stone")
 			return

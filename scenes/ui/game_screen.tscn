@@ -28,6 +28,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="InventoryPanel" parent="MarginContainer/VBoxContainer" unique_id=1776575802 instance=ExtResource("3_gusqm")]
+y_sort_enabled = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

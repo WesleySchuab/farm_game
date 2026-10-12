@@ -17,6 +17,9 @@ var balloon_scene = preload("res://dialogue/game_dialogue_balloon.tscn")
 
 var _has_talked: bool = false
 
+# Marca que o indicador de quest já foi dispensado (o diálogo já começou)
+var _indicator_dismissed: bool = false
+
 # Controle do lembrete de regar (após a primeira conversa)
 var _watering_reminder_active: bool = false
 var _warning_label: Label
@@ -54,6 +57,13 @@ func _hide_quest_indicator() -> void:
 	if _has_talked:
 		return
 	_has_talked = true
+	_hide_quest_indicator_visual()
+
+
+## Esconde o indicador de quest (com fade) sem alterar o estado da conversa
+func _hide_quest_indicator_visual() -> void:
+	if not quest_indicator.visible:
+		return
 	var tween = create_tween()
 	tween.tween_property(quest_indicator, "modulate:a", 0.0, 0.3)
 	tween.tween_callback(func() -> void: quest_indicator.visible = false)
@@ -79,6 +89,9 @@ func _start_guide_dialogue() -> void:
 	var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
 	get_tree().root.add_child(balloon)
 	balloon.start(load("res://dialogue/conversations/guide.dialogue"), "start")
+	# O indicador de quest só some depois que o diálogo começa
+	_indicator_dismissed = true
+	_hide_quest_indicator_visual()
 
 
 ## Retorna a hora atual do ciclo dia/noite (0-23)
@@ -92,7 +105,7 @@ func _get_current_hour() -> int:
 
 ## Mostra/esconde o indicador de quest conforme a hora do dia
 func _update_quest_indicator_visibility(hour: int) -> void:
-	if not crop_seed_tutorial_enabled or _has_talked:
+	if not crop_seed_tutorial_enabled or _has_talked or _indicator_dismissed:
 		quest_indicator.visible = false
 		return
 	quest_indicator.visible = hour >= 5 and hour < 17
@@ -148,6 +161,9 @@ func _on_watering_reminder_timeout() -> void:
 	_watering_reminder_active = true
 	_show_quest_indicator()
 	_show_warning_label()
+	# Após avisar para regar, libera e destaca a ferramenta de regar (regador)
+	ToolManager.enable_tool_button(DataTypes.Tools.WaterCrops)
+	ToolManager.highlight_tool_button(DataTypes.Tools.WaterCrops)
 
 
 ## Encontra (e cacheia) o container de culturas do nível

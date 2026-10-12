@@ -59,6 +59,7 @@ source_geometry_mode = 2
 
 [node name="Level1" type="Node2D" unique_id=1967006252]
 y_sort_enabled = true
+position = Vector2(-81, 2)
 script = ExtResource("1_5gowt")
 
 [node name="SaveLevelDataComponent" parent="." unique_id=443203107 instance=ExtResource("1_vtd0g")]
