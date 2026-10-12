@@ -1,4 +1,4 @@
 ~ start
-Marlow: Está anoitecendo! Corte lenha para a fogueira! [ENTER] 
-Marlow: Os monstros vão começar a aparecer. [ENTER] 
+Marlow: Está anoitecendo! Corte lenha para a fogueira! [next=5]
+Marlow: Os monstros vão começar a aparecer. [next=5]
 => END

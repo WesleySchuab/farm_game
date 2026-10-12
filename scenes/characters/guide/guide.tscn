@@ -1,9 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4pcch7rtkfwf"]
+[gd_scene format=3 uid="uid://b4pcch7rtkfwf"]
 
 [ext_resource type="Script" uid="uid://dypreu3xcilmn" path="res://scenes/characters/guide/guide.gd" id="1_pdv8u"]
 [ext_resource type="Shader" uid="uid://bvuepm0keuqfh" path="res://scenes/characters/guide/replace_color.gdshader" id="1_rl4q2"]
 [ext_resource type="Texture2D" uid="uid://1jilajjsh762" path="res://game/assets/characters/basic_charakter_spritesheet.png" id="2_g6y3g"]
 [ext_resource type="PackedScene" uid="uid://c2ey656s5cb3p" path="res://scenes/components/interactable_component.tscn" id="4_qnx84"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_quest"]
+font_size = 18
+font_color = Color(1, 0.85, 0, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 0.8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yvxhl"]
 shader = ExtResource("1_rl4q2")
@@ -29,7 +35,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qnx84")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 3.0
 }]
@@ -37,17 +43,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_d7sry"]
 radius = 17.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_quest"]
-font_size = 18
-font_color = Color(1, 0.85, 0, 1)
-outline_size = 3
-outline_color = Color(0, 0, 0, 0.8)
-
-[node name="Guide" type="Node2D"]
-scale = Vector2(1.2, 1.2)
+[node name="Guide" type="Node2D" unique_id=1042492322]
+scale = Vector2(1.4, 1.4)
 script = ExtResource("1_pdv8u")
 
-[node name="QuestIndicator" type="Label" parent="."]
+[node name="QuestIndicator" type="Label" parent="." unique_id=1741356230]
 offset_left = -12.0
 offset_top = -40.0
 offset_right = 12.0
@@ -56,9 +56,8 @@ text = "!"
 label_settings = SubResource("LabelSettings_quest")
 horizontal_alignment = 1
 vertical_alignment = 1
-mouse_filter = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2041873751]
 material = SubResource("ShaderMaterial_yvxhl")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_xo3ut")
@@ -66,8 +65,8 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.71460795
 
-[node name="InteractableComponent" parent="." instance=ExtResource("4_qnx84")]
+[node name="InteractableComponent" parent="." unique_id=1396247481 instance=ExtResource("4_qnx84")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent" unique_id=262509993]
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_d7sry")

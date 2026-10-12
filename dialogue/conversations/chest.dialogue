@@ -1,17 +1,17 @@
 ~ star_cow_pasture_box
-Pasture Box: Quer alimentar os animais ?
+Pasture Box: Quer alimentar os animais ? [next=5]
 - Yes
-	Marlow: Sim.
+	Marlow: Sim. [next=5]
 	do GameDialogueManager.action_feed_animals()
-- No 
-	Marlow: Não, vou conseguir mais recursos!
+- No
+	Marlow: Não, vou conseguir mais recursos! [next=5]
 => END
 
 ~ star_chicken_pasture_box
-Pasture Box: Quer alimentar os animais ?
+Pasture Box: Quer alimentar os animais ? [next=5]
 - Yes
-	Marlow: Sim.
+	Marlow: Sim. [next=5]
 	do GameDialogueManager.action_feed_animals()
-- No 
-	Marlow: Não, vou conseguir mais recursos!
+- No
+	Marlow: Não, vou conseguir mais recursos! [next=5]
 => END

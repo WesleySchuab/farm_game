@@ -1,10 +1,10 @@
 ~ start
-Marlow: Não espere a fome bater para plantar!
-Marlow: Há um solo especial onde as sementes nascem! [ENTER] 
-Marlow: Consegue encontrar ? [ENTER] 
+Marlow: Não espere a fome bater para plantar! [next=1]
+Marlow: Há um solo especial onde as sementes nascem! [next=1] 
+Marlow: Consegue encontrar ? [next=1] 
 - Yes
-	Marlow: Pegue a Semente de milho. [ENTER] 
+	Marlow: Pegue a Semente de milho. [next=1] 
 	do GameDialogueManager.action_give_crop_seed()
 - No 
-	Marlow: Então se esforce mais!
+	Marlow: Então se esforce mais! [next=1]
 => END

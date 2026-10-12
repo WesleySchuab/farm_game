@@ -859,7 +859,7 @@ radius = 6.666667
 
 [node name="Player" type="CharacterBody2D" unique_id=507868739 groups=["player"]]
 y_sort_enabled = true
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.4, 1.4)
 collision_layer = 2
 script = ExtResource("1_6avc5")
 current_tool = 3
