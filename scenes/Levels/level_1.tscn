@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bmqctht5vc2t3" path="res://scenes/objects/milk.tscn" id="11_ngn3o"]
 [ext_resource type="PackedScene" uid="uid://w44jhuxal6qa" path="res://scenes/objects/rocks/rock.tscn" id="12_d0wj5"]
 [ext_resource type="PackedScene" uid="uid://b43tex181j2ne" path="res://scenes/objects/egg.tscn" id="12_iiv34"]
+[ext_resource type="PackedScene" uid="uid://cu4ipmuman167" path="res://scenes/objects/tree/aple_tree.tscn" id="12_x5rd6"]
 [ext_resource type="PackedScene" uid="uid://cnjdnj4k0vroj" path="res://scenes/campfire/campfire.tscn" id="20_811s2"]
 [ext_resource type="PackedScene" uid="uid://d2sprmfkoeh47" path="res://scenes/objects/plants/corn.tscn" id="21_corn"]
 [ext_resource type="PackedScene" path="res://scenes/components/rock_barrier_cursor_component.tscn" id="22_rbcc"]
@@ -101,7 +102,7 @@ tile_set = ExtResource("1_ptgt0")
 
 [node name="OverGrowth" type="TileMapLayer" parent="GameTileMap" unique_id=79633864]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD3/x4ABAAAAAAAAAD8/yAABAAAAAAAAAD7/zMABAAAAAAAAAARACgABAAAAAAAAAAWADAABAAAAAAAAAAXADAABAAAAAAAAABJACoABAAAAAAAAABXAAkABAAAAAAAAAD3/ywABAADAAAAAAAdACwABAADAAAAAABNACgABAADAAAAAABUABUABAADAAAAAABRAAYABAADAAAAAAD5/yUABAABAAAAAAAiACcABAABAAAAAABOABsABAABAAAAAAD7/yoABAAIAAIAAAADAB4ABAAIAAIAAAAmADAABAAIAAIAAAAeADQABAAIAAIAAAAcADIABAAIAAIAAAAcADEABAAIAAIAAAAdADAABAAIAAIAAAAeAC4ABAAIAAIAAAAfAC4ABAAIAAIAAAAiAC8ABAAIAAIAAAAjAC8ABAAIAAIAAAAkADMABAAIAAIAAAAnACoABAAIAAIAAABUAAoABAAIAAIAAABVAAUABAAIAAIAAABYAAUABAAIAAIAAAAUAA8ABAADAAIAAAAUAAwABAADAAIAAAATAAoABAADAAIAAAAYAA0ABAAGAAIAAAD0/xAABAAHAAMAAAAaAC4ABAAIAAIAAAAgACwABAAIAAIAAAAfACoABAAIAAIAAAAQAC8ABAAIAAEAAAAPACwABAAIAAEAAAANACwABAAFAAQAAAAMACsABAAFAAQAAAANAC0ABAAGAAQAAAASACsABAADAAAAAAACACoABAADAAIAAAAEACgABAADAAIAAAACACcABAADAAIAAAAGACkABAADAAIAAAAEACkABAAEAAIAAAABACgABAAEAAIAAAABACQABAAEAAIAAAAoABIABAADAAIAAAArABIABAADAAIAAAAjABIABAADAAIAAAArAAsABAAEAAIAAAApAAcABAAEAAIAAAAnAAYABAAEAAIAAAADACMABAAHAAMAAAAGACEABAAHAAMAAAAGACQABAAGAAMAAAAFACQABAAGAAMAAAADACEABAAGAAMAAAAZACkABAADAAAAAAAVACcABAABAAAAAAAXACYABAABAAAAAAAUACQABAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAUAA8ABAADAAIAAAAUAAwABAADAAIAAAATAAoABAADAAIAAAAYAA0ABAAGAAIAAAD0/xAABAAHAAMAAAAQAC8ABAAIAAEAAAAPACwABAAIAAEAAAANACwABAAFAAQAAAAMACsABAAFAAQAAAANAC0ABAAGAAQAAAACACoABAADAAIAAAAEACgABAADAAIAAAACACcABAADAAIAAAAGACkABAADAAIAAAAEACkABAAEAAIAAAABACgABAAEAAIAAAABACQABAAEAAIAAAAoABIABAADAAIAAAArABIABAADAAIAAAAjABIABAADAAIAAAArAAsABAAEAAIAAAApAAcABAAEAAIAAAAnAAYABAAEAAIAAAADACMABAAHAAMAAAAGACEABAAHAAMAAAAGACQABAAGAAMAAAAFACQABAAGAAMAAAADACEABAAGAAMAAAA=")
 tile_set = ExtResource("1_ptgt0")
 
 [node name="Objects" type="TileMapLayer" parent="GameTileMap" unique_id=1587578209 groups=["navigation_polygon_source_geometry_group"]]
@@ -125,6 +126,9 @@ position = Vector2(-34, 287)
 [node name="Rock" parent="GameTileMap" unique_id=1093094308 instance=ExtResource("12_d0wj5")]
 material = SubResource("ShaderMaterial_x5rd6")
 position = Vector2(35, 330)
+
+[node name="LargeTree" parent="GameTileMap" unique_id=810760657 instance=ExtResource("12_x5rd6")]
+position = Vector2(420, 505)
 
 [node name="FieldCursorComponent" parent="." unique_id=1904321976 node_paths=PackedStringArray("grass_tilemap_layer", "tilled_soil_tilemap_layer") instance=ExtResource("3_xxpsm")]
 script = ExtResource("4_j85eu")

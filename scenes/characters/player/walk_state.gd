@@ -9,10 +9,10 @@ extends NodeState
 @export var animated_sprite_2d : AnimatedSprite2D
 
 ## Velocidade de movimento base (caminhada) em pixels por segundo
-@export var speed : int = 80
+@export var speed : int = 90
 
 ## Velocidade de corrida em pixels por segundo
-@export var run_speed : int = 100
+@export var run_speed : int = 120
 
 # Dentro do SEU script de transições:
 var controle_de_animacao_ativo: bool = true
