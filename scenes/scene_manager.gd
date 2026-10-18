@@ -25,6 +25,10 @@ const MAIN_SCENE_PATH: String = "res://scenes/main_scene.tscn"
 const MAIN_SCENE_ROOT: String = "/root/MainScene"
 const LEVEL_ROOT_PATH: String = "/root/MainScene/GameRoot/LevelRoot"
 
+## Emitido sempre que um nível é carregado/recarregado no LevelRoot.
+## Útil para componentes que precisam recalcular dados do nível (ex.: limites do mapa).
+signal level_loaded(index: int, level: Node)
+
 # ── Lista ordenada de níveis ──
 var levels: Array[String] = [
 	"res://scenes/levels/level_1.tscn",
@@ -158,6 +162,9 @@ func _load_level_into_container(index: int) -> void:
 	var level_scene = load(scene_path).instantiate()
 	level_root.add_child(level_scene)
 	print("🗺️ [SceneManager] ✅ ", level_names[index], " carregado no LevelRoot")
+
+	# Avisa os demais sistemas (ex.: limites do mundo/câmera)
+	level_loaded.emit(index, level_scene)
 
 
 # ═══════════════════════════════════════════════

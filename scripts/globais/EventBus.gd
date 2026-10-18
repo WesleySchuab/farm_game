@@ -6,6 +6,10 @@ signal player_health_changed(current_health: float, max_health: float)
 
 signal player_died
 
+## Limites jogáveis do nível atual (em coordenadas globais do mundo).
+## Emitido ao carregar/recarregar um nível — a câmera e o player reagem.
+signal world_bounds_changed(bounds: Rect2)
+
 signal campfire_lit
 signal campfire_died
 signal campfire_fuel_changed(fuel: float, max_fuel: float)

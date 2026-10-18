@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://4g6smpubcbk5" path="res://scenes/characters/player/player.tscn" id="3_rt2n2"]
 [ext_resource type="PackedScene" uid="uid://dnb21jumvnft5" path="res://scenes/ui/game_screen.tscn" id="4_c16ls"]
 [ext_resource type="PackedScene" uid="uid://dycufinc85vru" path="res://scenes/Levels/level_1.tscn" id="4_rt2n2"]
+[ext_resource type="Script" path="res://scenes/components/camera_bounds_component.gd" id="5_camera"]
+[ext_resource type="Script" path="res://scenes/components/world_bounds_component.gd" id="6_bounds"]
 
 [node name="MainScene" type="Node" unique_id=2031456023]
 
@@ -23,13 +25,21 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 [node name="Level1" parent="GameRoot/LevelRoot" unique_id=1967006252 instance=ExtResource("4_rt2n2")]
-position = Vector2(-115, 0)
+position = Vector2(-41, 33)
 
 [node name="Player" parent="GameRoot" unique_id=1156919991 instance=ExtResource("3_rt2n2")]
-position = Vector2(-8, 40)
+position = Vector2(148, 378.99997)
 current_tool = 2
 
 [node name="Camera2D" type="Camera2D" parent="GameRoot/Player" unique_id=1708413689]
 zoom = Vector2(1.3, 1.3)
+limit_left = 0
+limit_top = 20
+limit_right = 1920
+limit_bottom = 1080
+script = ExtResource("5_camera")
 
 [node name="GameScreen" parent="." unique_id=13845100 instance=ExtResource("4_c16ls")]
+
+[node name="WorldBoundsComponent" type="Node" parent="." unique_id=990001234]
+script = ExtResource("6_bounds")

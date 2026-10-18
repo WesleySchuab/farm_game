@@ -57,7 +57,7 @@ offset_right = -244.0
 offset_bottom = -42.0
 
 [node name="HealthBar" parent="." unique_id=1013264914 instance=ExtResource("6_nwa5a")]
-offset_left = -36.0
+offset_left = -100.0
 offset_top = 11.0
-offset_right = -36.0
-offset_bottom = -1.5
+offset_right = -150.0
+offset_bottom = -39.5

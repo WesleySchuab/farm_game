@@ -18,8 +18,9 @@
 | **Gênero** | Fazenda / Sobrevivência / Ação (top-down 2D) |
 | **Engine** | Godot 4.7 |
 | **Plataforma-alvo** | Desktop e **Mobile** (`config/features = ["4.7", "Mobile"]`, renderizador `mobile`) |
-| **Resolução base** | 1920×1080 (viewport), janela 1152×648, stretch `viewport` + `expand` |
-| **Câmera** | `Camera2D` filha do Player (segue o jogador) |
+| **Resolução base** | 960×540 (viewport 16:9), janela 1280×720, stretch `canvas_items` + `expand` |
+| **Tela cheia** | Abre em fullscreen (`window/size/mode=3`); **F11** / **Alt+Enter** alternam |
+| **Câmera** | `Camera2D` filha do Player (segue o jogador), limites calculados por nível |
 | **Idioma** | Português (pt-BR) |
 | **Diretório no projeto** | `res://` |
 
@@ -72,6 +73,7 @@ flowchart TD
 | `show_dialogue` | `E` | Iniciar diálogo com NPCs |
 | `save_game` | `P` | Salvar o jogo |
 | `mute` | `M` | Alterna mute global (`AudioManager.toggle_mute`) |
+| `fullscreen` | `F11` / `Alt+Enter` | Alterna tela cheia × janela (`GameManager._toggle_fullscreen`) |
 | `game_menu` | *(ver `project.godot`)* | Abre o menu do jogo (para todos os áudios) |
 | `0` / `1` / `2` / `3` | *(dev)* | Trocar nível / recarregar (atalhos de desenvolvimento) |
 
@@ -283,6 +285,20 @@ Idle → Chase → Attack
 - `show_click_animation` (animação de clique)
 - `show_action_warning(label)` (aviso de ferramenta errada)
 
+### 4.17 Tela, Resolução e Limites do Mundo
+- **Resolução base:** 960×540 (16:9) · **janela:** 1280×720 · **stretch:** `canvas_items` + `expand` + escala fracionária.
+  Isso mantém o mesmo enquadramento em qualquer tela 16:9 (1080p, 1440p, 4K) e, em proporções
+  diferentes (ultrawide, celular), **mostra mais área** em vez de cortar.
+- **Tela cheia:** o jogo inicia em fullscreen (`window/size/mode=3`); `F11` ou `Alt+Enter` alternam.
+- **`WorldBoundsComponent`** (`scenes/components/world_bounds_component.gd`, nó em `main_scene.tscn`):
+  calcula a área jogável a partir da `TileMapLayer` **"Grass"** do nível (`get_used_rect()` ×
+  `tile_set.tile_size`), publica `EventBus.world_bounds_changed(bounds: Rect2)` e **prende o player**
+  dentro dessa área (`edge_margin`, `clamp_player`).
+- **`CameraBoundsComponent`** (`scenes/components/camera_bounds_component.gd`, na `Camera2D`):
+  aplica o `Rect2` recebido em `limit_left/top/right/bottom` — a câmera nunca mostra o vazio fora do mapa.
+- Recálculo automático: `SceneManager.level_loaded(index, level)` é emitido ao fim de cada carga/recarga.
+- Ajuste de zoom: `Camera2D.zoom` em `main_scene.tscn` (1.3 por padrão).
+
 ---
 
 ## 5. Personagens
@@ -347,6 +363,7 @@ flowchart LR
 
 Sinais principais:
 - `player_health_changed(current, max)`, `player_died`
+- `world_bounds_changed(bounds: Rect2)` — área jogável do nível (câmera + player)
 - `campfire_lit`, `campfire_died`, `campfire_fuel_changed(fuel, max)`
 - `show_action_prompt(key, label)`, `hide_action_prompt`
 - `show_seed_bag`, `show_click_animation`, `show_action_warning(label)`
@@ -355,7 +372,8 @@ Sinais principais:
 `HitComponent`, `HurtComponent`, `DamageComponent`, `FeedComponent`, `CollectableComponent`,
 `InteractableComponents`, `SaveDataComponent`, `SaveLevelDataComponent`, `WorldHealthBar`,
 `DayNightCycleComponent`, `SfxComponent`, `AnimalSoundComponent`, `PortalSpawnComponent`,
-`FieldCursorComponent`, `CropCursorComponent`, `RockBarrierCursorComponent`, `MouseCursorComponent`.
+`FieldCursorComponent`, `CropCursorComponent`, `RockBarrierCursorComponent`, `MouseCursorComponent`,
+`WorldBoundsComponent`, `CameraBoundsComponent`.
 
 ### 7.4 Camadas de Colisão
 **Física (`project.godot`):**
