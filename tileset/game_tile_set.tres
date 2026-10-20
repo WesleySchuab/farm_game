@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cphdgycmhtt8" path="res://game/assets/tilesets/grass.png" id="7_ehbru"]
 [ext_resource type="PackedScene" uid="uid://ciw6y65dt2tmy" path="res://scenes/objects/rocks/mediun_rock.tscn" id="7_psxi1"]
 [ext_resource type="Texture2D" uid="uid://c3cnerygovtv4" path="res://game/assets/tilesets/tilled_dirt_Wide.png" id="8_83irc"]
+[ext_resource type="Texture2D" uid="uid://bvrkgacdgb2nn" path="res://game/assets/tilesets/tree.png" id="8_j8du6"]
 [ext_resource type="Texture2D" uid="uid://b7721ifaarcpm" path="res://game/assets/Objects/basic_grass_biom_things.png" id="9_fj1iv"]
 [ext_resource type="Texture2D" uid="uid://dl8jf35vbafxi" path="res://game/assets/tilesets/fences.png" id="10_oqcms"]
 [ext_resource type="Texture2D" uid="uid://c45t2tw783gqg" path="res://game/assets/tilesets/tilled_dirt_wide_cropfield.png" id="11_piogq"]
@@ -31,6 +32,45 @@ scenes/3/scene = ExtResource("4_psxi1")
 scenes/4/scene = ExtResource("5_j8du6")
 scenes/5/scene = ExtResource("6_qn3a5")
 scenes/6/scene = ExtResource("7_psxi1")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qn3a5"]
+texture = ExtResource("8_j8du6")
+texture_region_size = Vector2i(16, 18)
+1:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:1/0 = 0
+6:0/0 = 0
+1:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+2:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgjhy"]
 texture = ExtResource("7_ehbru")
@@ -1189,3 +1229,4 @@ sources/6 = SubResource("TileSetAtlasSource_yp744")
 sources/7 = SubResource("TileSetAtlasSource_lofe0")
 sources/8 = SubResource("TileSetAtlasSource_psxi1")
 sources/9 = SubResource("TileSetAtlasSource_j8du6")
+sources/11 = SubResource("TileSetAtlasSource_qn3a5")

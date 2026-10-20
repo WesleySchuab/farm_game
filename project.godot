@@ -57,6 +57,7 @@ folder_colors={
 "res://audio/": "red",
 "res://dialogue/": "teal",
 "res://game/assets/": "orange",
+"res://game/assets/Objects/trees/": "green",
 "res://game/assets/characters/enemy/": "red",
 "res://resources/": "purple",
 "res://scenes/": "green",
