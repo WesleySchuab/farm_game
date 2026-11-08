@@ -33,22 +33,22 @@ size = Vector2(142, 30)
 [sub_resource type="TileSet" id="TileSet_4xsrm"]
 tile_size = Vector2i(8, 8)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhe24"]
+resource_local_to_scene = true
+shader = ExtResource("11_d0wj5")
+shader_parameter/shake_intensity = 0.0
+shader_parameter/shake_speed = 20.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x5rd6"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
 shader_parameter/shake_speed = 20.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sl41b"]
-resource_local_to_scene = true
-shader = ExtResource("11_d0wj5")
-shader_parameter/shake_intensity = 0.0
-shader_parameter/shake_speed = 20.0
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vtxvj"]
-vertices = PackedVector2Array(164, 145, 425.6797, 133, 426.1797, 133, 425.6875, 148.39063, 423.6797, 177, 266.1797, 177, 164, 176.5, 425.6797, 293, 426.1797, 293, 425.79688, 305, 164.32031, 113, 163.82031, 113, 164.20313, 101, 164.32031, 129, 425.6797, 117, 426.1797, 117, 163.82031, 145, 425.6875, 277, 426.1797, 277, 164.32031, 289, 163.82031, 305, 163.82031, 289, 164.32031, 273, 426.2578, 258.04688, 424.1875, 213, 163.82031, 273, 164.32031, 257, 267.3125, 213, 163.82031, 257, 164.32031, 241, 163.82031, 241, 164.32031, 225, 163.82031, 129, 426.1797, 101, 162.50781, 225, 163, 207.14063, 163, 176.5)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6), PackedInt32Array(7, 8, 9), PackedInt32Array(10, 11, 12), PackedInt32Array(13, 14, 15, 1, 0, 16), PackedInt32Array(17, 18, 7, 19), PackedInt32Array(9, 20, 19, 7), PackedInt32Array(17, 19, 21, 22, 23), PackedInt32Array(24, 23, 22, 25, 26, 27), PackedInt32Array(26, 28, 29, 27), PackedInt32Array(29, 30, 31, 27), PackedInt32Array(13, 32, 10, 14), PackedInt32Array(12, 33, 14, 10), PackedInt32Array(5, 27, 31, 34, 35, 6), PackedInt32Array(35, 36, 6)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(153, 88, 293, 84, 440, 88, 433, 187, 439, 317, 357, 315, 258, 317, 150, 317, 153, 207)])
+vertices = PackedVector2Array(297.39063, 108.99219, 423.17188, 108.078125, 422.6875, 124, 422.6797, 172, 423.1797, 172, 422.79688, 184, 263.1797, 184, 422.6797, 300, 423.1797, 300, 422.79688, 312, 358.29688, 312, 423.1797, 124, 422.6797, 140, 423.1797, 140, 422.6797, 156, 423.1797, 156, 264.3125, 220, 423.1797, 220, 422.6797, 236, 423.1797, 236, 422.6797, 252, 423.1797, 252, 422.6797, 268, 258.25, 307, 423.1797, 268, 422.6797, 284, 423.1797, 284, 161.3125, 296, 160.82031, 296, 161.32031, 280, 160.96875, 307, 161.00781, 280, 162.99219, 207.52344, 169.35938, 117.39844)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(2, 11, 12), PackedInt32Array(12, 13, 14, 6), PackedInt32Array(14, 15, 3, 6), PackedInt32Array(16, 17, 18), PackedInt32Array(18, 19, 20), PackedInt32Array(20, 21, 22, 10, 23), PackedInt32Array(22, 24, 25, 10), PackedInt32Array(25, 26, 7, 10), PackedInt32Array(27, 28, 29), PackedInt32Array(23, 30, 27), PackedInt32Array(16, 29, 31, 32, 6), PackedInt32Array(29, 16, 18, 20, 23, 27), PackedInt32Array(0, 2, 12, 6, 32, 33)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(160, 108, 297, 99, 435, 98, 435, 186, 437, 323, 358, 322, 258, 317, 150, 317, 153, 207)])
 source_geometry_mode = 2
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fkdrv"]
@@ -119,11 +119,11 @@ tile_set = SubResource("TileSet_4xsrm")
 position = Vector2(175, 47)
 
 [node name="MediunRock" parent="GameTileMap" unique_id=261798739 instance=ExtResource("10_0r5j3")]
-material = SubResource("ShaderMaterial_x5rd6")
+material = SubResource("ShaderMaterial_yhe24")
 position = Vector2(-34, 287)
 
 [node name="Rock" parent="GameTileMap" unique_id=1093094308 instance=ExtResource("12_d0wj5")]
-material = SubResource("ShaderMaterial_sl41b")
+material = SubResource("ShaderMaterial_x5rd6")
 position = Vector2(35, 330)
 
 [node name="FieldCursorComponent" parent="." unique_id=1904321976 node_paths=PackedStringArray("grass_tilemap_layer", "tilled_soil_tilemap_layer") instance=ExtResource("3_xxpsm")]
@@ -160,22 +160,22 @@ position = Vector2(737, 293)
 navigation_polygon = SubResource("NavigationPolygon_vtxvj")
 
 [node name="Chicken" parent="Chickens" unique_id=562636419 instance=ExtResource("3_3ydyl")]
-position = Vector2(951, 508)
+position = Vector2(928, 577)
 
 [node name="Chicken2" parent="Chickens" unique_id=759364429 instance=ExtResource("3_3ydyl")]
-position = Vector2(1058, 570.00006)
+position = Vector2(1118, 590)
 
 [node name="Chicken3" parent="Chickens" unique_id=1086563399 instance=ExtResource("3_3ydyl")]
 position = Vector2(964.00006, 552.00006)
 
 [node name="Chicken4" parent="Chickens" unique_id=771180190 instance=ExtResource("3_3ydyl")]
-position = Vector2(1071, 455)
+position = Vector2(1001, 418.99997)
 
 [node name="Chicken5" parent="Chickens" unique_id=159657936 instance=ExtResource("3_3ydyl")]
-position = Vector2(1094, 553)
+position = Vector2(1133, 539)
 
 [node name="Chicken6" parent="Chickens" unique_id=1296771864 instance=ExtResource("3_3ydyl")]
-position = Vector2(950.00006, 459.00003)
+position = Vector2(967.99994, 425)
 
 [node name="Cows" type="Node2D" parent="." unique_id=282124107]
 y_sort_enabled = true
@@ -194,7 +194,7 @@ dialogue_start_command = "star_cow_pasture_box"
 output_reward_scenes = Array[PackedScene]([ExtResource("11_ngn3o")])
 
 [node name="ChickenPastureBox" parent="." unique_id=472451222 instance=ExtResource("10_14nfc")]
-position = Vector2(919, 400)
+position = Vector2(914, 395)
 dialogue_start_command = "star_chicken_pasture_box"
 output_reward_scenes = Array[PackedScene]([ExtResource("12_iiv34")])
 
@@ -204,7 +204,7 @@ position = Vector2(260, 589)
 [node name="CollectablesItens" type="Node2D" parent="." unique_id=1624312914]
 
 [node name="Apple" parent="CollectablesItens" unique_id=1579563135 instance=ExtResource("26_yhe24")]
-position = Vector2(335, 698)
+position = Vector2(192.00002, 543)
 
 [node name="Apple2" parent="CollectablesItens" unique_id=2045823730 instance=ExtResource("26_yhe24")]
 position = Vector2(264, 693)

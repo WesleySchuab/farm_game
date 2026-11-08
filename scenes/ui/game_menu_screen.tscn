@@ -13,6 +13,7 @@ script = ExtResource("1_l5nq4")
 cursor_component_texture = ExtResource("3_ecc0l")
 
 [node name="GameMenuScreenBakcground" parent="." unique_id=1443001436 instance=ExtResource("1_arotu")]
+position = Vector2(-12, -23)
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1449121267]
 anchors_preset = 15

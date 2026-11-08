@@ -31,9 +31,9 @@ signal level_loaded(index: int, level: Node)
 
 # ── Lista ordenada de níveis ──
 var levels: Array[String] = [
-	"res://scenes/levels/level_1.tscn",
-	"res://scenes/levels/level_2.tscn",
-	"res://scenes/levels/level_3.tscn"
+	"res://scenes/Levels/level_1.tscn",
+	"res://scenes/Levels/level_2.tscn",
+	"res://scenes/Levels/level_3.tscn"
 ]
 
 var level_names: Array[String] = [
@@ -159,7 +159,12 @@ func _load_level_into_container(index: int) -> void:
 	
 	# Carrega o novo nível
 	var scene_path = levels[index]
-	var level_scene = load(scene_path).instantiate()
+	var level_packed: PackedScene = load(scene_path)
+	if level_packed == null:
+		push_error("🗺️ [SceneManager] ❌ Não foi possível carregar o nível: ", scene_path)
+		return
+	
+	var level_scene = level_packed.instantiate()
 	level_root.add_child(level_scene)
 	print("🗺️ [SceneManager] ✅ ", level_names[index], " carregado no LevelRoot")
 

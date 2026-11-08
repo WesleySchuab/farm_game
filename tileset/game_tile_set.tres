@@ -74,12 +74,6 @@ texture_region_size = Vector2i(16, 18)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgjhy"]
 texture = ExtResource("7_ehbru")
-0:0/0 = 0
-0:0/0/terrain_set = 0
-0:0/0/terrain = 0
-0:0/0/terrains_peering_bit/right_side = 0
-0:0/0/terrains_peering_bit/bottom_right_corner = 0
-0:0/0/terrains_peering_bit/bottom_side = 0
 1:0/0 = 0
 1:0/0/terrain_set = 0
 1:0/0/terrain = 0
@@ -307,6 +301,7 @@ texture = ExtResource("7_ehbru")
 7:5/0 = 0
 7:6/0 = 0
 6:6/0 = 0
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wyahh"]
 texture = ExtResource("8_83irc")

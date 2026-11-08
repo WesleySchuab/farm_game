@@ -10,6 +10,22 @@ region = Rect2(32, 28, 15, 21)
 [sub_resource type="CircleShape2D" id="CircleShape2D_h452w"]
 radius = 8.062258
 
+[sub_resource type="Gradient" id="Gradient_df5mh"]
+colors = PackedColorArray(0, 0.703216, 0.18022516, 1, 0, 0.919409, 0.24801102, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8nlbl"]
+gradient = SubResource("Gradient_df5mh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vkyjv"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.5
+direction = Vector3(0, -1, 0)
+angular_velocity_min = -5.000016
+angular_velocity_max = 5.999984
+gravity = Vector3(2, -20, 3)
+color_initial_ramp = SubResource("GradientTexture1D_8nlbl")
+
 [node name="Apple" type="Sprite2D" unique_id=1579563135]
 y_sort_enabled = true
 scale = Vector2(0.8, 0.8)
@@ -20,3 +36,8 @@ collectable_name = "egg"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableComponent" unique_id=2144333631]
 shape = SubResource("CircleShape2D_h452w")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CollectableComponent" unique_id=1121088665]
+position = Vector2(0, 2.4999998)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_vkyjv")
