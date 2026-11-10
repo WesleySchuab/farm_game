@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cy7vvfv4isbjh" path="res://game/assets/Objects/fire/fire_big2.png" id="5_8pjve"]
 [ext_resource type="Texture2D" uid="uid://evvxjcxw6m22" path="res://game/assets/Objects/fire/fire_big3.png" id="5_auago"]
 [ext_resource type="PackedScene" uid="uid://dlsrvp8y5fjvc" path="res://scenes/components/world_health_bar.tscn" id="5_healthbar"]
+[ext_resource type="Script" path="res://scenes/campfire/crow_flock_component.gd" id="6_flock"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcaur"]
 size = Vector2(17, 16)
@@ -128,3 +129,6 @@ offset_left = -36.0
 offset_top = -43.5
 offset_right = -18.0
 offset_bottom = -25.5
+
+[node name="CrowFlockComponent" type="Node" parent="."]
+script = ExtResource("6_flock")

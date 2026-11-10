@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://crqonvs4cpub5" path="res://scenes/components/hit_component.tscn" id="9_b78sl"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="10_a8y1b"]
 [ext_resource type="Script" uid="uid://cnedunsk3ipmw" path="res://scenes/characters/enemy/boss_summon_state.gd" id="12_8uoqn"]
-[ext_resource type="PackedScene" uid="uid://ibaoccj46mfl" path="res://scenes/characters/enemy/enemy.tscn" id="13_xa4wr"]
+[ext_resource type="PackedScene" uid="uid://ibaoccj46mfl" path="res://scenes/characters/enemy/mush.tscn" id="13_xa4wr"]
 [ext_resource type="Script" uid="uid://drtvr5vjqngwk" path="res://scenes/components/sfx_component.gd" id="14_sfxcomp"]
 [ext_resource type="PackedScene" uid="uid://ctapyx3vdeojk" path="res://scenes/effects/portal_enemies_component.tscn" id="15_portal"]
 

@@ -11,16 +11,20 @@ const ATTACK_RIGHT: StringName = &"atack_right"
 const ATTACK_LEFT_ALIAS: StringName = &"attack_left"
 const ATTACK_DOWN: StringName = &"atack_down"
 
-## Velocidade do voo de patrulha ao redor do jogador
+## Velocidade do voo de patrulha
 @export var flight_speed: float = 170.0
-## Raio horizontal da órbita em volta do jogador
-@export var orbit_radius_x: float = 150.0
+## Raio (px) do ponto distante usado no sobrevoo
+@export var flyby_far_radius: float = 420.0
+## Raio (px) do ponto próximo usado no sobrevoo
+@export var flyby_near_radius: float = 110.0
+## Distância para considerar que chegou ao ponto de sobrevoo
+@export var flyby_arrival_distance: float = 24.0
+## Tempo máximo perseguindo um ponto antes de trocar (segundos)
+@export var flyby_waypoint_timeout: float = 3.5
 ## Distância mínima acima do jogador
 @export var flight_altitude: float = 70.0
-## Variação vertical extra da órbita (sempre acima do jogador)
+## Variação vertical extra do sobrevoo (sempre acima do jogador)
 @export var orbit_height_range: float = 45.0
-## Velocidade angular da órbita (rad/s)
-@export var orbit_speed: float = 0.7
 ## Velocidade do mergulho de ataque
 @export var attack_dive_speed: float = 260.0
 ## Delay para o hitbox ligar, sincronizado com o frame de impacto
@@ -29,9 +33,18 @@ const ATTACK_DOWN: StringName = &"atack_down"
 @export var attack_hit_duration: float = 0.25
 ## Duração total do estado de ataque
 @export var attack_total_duration: float = 0.8
+## Velocidade da fuga quando a fogueira é reacesa
+@export var retreat_speed: float = 340.0
+## Tempo até o corvo sumir após iniciar a fuga
+@export var retreat_duration: float = 2.5
 
 ## Offset atual do hitbox, definido pelo estado de ataque
 var hitbox_offset: Vector2 = Vector2.ZERO
+
+## Quando true, o corvo foge do jogador e desaparece
+var is_retreating: bool = false
+
+var _retreat_time: float = 0.0
 
 
 func _ready() -> void:
@@ -39,6 +52,22 @@ func _ready() -> void:
 	sprite_faces_right = true
 	animated_sprite_2d.flip_h = false
 	_prepare_animations()
+
+
+func _process(delta: float) -> void:
+	if not is_retreating:
+		return
+	_retreat_time += delta
+	if _retreat_time >= retreat_duration:
+		queue_free()
+
+
+## Inicia a fuga: o corvo se afasta e desaparece após retreat_duration
+func start_retreat() -> void:
+	if is_retreating:
+		return
+	is_retreating = true
+	disable_hit_box()
 
 
 ## Reativa a colisão do corpo, que o portal desabilita durante o spawn
@@ -62,15 +91,12 @@ func _prepare_animations() -> void:
 			frames.set_animation_loop(animation, false)
 
 
-## Posição alvo na órbita, sempre acima do jogador
-func get_orbit_position(angle: float) -> Vector2:
-	if player == null:
-		return global_position
-	var orbit_offset := Vector2(
-		cos(angle) * orbit_radius_x,
-		-flight_altitude - orbit_height_range + sin(angle) * orbit_height_range
-	)
-	return player.global_position + orbit_offset
+## Offset de um ponto de sobrevoo acima do jogador (near/far)
+func get_flyby_offset(far: bool) -> Vector2:
+	var radius := flyby_far_radius if far else flyby_near_radius
+	var angle := randf_range(0.0, TAU)
+	var altitude := -flight_altitude - randf_range(0.0, orbit_height_range)
+	return Vector2(cos(angle) * radius, altitude)
 
 
 ## Atualiza o lado para onde a sprite olha (a arte olha para a direita)
@@ -87,6 +113,11 @@ func play_fly_animation(_direction: Vector2) -> void:
 		return
 	var animation := FLY_LEFT_ALIAS if animated_sprite_2d.flip_h else FLY_RIGHT
 	_play_if_changed(animation, FLY_RIGHT)
+
+
+## Toca a animação de fuga (subindo/afastando)
+func play_flee_animation() -> void:
+	_play_if_changed(FLY_UP, FLY_RIGHT)
 
 
 ## Toca a animação de ataque e devolve o offset do hitbox para essa direção

@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://d2sprmfkoeh47" path="res://scenes/objects/plants/corn.tscn" id="21_corn"]
 [ext_resource type="PackedScene" path="res://scenes/components/rock_barrier_cursor_component.tscn" id="22_rbcc"]
 [ext_resource type="Script" uid="uid://oslegf6dcd4x" path="res://scenes/components/rock_barrier_cursor_component.gd" id="23_rbcg"]
+[ext_resource type="PackedScene" uid="uid://cu4ipmuman167" path="res://scenes/objects/tree/aple_tree.tscn" id="26_x5rd6"]
 [ext_resource type="PackedScene" uid="uid://ctur71qmru123" path="res://scenes/objects/apple.tscn" id="26_yhe24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssk4h"]
@@ -33,13 +34,13 @@ size = Vector2(142, 30)
 [sub_resource type="TileSet" id="TileSet_4xsrm"]
 tile_size = Vector2i(8, 8)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhe24"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5rd6"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
 shader_parameter/shake_speed = 20.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5rd6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sl41b"]
 resource_local_to_scene = true
 shader = ExtResource("11_d0wj5")
 shader_parameter/shake_intensity = 0.0
@@ -119,11 +120,11 @@ tile_set = SubResource("TileSet_4xsrm")
 position = Vector2(175, 47)
 
 [node name="MediunRock" parent="GameTileMap" unique_id=261798739 instance=ExtResource("10_0r5j3")]
-material = SubResource("ShaderMaterial_yhe24")
+material = SubResource("ShaderMaterial_x5rd6")
 position = Vector2(-34, 287)
 
 [node name="Rock" parent="GameTileMap" unique_id=1093094308 instance=ExtResource("12_d0wj5")]
-material = SubResource("ShaderMaterial_x5rd6")
+material = SubResource("ShaderMaterial_sl41b")
 position = Vector2(35, 330)
 
 [node name="FieldCursorComponent" parent="." unique_id=1904321976 node_paths=PackedStringArray("grass_tilemap_layer", "tilled_soil_tilemap_layer") instance=ExtResource("3_xxpsm")]
@@ -220,6 +221,12 @@ position = Vector2(462, 739)
 
 [node name="Apple6" parent="CollectablesItens" unique_id=530090862 instance=ExtResource("26_yhe24")]
 position = Vector2(496, 715)
+
+[node name="LargeTree" parent="CollectablesItens" unique_id=810760657 instance=ExtResource("26_x5rd6")]
+position = Vector2(312, 666)
+
+[node name="LargeTree2" parent="CollectablesItens" unique_id=712082942 instance=ExtResource("26_x5rd6")]
+position = Vector2(464, 653)
 
 [node name="Campfire" parent="." unique_id=2018115145 instance=ExtResource("20_811s2")]
 position = Vector2(132, 243)

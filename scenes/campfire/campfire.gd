@@ -57,6 +57,9 @@ func _ready() -> void:
 		fire_sprite.play("extinguished")
 		fire_particles.emitting = false
 		point_light.enabled = false
+	
+	# Avisa o estado inicial após todos os componentes conectarem seus sinais
+	EventBus.campfire_state_changed.emit.call_deferred(is_lit)
 
 func _process(delta: float) -> void:
 	if not is_lit:
@@ -147,6 +150,7 @@ func _ignite() -> void:
 	point_light.enabled = true
 	health_bar.show()
 	EventBus.campfire_lit.emit()
+	EventBus.campfire_state_changed.emit(true)
 	print("🔥 [CAMPFIRE] Fogueira acesa!")
 
 ## Apaga a fogueira
@@ -157,4 +161,5 @@ func _extinguish() -> void:
 	point_light.enabled = false
 	health_bar.hide()
 	EventBus.campfire_died.emit()
+	EventBus.campfire_state_changed.emit(false)
 	print("🔥 [CAMPFIRE] Fogueira apagou! Sem combustível.")

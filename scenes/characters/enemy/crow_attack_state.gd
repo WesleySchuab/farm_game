@@ -38,6 +38,9 @@ func _on_enter() -> void:
 func _on_process(delta: float) -> void:
 	if enemy == null or enemy.is_dead:
 		return
+	if enemy.is_retreating:
+		transition.emit("fly")
+		return
 
 	_elapsed += delta
 
@@ -56,7 +59,7 @@ func _on_process(delta: float) -> void:
 
 
 func _on_physics_process(_delta: float) -> void:
-	if enemy == null or enemy.is_dead:
+	if enemy == null or enemy.is_dead or enemy.is_retreating:
 		return
 	if not controle_de_animacao_ativo:
 		return

@@ -18,7 +18,7 @@ const GAME_MINUTE_DURATION: float = TAU / MINUTES_PER_DAY
 # --- VARIÁVEIS DE CONFIGURAÇÃO E ESTADO ---
 
 ## Velocidade do tempo no jogo. Quanto maior o número, mais rápido o dia passa (Ex: 5.0 significa que o tempo corre 5x mais rápido).
-var game_speed: float = 1.0
+var game_speed: float = 2.0
 
 # Variáveis que armazenam o ponto de partida do relógio (modificadas pelo componente visual no script anterior).
 var initial_day: int = 1

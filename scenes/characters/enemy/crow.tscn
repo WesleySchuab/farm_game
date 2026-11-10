@@ -30,14 +30,6 @@ region = Rect2(512, 584, 128, 146)
 atlas = ExtResource("2_ipfoe")
 region = Rect2(640, 584, 128, 146)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ab0t"]
-atlas = ExtResource("2_ipfoe")
-region = Rect2(1408, 730, 128, 146)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pqjqs"]
-atlas = ExtResource("2_ipfoe")
-region = Rect2(1152, 730, 128, 146)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn76l"]
 atlas = ExtResource("2_ipfoe")
 region = Rect2(896, 730, 128, 146)
@@ -46,9 +38,17 @@ region = Rect2(896, 730, 128, 146)
 atlas = ExtResource("2_ipfoe")
 region = Rect2(1024, 730, 128, 146)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqjqs"]
+atlas = ExtResource("2_ipfoe")
+region = Rect2(1152, 730, 128, 146)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ohj67"]
 atlas = ExtResource("2_ipfoe")
 region = Rect2(1280, 730, 128, 146)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ab0t"]
+atlas = ExtResource("2_ipfoe")
+region = Rect2(1408, 730, 128, 146)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1osd"]
 atlas = ExtResource("2_ipfoe")
@@ -189,7 +189,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_j83gl")
 }],
 "loop": 1,
-"name": &"fly_rith",
+"name": &"fly_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -214,15 +214,22 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_body"]
+radius = 20.0
+height = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_attack"]
 radius = 28.0
 
 [node name="Crow" type="CharacterBody2D" unique_id=1952417681]
 y_sort_enabled = true
+scale = Vector2(0.5, 0.5)
 collision_layer = 4
 script = ExtResource("1_crow")
-max_health = 60.0
+flight_speed = 150.0
+flight_altitude = 90.0
+retreat_speed = 100.0
+retreat_duration = 10.0
+max_health = 10.0
 attack_distance = 190.0
 sprite_faces_right = true
 enemy_type = "Crow"
@@ -233,9 +240,10 @@ texture_repeat = 2
 position = Vector2(0, -4)
 scale = Vector2(0.45, 0.45)
 sprite_frames = SubResource("SpriteFrames_83dg8")
-animation = &"fly_rith"
+animation = &"fly_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=194945647]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_body")
 
@@ -250,7 +258,9 @@ script = ExtResource("4_fly")
 script = ExtResource("5_attack")
 
 [node name="HitComponent" parent="." unique_id=1061249591 instance=ExtResource("7_hit")]
-hit_damage = 10
+collision_layer = 4
+collision_mask = 2
+hit_damage = 3
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent" unique_id=251370005]
 shape = SubResource("CircleShape2D_attack")

@@ -62,13 +62,18 @@ Godot 4, jogo de fazenda. Convenções completas: memória do repositório `/mem
 
 ### Inimigos com voo (Crow)
 - `scenes/characters/enemy/crow.gd` (classe `Crow`): monta animações da cena (`fly_rith`, `fly_down`, `fly_up`, `atack_right`, `atack_down`) e deriva os lados esquerdos por `flip_h` — não crie animação de "left".
-- Estados dedicados em `crow_fly_state.gd` (órbita acima do jogador) e `crow_attack_state.gd` (mergulho + hitbox), registrados na `StateMachine` como `Fly`/`Attack`.
+- Estados dedicados em `crow_fly_state.gd` (sobrevoo: alterna pontos longe/perto do jogador) e `crow_attack_state.gd` (mergulho + hitbox), registrados na `StateMachine` como `Fly`/`Attack`.
 - A arte olha para a direita, então `sprite_faces_right = true`; `hitbox_offset` define a posição do hitbox no ataque.
 - Crow invocado pelo Necromante não abre portal próprio: `Enemy.skip_spawn_portal()` encerra o `PortalSpawnComponent` e usa o portal de quem invocou.
 - ⚠️ A sprite sheet usa 128×128 por frame; linhas: `RIGHT` (3), `ATTACK DOWN` (4), `ATTACK RIGHT` (5).
 
+### Fogueira e bandos de corvos
+- `scenes/campfire/crow_flock_component.gd` (`CrowFlockComponent`) fica como filho da fogueira e gera ondas de **1 a 8 corvos** enquanto ela estiver apagada (máx. 8 vivos, primeira onda após `first_wave_delay` e novas a cada `respawn_delay`; surgem a 420–620 px do player).
+- A fogueira publica `EventBus.campfire_state_changed(is_lit)` no início e ao acender/apagar; o componente escuta esse sinal e adiciona os corvos ao nível (irmão da fogueira), com `collision_mask = 0` e `attack_cooldown` sorteado (5–9 s).
+- Ao reacender, `Crow.start_retreat()` faz os corvos fugirem e desaparecerem após `retreat_duration`.
+
 ### Níveis
-- Level1: fazenda sem inimigos; único nível com o aviso da fogueira do guia. Level2: Necromante apenas invoca MushMario, Crow circula o jogador e mergulha para atacar, e os avisos do guia ficam desativados. Level3: Necromante apenas invoca Crow (sem corvo fixo no nível) e os avisos do guia ficam desativados.
+- Level1: fazenda sem inimigos fixos; corvos surgem em ondas enquanto a fogueira estiver apagada, e é o único nível com o aviso da fogueira do guia. Level2: Necromante apenas invoca MushMario (sem corvo no nível) e os avisos do guia ficam desativados. Level3: Necromante apenas invoca Crow (sem corvo fixo no nível) e os avisos do guia ficam desativados.
 - `SceneManager.DEV_START_LEVEL` escolhe nível inicial; teclas 1/2/3 trocam (dev).
 
 ## Collision Layers (bit value)

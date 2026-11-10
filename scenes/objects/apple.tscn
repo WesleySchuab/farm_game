@@ -23,7 +23,7 @@ emission_sphere_radius = 2.5
 direction = Vector3(0, -1, 0)
 angular_velocity_min = -5.000016
 angular_velocity_max = 5.999984
-gravity = Vector3(2, -20, 3)
+gravity = Vector3(2, -50, 3)
 color_initial_ramp = SubResource("GradientTexture1D_8nlbl")
 
 [node name="Apple" type="Sprite2D" unique_id=1579563135]

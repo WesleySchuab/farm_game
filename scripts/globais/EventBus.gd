@@ -14,6 +14,10 @@ signal campfire_lit
 signal campfire_died
 signal campfire_fuel_changed(fuel: float, max_fuel: float)
 
+## Estado atual da fogueira (true = acesa, false = apagada).
+## Emitido ao iniciar o nível e sempre que a fogueira acende/apaga.
+signal campfire_state_changed(is_lit: bool)
+
 ## Sinais para controlar o Action Prompt (UI)
 signal show_action_prompt(key: String, label: String)
 signal hide_action_prompt
