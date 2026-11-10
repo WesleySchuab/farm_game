@@ -53,11 +53,13 @@ const SFX_PATHS := {
 enum MUSIC {
 	ON_THE_FARM,
 	OPENING,
+	FIRE_ON,
 }
 
 const MUSIC_PATHS := {
 	MUSIC.ON_THE_FARM: "res://game/assets/audio/music/on_the_farm.ogg",
 	MUSIC.OPENING: "res://game/assets/audio/music/opening_soundtrack.mp3",
+	MUSIC.FIRE_ON: "res://game/assets/audio/music/fire_on.mp3",
 }
 
 # Grupos de variação (para play_sfx_varied_at)
@@ -170,7 +172,10 @@ func play_music(id: int, vol_db: float = 0.0, pitch: float = 1.0) -> void:
 	_ensure_players()
 	var stream = _load_music(id)
 	if not stream: return
-	if music_player.stream == stream and music_player.playing: return
+	if music_player.stream == stream and music_player.playing:
+		music_player.volume_db = vol_db
+		music_player.pitch_scale = pitch
+		return
 	music_player.stream = stream
 	music_player.volume_db = vol_db
 	music_player.pitch_scale = pitch

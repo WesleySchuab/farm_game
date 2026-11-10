@@ -70,6 +70,7 @@ func on_enable_tool_button(tool:DataTypes.Tools) -> void:
 		tool_tomato.disabled = false
 		tool_tomato.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.AxeWood:
+		tool_axe.visible = true
 		tool_axe.disabled = false
 		tool_axe.focus_mode = Control.FOCUS_ALL
 	elif tool == DataTypes.Tools.BuildRock:

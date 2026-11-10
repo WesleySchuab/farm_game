@@ -35,6 +35,9 @@ var _original_modulate_a: float = 1.0
 ## Guarda o scale original do target_sprite
 var _original_scale: Vector2 = Vector2.ONE
 
+## Tween da animação de spawn (permite cancelar quando o spawn já vem de outro portal)
+var _spawn_tween: Tween
+
 
 func _ready() -> void:
 	if target_sprite:
@@ -79,12 +82,13 @@ func play_spawn() -> void:
 	# --- Animação via Tween ---
 	var tween = create_tween()
 	tween.set_parallel(true)
+	_spawn_tween = tween
 	
 	if target_sprite:
-		# Scale: 0 → 1.1 → 1.0 (efeito "pop")
-		tween.tween_property(target_sprite, "scale", Vector2(1.1, 1.1), spawn_duration * 0.6) \
+		# Scale: 0 → 1.1 → 1.0 (efeito "pop"), preserving authored sprite scale.
+		tween.tween_property(target_sprite, "scale", _original_scale * 1.1, spawn_duration * 0.6) \
 			.set_delay(spawn_duration * 0.4)
-		tween.tween_property(target_sprite, "scale", Vector2(1.0, 1.0), spawn_duration * 0.3) \
+		tween.tween_property(target_sprite, "scale", _original_scale, spawn_duration * 0.3) \
 			.set_delay(spawn_duration * 1.0)
 		
 		# Fade in: 0 → original_alpha
@@ -93,6 +97,23 @@ func play_spawn() -> void:
 	
 	# Callback de conclusão
 	tween.tween_callback(_on_spawn_finished).set_delay(spawn_duration)
+
+
+## Encerra o spawn imediatamente, sem tocar as partículas do portal.
+## Usado quando o inimigo já nasceu pelo portal de quem o invocou.
+func finish_immediately() -> void:
+	if not is_spawning:
+		return
+
+	if _spawn_tween and _spawn_tween.is_valid():
+		_spawn_tween.kill()
+	_spawn_tween = null
+
+	if target_sprite:
+		target_sprite.scale = _original_scale
+		target_sprite.modulate.a = _original_modulate_a
+
+	_on_spawn_finished()
 
 
 ## Callback interno quando a animação termina

@@ -40,6 +40,8 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 var _knockback_timer: float = 0.0
 
 func _ready() -> void:
+	disable_player_hitbox()
+
 	# Avisa o EventBus logo no início para a barra começar cheia
 	# Usamos 'callable.call_deferred' para garantir que a barra já exista na tela antes de enviar o valor
 	EventBus.player_health_changed.emit.call_deferred(current_health, max_health)

@@ -14,11 +14,11 @@ extends Node
 # ═══════════════════════════════════════════════
 # 🎮 CONFIGURAÇÃO DE DESENVOLVIMENTO
 #   0 = Level 1 (Fazenda, sem inimigos)
-#   1 = Level 2 (Necromante + Mushrooms)
-#   2 = Level 3 (Novo inimigo)
+#   1 = Level 2 (Mushrooms)
+#   2 = Level 3 (Crow)
 # ═══════════════════════════════════════════════
 # Sempre um numero a menos do nome que o level leva
-const DEV_START_LEVEL: int = 0
+const DEV_START_LEVEL: int = 2
 
 # ── Caminhos da estrutura ──
 const MAIN_SCENE_PATH: String = "res://scenes/main_scene.tscn"

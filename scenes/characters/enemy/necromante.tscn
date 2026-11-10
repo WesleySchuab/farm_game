@@ -441,11 +441,12 @@ portal_enemies_scene = ExtResource("15_portal")
 
 [node name="HitComponent" parent="." unique_id=495609444 instance=ExtResource("9_b78sl")]
 visible = false
-collision_layer = 4
-collision_mask = 2
-hit_damage = 10
+collision_layer = 0
+collision_mask = 0
+hit_damage = 0
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent" unique_id=220716299]
+disabled = true
 position = Vector2(5, -13)
 shape = SubResource("CircleShape2D_72liy")
 debug_color = Color(0.7323392, 0.40340844, 0.64580375, 0.41960785)

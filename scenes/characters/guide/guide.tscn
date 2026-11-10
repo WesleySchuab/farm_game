@@ -40,12 +40,21 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 5.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_d7sry"]
 radius = 17.0
 
-[node name="Guide" type="Node2D" unique_id=1042492322]
+[node name="Guide" type="CharacterBody2D" unique_id=1042492322]
 scale = Vector2(1.4, 1.4)
+motion_mode = 1
+collision_layer = 0
+collision_mask = 1
 script = ExtResource("1_pdv8u")
+
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
 
 [node name="QuestIndicator" type="Label" parent="." unique_id=1741356230]
 offset_left = -12.0

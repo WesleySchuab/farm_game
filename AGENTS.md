@@ -60,8 +60,15 @@ Godot 4, jogo de fazenda. Convenções completas: memória do repositório `/mem
 ### Interação (proximidade)
 - `scenes/components/interactable_component.gd`: `InteractableComponents` (Area2D) — sinais `interactable_activated` / `interactable_deactivated` (body_entered/exited).
 
+### Inimigos com voo (Crow)
+- `scenes/characters/enemy/crow.gd` (classe `Crow`): monta animações da cena (`fly_rith`, `fly_down`, `fly_up`, `atack_right`, `atack_down`) e deriva os lados esquerdos por `flip_h` — não crie animação de "left".
+- Estados dedicados em `crow_fly_state.gd` (órbita acima do jogador) e `crow_attack_state.gd` (mergulho + hitbox), registrados na `StateMachine` como `Fly`/`Attack`.
+- A arte olha para a direita, então `sprite_faces_right = true`; `hitbox_offset` define a posição do hitbox no ataque.
+- Crow invocado pelo Necromante não abre portal próprio: `Enemy.skip_spawn_portal()` encerra o `PortalSpawnComponent` e usa o portal de quem invocou.
+- ⚠️ A sprite sheet usa 128×128 por frame; linhas: `RIGHT` (3), `ATTACK DOWN` (4), `ATTACK RIGHT` (5).
+
 ### Níveis
-- Level1: fazenda sem inimigos. Level2: Necromante + Mushrooms. Level3: novo inimigo.
+- Level1: fazenda sem inimigos; único nível com o aviso da fogueira do guia. Level2: Necromante apenas invoca MushMario, Crow circula o jogador e mergulha para atacar, e os avisos do guia ficam desativados. Level3: Necromante apenas invoca Crow (sem corvo fixo no nível) e os avisos do guia ficam desativados.
 - `SceneManager.DEV_START_LEVEL` escolhe nível inicial; teclas 1/2/3 trocam (dev).
 
 ## Collision Layers (bit value)

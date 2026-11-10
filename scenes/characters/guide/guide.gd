@@ -1,16 +1,21 @@
-extends Node2D
+extends CharacterBody2D
 
 var balloon_scene = preload("res://dialogue/game_dialogue_balloon.tscn")
 
-## Velocidade com que o guia anda até o jogador no aviso noturno
+## Velocidade com que o guia se aproxima quando a fogueira está apagada
 @export var walk_speed: float = 60.0
 ## Distância do jogador em que o guia para
 @export var stop_distance: float = 40.0
+## Distância usada para detectar obstáculos durante a aproximação
+@export var obstacle_lookahead: float = 48.0
 ## Tempo (em segundos) de espera após a primeira conversa para lembrar de regar
 @export var watering_reminder_delay: float = 60.0
 ## Tempo (em segundos) que o aviso flutuante de regar fica visível
 @export var reminder_text_duration: float = 6.0
 @export var crop_seed_tutorial_enabled: bool = true
+@export var campfire_warning_enabled: bool = true
+
+const APPROACH_DELAY_GAME_MINUTES: float = 2.0
 
 @onready var interactable_component: InteractableComponents = $InteractableComponent
 @onready var quest_indicator: Label = $QuestIndicator
@@ -24,15 +29,29 @@ var _indicator_dismissed: bool = false
 var _watering_reminder_active: bool = false
 var _warning_label: Label
 var _crop_fields: Node2D
+var _active_dialogue: BaseGameDialogueBalloon
 
-# Controle do aviso noturno (19:00)
-var _night_warning_triggered: bool = false
+# Controle do aviso de anoitecer
+var _approach_timer_elapsed: bool = false
+var _approach_started: bool = false
+var _campfire_warning_finished: bool = false
+var _game_time_at_start: float = 0.0
+var _home_position: Vector2 = Vector2.ZERO
 var _campfire_lit: bool = false
 var _walking_to_player: bool = false
+var _returning_to_start: bool = false
 var _walk_target: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	if not crop_seed_tutorial_enabled and not campfire_warning_enabled:
+		quest_indicator.hide()
+		$BodyCollision.set_deferred("disabled", true)
+		$InteractableComponent/CollisionShape2D.set_deferred("disabled", true)
+		call_deferred("_unfreeze_level_player")
+		print("👹[GUIDE] Procedimentos desativados neste nível")
+		return
+
 	interactable_component.interactable_activated.connect(on_interactable_activated)
 	
 	GameDialogueManager.give_crop_seeds.connect(on_give_crop_seeds)
@@ -41,9 +60,18 @@ func _ready() -> void:
 	_update_quest_indicator_visibility(_get_current_hour())
 	_create_warning_label()
 	
-	# Aviso noturno: às 19h o guia vai até o jogador
-	DayAndNightCycleManager.time_tick.connect(_on_time_tick)
-	EventBus.campfire_lit.connect(_on_campfire_lit)
+	_game_time_at_start = DayAndNightCycleManager.time
+	_home_position = global_position
+	if crop_seed_tutorial_enabled:
+		DayAndNightCycleManager.time_tick.connect(_on_time_tick)
+	if campfire_warning_enabled:
+		EventBus.campfire_lit.connect(_on_campfire_lit)
+
+
+func _unfreeze_level_player() -> void:
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player:
+		player.unfreeze()
 
 
 func _animate_quest_indicator() -> void:
@@ -77,6 +105,8 @@ func on_interactable_activated() -> void:
 func _start_guide_dialogue() -> void:
 	if not crop_seed_tutorial_enabled:
 		return
+	if not _campfire_warning_finished or _walking_to_player or _has_active_dialogue():
+		return
 	# Lembrete de regar ativo: reforça o aviso em vez de reabrir a conversa inicial
 	if _watering_reminder_active:
 		_show_warning_label()
@@ -87,11 +117,22 @@ func _start_guide_dialogue() -> void:
 	if hour < 5 or hour >= 17:
 		return
 	var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
+	_active_dialogue = balloon
 	get_tree().root.add_child(balloon)
+	balloon.tree_exited.connect(_on_guide_dialogue_finished)
 	balloon.start(load("res://dialogue/conversations/guide.dialogue"), "start")
 	# O indicador de quest só some depois que o diálogo começa
 	_indicator_dismissed = true
 	_hide_quest_indicator_visual()
+
+
+func _has_active_dialogue() -> bool:
+	return is_instance_valid(_active_dialogue)
+
+
+func _on_guide_dialogue_finished() -> void:
+	_active_dialogue = null
+	_try_start_approach()
 
 
 ## Retorna a hora atual do ciclo dia/noite (0-23)
@@ -105,14 +146,35 @@ func _get_current_hour() -> int:
 
 ## Mostra/esconde o indicador de quest conforme a hora do dia
 func _update_quest_indicator_visibility(hour: int) -> void:
-	if not crop_seed_tutorial_enabled or _has_talked or _indicator_dismissed:
+	if (
+		not crop_seed_tutorial_enabled
+		or not _campfire_warning_finished
+		or _has_talked
+		or _indicator_dismissed
+	):
 		quest_indicator.visible = false
 		return
 	quest_indicator.visible = hour >= 5 and hour < 17
 
 
+func _on_time_tick(_day: int, hour: int, _minute: int) -> void:
+	_update_quest_indicator_visibility(hour)
+
+
 ## Enquanto o lembrete está ativo, esconde-o assim que todas as plantas forem regadas
 func _process(_delta: float) -> void:
+	if campfire_warning_enabled and not _approach_timer_elapsed:
+		var elapsed_game_time: float = DayAndNightCycleManager.time - _game_time_at_start
+		var required_game_time: float = (
+			APPROACH_DELAY_GAME_MINUTES * DayAndNightCycleManager.GAME_MINUTE_DURATION
+		)
+		if elapsed_game_time >= required_game_time:
+			_approach_timer_elapsed = true
+			if _campfire_lit:
+				_unlock_crop_dialogue()
+			else:
+				_try_start_approach()
+
 	if _watering_reminder_active and not _has_unwatered_crop():
 		_watering_reminder_active = false
 		_hide_reminder_indicator()
@@ -210,59 +272,125 @@ func _hide_reminder_indicator() -> void:
 		_warning_label.visible = false
 
 
-# --- AVISO NOTURNO (19:00) ---
+# --- AVISO DE ANOITECER ---
 
-## Anda com o guia até o jogador enquanto o aviso noturno está ativo
+## Anda com o guia até o jogador enquanto o aviso está ativo
 func _physics_process(delta: float) -> void:
-	if not _walking_to_player:
+	if not _walking_to_player and not _returning_to_start:
 		return
 
-	global_position = global_position.move_toward(_walk_target, walk_speed * delta)
-
-	if global_position.distance_to(_walk_target) <= stop_distance:
-		_walking_to_player = false
-		_show_night_warning_dialogue()
-
-## Escuta o relógio do jogo para disparar o aviso às 19h
-func _on_time_tick(_day: int, hour: int, _minute: int) -> void:
-	_update_quest_indicator_visibility(hour)
-	
-	if _night_warning_triggered:
+	var target_position := _home_position if _returning_to_start else _walk_target
+	var distance_to_target := global_position.distance_to(target_position)
+	var arrival_distance := 2.0 if _returning_to_start else stop_distance
+	if distance_to_target <= arrival_distance:
+		velocity = Vector2.ZERO
+		if _returning_to_start:
+			global_position = _home_position
+			_returning_to_start = false
+			_unlock_crop_dialogue()
+		else:
+			_walking_to_player = false
+			_show_night_warning_dialogue()
 		return
-	# Dispara uma única vez, às 19h, se a fogueira ainda não estiver acesa
-	if hour >= 19 and not _campfire_lit:
-		_night_warning_triggered = true
-		_start_night_warning()
+
+	var direction := global_position.direction_to(target_position)
+	direction = _get_avoiding_direction(direction)
+	velocity = direction * walk_speed
+	move_and_slide()
+	$AnimatedSprite2D.flip_h = velocity.x < 0
+
+
+func _get_avoiding_direction(direction: Vector2) -> Vector2:
+	var space_state := get_world_2d().direct_space_state
+	if not _is_direction_blocked(space_state, direction):
+		return direction
+
+	var best_direction := Vector2.ZERO
+	var best_score := -INF
+	for angle in [-PI / 3.0, -PI / 6.0, PI / 6.0, PI / 3.0, -PI / 2.0, PI / 2.0]:
+		var candidate := direction.rotated(angle).normalized()
+		var query := PhysicsRayQueryParameters2D.create(
+			global_position,
+			global_position + candidate * obstacle_lookahead
+		)
+		query.collision_mask = 1
+		query.exclude = [get_rid()]
+		var hit := space_state.intersect_ray(query)
+		var clearance := obstacle_lookahead
+		if not hit.is_empty():
+			clearance = global_position.distance_to(hit.position)
+		var score := direction.dot(candidate) * 0.35 + clearance / obstacle_lookahead * 0.65
+		if score > best_score:
+			best_score = score
+			best_direction = candidate
+
+	return best_direction
+
+
+func _is_direction_blocked(space_state: PhysicsDirectSpaceState2D, direction: Vector2) -> bool:
+	var query := PhysicsRayQueryParameters2D.create(
+		global_position,
+		global_position + direction * obstacle_lookahead
+	)
+	query.collision_mask = 1
+	query.exclude = [get_rid()]
+	return not space_state.intersect_ray(query).is_empty()
+
 
 func _on_campfire_lit() -> void:
 	_campfire_lit = true
+	if _approach_timer_elapsed and not _approach_started:
+		_unlock_crop_dialogue()
 
-func _start_night_warning() -> void:
-	var player: Player = get_tree().get_first_node_in_group("player") as Player
-	if player == null:
+
+func _unlock_crop_dialogue() -> void:
+	_campfire_warning_finished = true
+	_update_quest_indicator_visibility(_get_current_hour())
+
+
+func _try_start_approach() -> void:
+	if (
+		not campfire_warning_enabled
+		or not _approach_timer_elapsed
+		or _campfire_lit
+		or _approach_started
+		or _has_active_dialogue()
+	):
 		return
 
-	# Congela o jogador até o aviso terminar
-	player.freeze()
+	var player: Player = get_tree().get_first_node_in_group("player") as Player
+	if player == null:
+		push_warning("👹[GUIDE] O jogador não foi encontrado para iniciar a aproximação")
+		return
 
-	# Anda até o jogador
+	_approach_started = true
+	player.freeze()
 	_walk_target = player.global_position
 	_walking_to_player = true
+	AudioManager.play_music(AudioManager.MUSIC.FIRE_ON)
+	print("👹[GUIDE] Aviso de anoitecer iniciado")
+
 
 func _show_night_warning_dialogue() -> void:
 	var balloon: BaseGameDialogueBalloon = balloon_scene.instantiate()
+	_active_dialogue = balloon
 	get_tree().root.add_child(balloon)
 	balloon.tree_exited.connect(_on_night_warning_finished)
 	balloon.start(load("res://dialogue/conversations/guide_night_warning.dialogue"), "start")
 
+
 func _on_night_warning_finished() -> void:
 	_end_night_warning()
 
+
 func _end_night_warning() -> void:
-	var player: Player = get_tree().get_first_node_in_group("player") as Player
+	_walking_to_player = false
+	_active_dialogue = null
+	var player := get_tree().get_first_node_in_group("player") as Player
 	if player != null:
 		player.unfreeze()
-	_walking_to_player = false
+	AudioManager.play_music(AudioManager.MUSIC.ON_THE_FARM)
+	_returning_to_start = true
 	# Destaca o machado para o jogador cortar lenha
 	ToolManager.enable_tool_button(DataTypes.Tools.AxeWood)
 	ToolManager.highlight_tool_button(DataTypes.Tools.AxeWood)

@@ -52,6 +52,7 @@ func _ready() -> void:
 		fire_sprite.play("default")
 		fire_particles.emitting = true
 		point_light.enabled = true
+		EventBus.campfire_lit.emit.call_deferred()
 	else:
 		fire_sprite.play("extinguished")
 		fire_particles.emitting = false

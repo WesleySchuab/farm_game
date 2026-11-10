@@ -114,6 +114,13 @@ func _ready() -> void:
 	# Obter referência ao collision shape do hit component
 	hit_component_collision_shape = get_node("HitComponent/HitComponentCollisionShape2D")
 	_hitbox_default_position = hit_component_collision_shape.position
+	if enemy_type == "Necromante":
+		hit_component.collision_layer = 0
+		hit_component.collision_mask = 0
+		hit_component.hit_damage = 0
+		hit_component.monitoring = false
+		hit_component.monitorable = false
+		hit_component_collision_shape.set_deferred("disabled", true)
 	
 	# Cria e configura a barra de vida no mundo
 	_create_health_bar()
@@ -146,6 +153,13 @@ func _play_spawn_animation() -> void:
 		_is_spawning = true
 
 
+## Dispensa o portal próprio do inimigo quando ele já nasceu pelo portal de quem o invocou
+func skip_spawn_portal() -> void:
+	if portal_spawn_component == null:
+		return
+	portal_spawn_component.finish_immediately()
+
+
 ## Callback chamado quando a animação de spawn termina
 func _on_spawn_complete() -> void:
 	_is_spawning = false
@@ -172,7 +186,7 @@ func _physics_process(delta: float) -> void:
 ## Habilita o hitbox de ataque
 ## Deve ser chamado pelo AttackState no _on_enter()
 func enable_hit_box() -> void:
-	if hit_component_collision_shape == null:
+	if hit_component_collision_shape == null or enemy_type == "Necromante":
 		return
 	# Aplica o flip atual (posição X correta baseada na direção)
 	_apply_hitbox_flip_position()

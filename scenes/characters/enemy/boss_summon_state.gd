@@ -177,7 +177,11 @@ func _spawn_one_enemy(index: int) -> void:
 		var players = get_tree().get_nodes_in_group("player")
 		if players.size() > 0:
 			spawned_enemy.player = players[0]
-	
+
+	# O inimigo já nasceu pelo portal do boss: não abre um segundo portal
+	if spawned_enemy.has_method("skip_spawn_portal"):
+		spawned_enemy.skip_spawn_portal()
+
 	print("💀 [BOSS SUMMON] Inimigo #", index + 1, " invocado via portal!")
 	_portal_active = false
 

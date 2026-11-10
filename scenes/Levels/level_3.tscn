@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bmqctht5vc2t3" path="res://scenes/objects/milk.tscn" id="15_5ytgs"]
 [ext_resource type="PackedScene" uid="uid://b43tex181j2ne" path="res://scenes/objects/egg.tscn" id="16_moj4v"]
 [ext_resource type="PackedScene" uid="uid://b4pcch7rtkfwf" path="res://scenes/characters/guide/guide.tscn" id="17_04xhx"]
-[ext_resource type="PackedScene" path="res://scenes/characters/enemy/necromante_ball.tscn" id="18_cu6c6"]
+[ext_resource type="PackedScene" path="res://scenes/characters/enemy/necromante_crow.tscn" id="18_cu6c6"]
 
 [sub_resource type="TileSet" id="TileSet_4xsrm"]
 tile_size = Vector2i(8, 8)
@@ -162,6 +162,7 @@ output_reward_scenes = Array[PackedScene]([ExtResource("16_moj4v")])
 [node name="Guide" parent="." unique_id=1087641118 instance=ExtResource("17_04xhx")]
 position = Vector2(56.000015, 204)
 crop_seed_tutorial_enabled = false
+campfire_warning_enabled = false
 
 [node name="FreeAnimals" type="Node2D" parent="." unique_id=863566166]
 visible = false

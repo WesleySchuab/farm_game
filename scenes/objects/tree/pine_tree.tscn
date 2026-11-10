@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b1o4vj3l1rusk" path="res://scenes/objects/tree/large_tree.gd" id="3_6ry35"]
 [ext_resource type="PackedScene" uid="uid://ba10l76786p5w" path="res://scenes/components/hurt_component.tscn" id="4_dgkm4"]
 [ext_resource type="PackedScene" uid="uid://neuxvuy2leph" path="res://scenes/components/damage_component.tscn" id="5_x7676"]
+[ext_resource type="PackedScene" path="res://scenes/objects/tree/tree_bump_component.tscn" id="6_bump"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3k8rj"]
 shader = ExtResource("1_to3le")
@@ -32,6 +33,9 @@ script = ExtResource("3_6ry35")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=363601337]
 position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_sy007")
+
+[node name="BumpComponent" parent="." instance=ExtResource("6_bump")]
+position = Vector2(0, 10)
 
 [node name="HurtComponent" parent="." unique_id=1903681224 instance=ExtResource("4_dgkm4")]
 tool = 1
