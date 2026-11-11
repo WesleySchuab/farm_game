@@ -76,7 +76,32 @@ theme_type_variation = &"GameMenubutton"
 text = "Restart
 "
 
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Music"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(90, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 100.0
+value = 90.0
+
+[node name="MusicVolumeValue" type="Label" parent="MarginContainer/VBoxContainer/MusicVolumeContainer"]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "90%"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StarGameButton" to="." method="_on_star_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SaveGameButton" to="." method="_on_save_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]

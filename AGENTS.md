@@ -50,6 +50,9 @@ Godot 4, jogo de fazenda. Convenções completas: memória do repositório `/mem
 ### Áudio
 - A ação `mute` (tecla M) é tratada pelo `GameManager` em qualquer tela.
 - `AudioManager.toggle_mute()` alterna o mute do bus `Master`, cobrindo música, SFX e players de áudio das cenas.
+- Volume da música: bus `Music` via `AudioManager.set_music_volume_db(db)` / `set_music_volume_linear(0..1)` (persistido em `user://audio_settings.cfg`); o slider **Music** do menu usa essa API.
+- Novos SFX entram no enum `AudioManager.SFX` + `SFX_PATHS` **sempre no final** (as cenas referenciam os IDs numéricos).
+- Corvo: `CROW_CAW_HALLOWEEN` (surgimento do bando) e `CROW_CAW` (início do ataque).
 
 ### Barra de vida no mundo
 - `scenes/components/world_health_bar.gd` / `.tscn`: `WorldHealthBar` (ProgressBar).
@@ -71,6 +74,7 @@ Godot 4, jogo de fazenda. Convenções completas: memória do repositório `/mem
 - `scenes/campfire/crow_flock_component.gd` (`CrowFlockComponent`) fica como filho da fogueira e gera ondas de **1 a 8 corvos** enquanto ela estiver apagada (máx. 8 vivos, primeira onda após `first_wave_delay` e novas a cada `respawn_delay`; surgem a 420–620 px do player).
 - A fogueira publica `EventBus.campfire_state_changed(is_lit)` no início e ao acender/apagar; o componente escuta esse sinal e adiciona os corvos ao nível (irmão da fogueira), com `collision_mask = 0` e `attack_cooldown` sorteado (5–9 s).
 - Ao reacender, `Crow.start_retreat()` faz os corvos fugirem e desaparecerem após `retreat_duration`.
+- Sons: `AudioManager.SFX.CROW_CAW_HALLOWEEN` toca quando a onda surge; `CROW_CAW` toca no início de cada ataque (SFXComponent do `Crow`).
 
 ### Níveis
 - Level1: fazenda sem inimigos fixos; corvos surgem em ondas enquanto a fogueira estiver apagada, e é o único nível com o aviso da fogueira do guia. Level2: Necromante apenas invoca MushMario (sem corvo no nível) e os avisos do guia ficam desativados. Level3: Necromante apenas invoca Crow (sem corvo fixo no nível) e os avisos do guia ficam desativados.

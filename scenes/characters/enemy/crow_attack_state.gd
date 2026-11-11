@@ -34,6 +34,10 @@ func _on_enter() -> void:
 
 	enemy.play_attack_animation(direction_to_player)
 
+	var sfx := enemy.get_node_or_null("SFXComponent") as SFXComponent
+	if sfx:
+		sfx.attack_triggered.emit()
+
 
 func _on_process(delta: float) -> void:
 	if enemy == null or enemy.is_dead:
@@ -47,9 +51,6 @@ func _on_process(delta: float) -> void:
 	if not _hitbox_active and _elapsed >= enemy.attack_hit_delay:
 		enemy.enable_hit_box()
 		_hitbox_active = true
-		var sfx := enemy.get_node_or_null("SFXComponent") as SFXComponent
-		if sfx:
-			sfx.attack_triggered.emit()
 	elif _hitbox_active and _elapsed >= enemy.attack_hit_delay + enemy.attack_hit_duration:
 		enemy.disable_hit_box()
 		_hitbox_active = false

@@ -92,6 +92,7 @@ func _spawn_wave() -> void:
 	if count <= 0:
 		return
 
+	var wave_center := Vector2.ZERO
 	for i in count:
 		var crow := CROW_SCENE.instantiate() as Crow
 		crow_parent.add_child(crow)
@@ -101,6 +102,9 @@ func _spawn_wave() -> void:
 		crow.collision_mask = 0
 		crow.attack_cooldown = randf_range(attack_cooldown_min, attack_cooldown_max)
 		_active_crows.append(crow)
+		wave_center += crow.global_position
+	wave_center /= float(count)
+	AudioManager.play_sfx_at(AudioManager.SFX.CROW_CAW_HALLOWEEN, wave_center, -2.0)
 
 	_wave_timer = 0.0
 	_next_wave_delay = respawn_delay

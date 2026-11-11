@@ -29,6 +29,9 @@ enum SFX {
 	# ── Ferramentas ──
 	PICKAXE_HIT,
 	AXE_HIT,
+	# ── Corvo ── (adicione novos valores sempre no final: os IDs são usados nas cenas)
+	CROW_CAW_HALLOWEEN,
+	CROW_CAW,
 }
 
 const SFX_PATHS := {
@@ -45,6 +48,8 @@ const SFX_PATHS := {
 	SFX.COW_MOO: "res://game/assets/audio/sfx/cow-moo.ogg",
 	SFX.PICKAXE_HIT: "res://game/assets/audio/music/picareta.mp3",
 	SFX.AXE_HIT: "res://game/assets/audio/music/machado.mp3",
+	SFX.CROW_CAW_HALLOWEEN: "res://game/assets/audio/sfx/crow-caw-halloween.mp3",
+	SFX.CROW_CAW: "res://game/assets/audio/sfx/crow-caw.mp3",
 }
 
 # ═══════════════════════════════════════════════
@@ -74,7 +79,10 @@ var music_player: AudioStreamPlayer
 var sfx_player: AudioStreamPlayer
 var sfx_pool_2d: Array[AudioStreamPlayer2D] = []
 var is_muted: bool = false
+var _settings_save_timer: Timer
 const SFX_POOL_SIZE := 16
+const MUSIC_BUS := "Music"
+const SETTINGS_PATH := "user://audio_settings.cfg"
 
 
 func _ready() -> void:
@@ -86,6 +94,12 @@ func _ready() -> void:
 		p.max_polyphony = 1
 		add_child(p)
 		sfx_pool_2d.append(p)
+	_settings_save_timer = Timer.new()
+	_settings_save_timer.one_shot = true
+	_settings_save_timer.wait_time = 0.4
+	_settings_save_timer.timeout.connect(_save_audio_settings)
+	add_child(_settings_save_timer)
+	_load_audio_settings()
 
 
 func _ensure_players() -> void:
@@ -184,6 +198,52 @@ func play_music(id: int, vol_db: float = 0.0, pitch: float = 1.0) -> void:
 
 func stop_music() -> void:
 	if music_player: music_player.stop()
+
+
+## Define o volume do bus "Music" em dB (afeta toda música, inclusive a que já está tocando).
+func set_music_volume_db(db: float) -> void:
+	var bus_index := AudioServer.get_bus_index(MUSIC_BUS)
+	if bus_index < 0:
+		push_warning("🎵 [AudioManager] Bus %s não encontrado" % MUSIC_BUS)
+		return
+	AudioServer.set_bus_volume_db(bus_index, clampf(db, -80.0, 6.0))
+	if _settings_save_timer:
+		_settings_save_timer.start()
+
+
+func get_music_volume_db() -> float:
+	var bus_index := AudioServer.get_bus_index(MUSIC_BUS)
+	return AudioServer.get_bus_volume_db(bus_index) if bus_index >= 0 else 0.0
+
+
+## Volume da música em escala linear (0.0 a 1.0) — ideal para sliders de UI.
+func set_music_volume_linear(value: float) -> void:
+	set_music_volume_db(linear_to_db(maxf(clampf(value, 0.0, 1.0), 0.0001)))
+
+
+func get_music_volume_linear() -> float:
+	return clampf(db_to_linear(get_music_volume_db()), 0.0, 1.0)
+
+
+func _load_audio_settings() -> void:
+	var config := ConfigFile.new()
+	if config.load(SETTINGS_PATH) != OK:
+		return
+	var bus_index := AudioServer.get_bus_index(MUSIC_BUS)
+	if bus_index < 0:
+		return
+	var db := float(config.get_value("audio", "music_volume_db", get_music_volume_db()))
+	AudioServer.set_bus_volume_db(bus_index, clampf(db, -80.0, 6.0))
+	print("🎵 [AudioManager] Volume da música carregado: %.1f dB" % db)
+
+
+func _save_audio_settings() -> void:
+	var config := ConfigFile.new()
+	config.load(SETTINGS_PATH)
+	config.set_value("audio", "music_volume_db", get_music_volume_db())
+	var err := config.save(SETTINGS_PATH)
+	if err != OK:
+		push_warning("🎵 [AudioManager] Falha ao salvar volume da música: ", err)
 
 
 ## Alterna o mute global de todos os buses de áudio do jogo.

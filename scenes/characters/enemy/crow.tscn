@@ -278,4 +278,4 @@ target_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="SFXComponent" type="Node" parent="." unique_id=1844702713]
 script = ExtResource("10_sfx")
-attack_sfx = 4
+attack_sfx = 14

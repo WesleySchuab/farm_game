@@ -1,6 +1,7 @@
 {
     "godotTools.editorPath.godot4": "/var/lib/flatpak/exports/bin/org.godotengine.Godot",
     "chat.tools.terminal.autoApprove": {
-        "git commit": true
+        "git commit": true,
+        "godot": true
     }
 }

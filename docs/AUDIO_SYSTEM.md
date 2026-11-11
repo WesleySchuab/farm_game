@@ -58,6 +58,9 @@ AudioManager.play_sfx_at(AudioManager.SFX.AXE_HIT, global_position, -4)
 | `play_sfx_varied_at(id, pos, pitch_range, vol_db)` | Espacial + variação de sample |
 | `play_music(id, vol_db, pitch)` | Toca música no bus Music |
 | `stop_music()` | Para a música atual |
+| `set_music_volume_db(db)` | Ajusta o bus **Music** (toda a música, inclusive a que já toca) e salva em `user://audio_settings.cfg` |
+| `get_music_volume_db()` | Volume atual do bus Music em dB |
+| `set_music_volume_linear(0..1)` / `get_music_volume_linear()` | Mesmo ajuste em escala linear (para sliders de UI) |
 
 ## Como adicionar uma música nova (3 passos)
 
@@ -87,7 +90,7 @@ AudioManager.play_music(AudioManager.MUSIC.ON_THE_FARM)
 
 ## Controle de volume
 
-O 3º argumento `vol_db` é o volume em **decibéis**:
+O argumento `vol_db` de `play_music` é o volume **da faixa** em **decibéis**:
 
 | Valor | Efeito |
 |---|---|
@@ -101,6 +104,19 @@ Volume global por categoria: painel **Audio** no editor, ou `audio/game_audio_bu
 
 - Bus **SFX**: `-2.31 dB` (efeitos sonoros)
 - Bus **Music**: `-0.92 dB` (músicas)
+
+### Ajuste em runtime (volume da música)
+
+O bus **Music** e o volume da faixa se somam: `bus Music + music_player.volume_db`. Para controlar a música de fundo como um todo:
+
+```gdscript
+AudioManager.set_music_volume_db(-8.0)   # dB
+AudioManager.set_music_volume_linear(0.5) # 50% (slider)
+```
+
+O valor é persistido em `user://audio_settings.cfg` e recarregado no `_ready()` do AudioManager.
+O slider **Music** do menu ([`scenes/ui/game_menu_screen.tscn`](../scenes/ui/game_menu_screen.tscn)) já usa essa API.
+
 
 ## SFXComponent (componente reutilizável)
 
