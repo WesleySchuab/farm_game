@@ -26,6 +26,62 @@ region = Rect2(0, 0, 48, 48)
 atlas = ExtResource("2_g6y3g")
 region = Rect2(48, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_front_walk_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_front_walk_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_back_idle_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_back_idle_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_back_walk_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_back_walk_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_left_idle_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(0, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_left_idle_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(48, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_left_walk_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(96, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_left_walk_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(144, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_right_idle_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(0, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_right_idle_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(48, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_right_walk_1"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(96, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_right_walk_2"]
+atlas = ExtResource("2_g6y3g")
+region = Rect2(144, 144, 48, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xo3ut"]
 animations = [{
 "frames": [{
@@ -36,7 +92,84 @@ animations = [{
 "texture": SubResource("AtlasTexture_qnx84")
 }],
 "loop": 1,
-"name": &"idle",
+"name": &"idle_front",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_back_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_back_idle_2")
+}],
+"loop": 1,
+"name": &"idle_back",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_left_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_left_idle_2")
+}],
+"loop": 1,
+"name": &"idle_left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_right_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_right_idle_2")
+}],
+"loop": 1,
+"name": &"idle_right",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_front_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_front_walk_2")
+}],
+"loop": 1,
+"name": &"walk_front",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_back_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_back_walk_2")
+}],
+"loop": 1,
+"name": &"walk_back",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_left_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_left_walk_2")
+}],
+"loop": 1,
+"name": &"walk_left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_right_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_right_walk_2")
+}],
+"loop": 1,
+"name": &"walk_right",
 "speed": 3.0
 }]
 
@@ -70,8 +203,8 @@ vertical_alignment = 1
 material = SubResource("ShaderMaterial_yvxhl")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_xo3ut")
-animation = &"idle"
-autoplay = "idle"
+animation = &"idle_front"
+autoplay = "idle_front"
 frame_progress = 0.71460795
 
 [node name="InteractableComponent" parent="." unique_id=1396247481 instance=ExtResource("4_qnx84")]

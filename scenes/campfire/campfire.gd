@@ -4,13 +4,15 @@ extends Node2D
 ## Combustível atual e máximo
 @export var max_fuel: float = 100.0
 @export var fuel_drain_rate: float = 0.2  # por segundo
-@export var fuel_per_wood: float = 25.0   # quanto cada madeira adiciona
+@export var fuel_per_wood: float = 12.5   # quanto cada madeira adiciona
 @export var is_lit: bool = false
 
 ## Brilho da luz da fogueira (menor = mais fraca)
 @export var light_energy: float = 1.0
 ## Raio da luz da fogueira (menor = menor área iluminada)
 @export var light_texture_scale: float = 1.0
+## Texto do Action Prompt quando o jogador está perto sem madeira no inventário
+@export var chop_wood_warning: String = "Corte lenha"
 
 var _fuel_level: float
 var in_range: bool = false
@@ -26,12 +28,14 @@ const CAMPFIRE_LIGHT_TEXTURE: Texture2D = preload("res://scenes/campfire/campfir
 @onready var health_bar: WorldHealthBar = $WorldHealthBar
 
 func _ready() -> void:
-	_fuel_level = max_fuel
+	# Fogueira apagada começa sem combustível; acesa começa com o tanque cheio
+	_fuel_level = max_fuel if is_lit else 0.0
 	
 	# Configura a barra de combustível (laranja/âmbar)
 	health_bar.configure(Color(1.0, 0.55, 0.0), Color(0.15, 0.1, 0.05, 0.8), 5)
 	health_bar.setup(max_fuel)
 	health_bar.hide_when_full = true
+	health_bar.update_value(_fuel_level)
 	# Começa invisível; só aparece quando a fogueira for acesa
 	if not is_lit:
 		health_bar.hide()
@@ -102,7 +106,8 @@ func _update_action_prompt() -> void:
 	if madeira > 0:
 		EventBus.show_action_prompt.emit("I", "Abastecer")
 	else:
-		_hide_action_prompt()
+		# Sem madeira: orienta o jogador a cortar lenha
+		EventBus.show_action_warning.emit(chop_wood_warning)
 
 ## Esconde o Action Prompt
 func _hide_action_prompt() -> void:
@@ -148,7 +153,9 @@ func _ignite() -> void:
 	fire_sprite.play("default")
 	fire_particles.emitting = true
 	point_light.enabled = true
-	health_bar.show()
+	_update_visuals()
+	# update_value respeita hide_when_full (não mostra a barra se estiver cheia)
+	health_bar.update_value(_fuel_level)
 	EventBus.campfire_lit.emit()
 	EventBus.campfire_state_changed.emit(true)
 	print("🔥 [CAMPFIRE] Fogueira acesa!")

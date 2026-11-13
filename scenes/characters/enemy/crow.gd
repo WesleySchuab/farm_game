@@ -3,7 +3,7 @@ extends Enemy
 
 ## Animações autorais da cena (a arte olha para a direita).
 ## Os lados esquerdos são obtidos espelhando a sprite via flip_h.
-const FLY_RIGHT: StringName = &"fly_rith"
+const FLY_RIGHT: StringName = &"fly_right"
 const FLY_LEFT_ALIAS: StringName = &"fly_left"
 const FLY_DOWN: StringName = &"fly_down"
 const FLY_UP: StringName = &"fly_up"

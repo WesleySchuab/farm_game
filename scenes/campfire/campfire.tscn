@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cy7vvfv4isbjh" path="res://game/assets/Objects/fire/fire_big2.png" id="5_8pjve"]
 [ext_resource type="Texture2D" uid="uid://evvxjcxw6m22" path="res://game/assets/Objects/fire/fire_big3.png" id="5_auago"]
 [ext_resource type="PackedScene" uid="uid://dlsrvp8y5fjvc" path="res://scenes/components/world_health_bar.tscn" id="5_healthbar"]
-[ext_resource type="Script" path="res://scenes/campfire/crow_flock_component.gd" id="6_flock"]
+[ext_resource type="Script" uid="uid://diiixshebrraf" path="res://scenes/campfire/crow_flock_component.gd" id="6_flock"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcaur"]
 size = Vector2(17, 16)
@@ -92,8 +92,7 @@ script = ExtResource("1_56ahn")
 light_energy = 0.7
 light_texture_scale = 0.8
 
-[node name="WorldCollision" type="StaticBody2D" parent="."]
-collision_layer = 1
+[node name="WorldCollision" type="StaticBody2D" parent="." unique_id=528610348]
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldCollision" unique_id=157698098]
@@ -130,5 +129,5 @@ offset_top = -43.5
 offset_right = -18.0
 offset_bottom = -25.5
 
-[node name="CrowFlockComponent" type="Node" parent="."]
+[node name="CrowFlockComponent" type="Node" parent="." unique_id=974523885]
 script = ExtResource("6_flock")

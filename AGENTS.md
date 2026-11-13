@@ -32,14 +32,14 @@ Godot 4, jogo de fazenda. Convenções completas: memória do repositório `/mem
 - `scenes/objects/plants/growth_cycle_component.gd`: `GrowthCycleComponent` — `is_watered`, `starting_day`, crescimento por `time_tick_day`.
 - `scenes/components/crop_cursor_component.gd`: **plantio automático** ao pisar em solo arado com semente (`_process` → `_auto_plant_if_on_tilled_soil`), `_plant_crop_at_cell`, `_has_crop_at_cell`, `_get_or_create_cropfields`.
 - `scenes/components/field_cursor_component.gd`: arar/remover terra (TillGround + hit/remove_dirt).
-- `scenes/Levels/tiled_soil.gd`: `TilledSoil` (TileMapLayer) — prompt de ação (sacola ou aviso).
+- `scenes/Levels/tiled_soil.gd`: `TilledSoil` (TileMapLayer) — prompt da célula sob o player: sacola de sementes (célula vazia + ferramenta de plantio), `"Use o regador"` (cultura ainda sem água) e nada quando a célula não está arada, já tem cultura regada ou o regador está equipado.
 - `is_watered = true` por padrão (pré-plantados crescem); plantados pelo jogador recebem `is_watered = false`.
 - Milhos pré-plantados: `scenes/Levels/level_1.tscn` → `CropFields/Corn`, `Corn2`, `Corn3`.
 
 ### Diálogo
 - Addon `addons/dialogue_manager/`; balloon custom: `dialogue/game_dialogue_balloon.tscn` + `dialogue/base_game_dialogue_ballon.gd`.
 - Conversas em `dialogue/conversations/*.dialogue`. Ações: `do GameDialogueManager.action_xxx()`.
-- `scenes/characters/guide/guide.gd`: Marlow — `_has_talked` controla re-conversa; `on_give_crop_seeds()` habilita `PlantCorn`.
+- `scenes/characters/guide/guide.gd`: Marlow — `_has_talked` controla re-conversa; `on_give_crop_seeds()` habilita `PlantCorn` **e** `WaterCrops` (regador liberado junto com a semente).
 - `GameDialogueManager` (`scripts/globais/game_dialogue_manager.gd`) emite sinais; sistemas conectam neles.
 
 ### Action Prompt (UI)
@@ -64,7 +64,7 @@ Godot 4, jogo de fazenda. Convenções completas: memória do repositório `/mem
 - `scenes/components/interactable_component.gd`: `InteractableComponents` (Area2D) — sinais `interactable_activated` / `interactable_deactivated` (body_entered/exited).
 
 ### Inimigos com voo (Crow)
-- `scenes/characters/enemy/crow.gd` (classe `Crow`): monta animações da cena (`fly_rith`, `fly_down`, `fly_up`, `atack_right`, `atack_down`) e deriva os lados esquerdos por `flip_h` — não crie animação de "left".
+- `scenes/characters/enemy/crow.gd` (classe `Crow`): monta animações da cena (`fly_right`, `fly_down`, `fly_up`, `atack_right`, `atack_down`) e deriva os lados esquerdos por `flip_h` — não crie animação de "left".
 - Estados dedicados em `crow_fly_state.gd` (sobrevoo: alterna pontos longe/perto do jogador) e `crow_attack_state.gd` (mergulho + hitbox), registrados na `StateMachine` como `Fly`/`Attack`.
 - A arte olha para a direita, então `sprite_faces_right = true`; `hitbox_offset` define a posição do hitbox no ataque.
 - Crow invocado pelo Necromante não abre portal próprio: `Enemy.skip_spawn_portal()` encerra o `PortalSpawnComponent` e usa o portal de quem invocou.

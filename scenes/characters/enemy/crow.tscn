@@ -241,6 +241,8 @@ position = Vector2(0, -4)
 scale = Vector2(0.45, 0.45)
 sprite_frames = SubResource("SpriteFrames_83dg8")
 animation = &"fly_right"
+frame = 2
+frame_progress = 0.46958572
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=194945647]
 visible = false

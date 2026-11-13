@@ -19,6 +19,7 @@ const APPROACH_DELAY_GAME_MINUTES: float = 2.0
 
 @onready var interactable_component: InteractableComponents = $InteractableComponent
 @onready var quest_indicator: Label = $QuestIndicator
+@onready var character_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var _has_talked: bool = false
 
@@ -41,6 +42,8 @@ var _campfire_lit: bool = false
 var _walking_to_player: bool = false
 var _returning_to_start: bool = false
 var _walk_target: Vector2 = Vector2.ZERO
+## Direção visual atual do guia: front, back, left ou right
+var _facing: String = "front"
 
 
 func _ready() -> void:
@@ -183,6 +186,7 @@ func _process(_delta: float) -> void:
 func on_give_crop_seeds() -> void:
 	_hide_quest_indicator()
 	ToolManager.enable_tool_button(DataTypes.Tools.PlantCorn)
+	ToolManager.enable_tool_button(DataTypes.Tools.WaterCrops)
 	ToolManager.highlight_tool_button(DataTypes.Tools.PlantCorn)
 	_start_watering_reminder_timer()
 
@@ -223,8 +227,7 @@ func _on_watering_reminder_timeout() -> void:
 	_watering_reminder_active = true
 	_show_quest_indicator()
 	_show_warning_label()
-	# Após avisar para regar, libera e destaca a ferramenta de regar (regador)
-	ToolManager.enable_tool_button(DataTypes.Tools.WaterCrops)
+	# Após avisar para regar, destaca a ferramenta de regar (regador)
 	ToolManager.highlight_tool_button(DataTypes.Tools.WaterCrops)
 
 
@@ -284,6 +287,7 @@ func _physics_process(delta: float) -> void:
 	var arrival_distance := 2.0 if _returning_to_start else stop_distance
 	if distance_to_target <= arrival_distance:
 		velocity = Vector2.ZERO
+		_play_animation("idle_" + _facing)
 		if _returning_to_start:
 			global_position = _home_position
 			_returning_to_start = false
@@ -297,7 +301,29 @@ func _physics_process(delta: float) -> void:
 	direction = _get_avoiding_direction(direction)
 	velocity = direction * walk_speed
 	move_and_slide()
-	$AnimatedSprite2D.flip_h = velocity.x < 0
+	_update_walking_animation(velocity)
+
+
+## Escolhe a animação de caminhada/parado conforme a direção do movimento
+func _update_walking_animation(movement: Vector2) -> void:
+	if movement == Vector2.ZERO:
+		_play_animation("idle_" + _facing)
+		return
+	_facing = _get_facing_from_direction(movement)
+	_play_animation("walk_" + _facing)
+
+
+## Converte um vetor de movimento na direção visual dominante
+func _get_facing_from_direction(direction: Vector2) -> String:
+	if absf(direction.x) >= absf(direction.y):
+		return "right" if direction.x > 0.0 else "left"
+	return "front" if direction.y > 0.0 else "back"
+
+
+## Toca a animação apenas se ela ainda não estiver tocando
+func _play_animation(animation_name: String) -> void:
+	if character_sprite.animation != animation_name:
+		character_sprite.play(animation_name)
 
 
 func _get_avoiding_direction(direction: Vector2) -> Vector2:

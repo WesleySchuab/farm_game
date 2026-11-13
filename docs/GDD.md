@@ -148,19 +148,20 @@ CollectableComponent (Area2D Collectable ↔ Player) → InventoryManager.add_co
   - Solo sem água não avança o crescimento.
 - Culturas atuais: **milho** (`corn.gd`) e **tomate** (`tomato.gd`).
 - Pré-plantadas no Level 1: `CropFields/Corn`, `Corn2`, `Corn3`.
-- O guia Marlow lembra o jogador de regar (`watering_reminder_delay`) e libera o regador.
+- O guia Marlow libera a semente e o **regador** juntos (`on_give_crop_seeds`) e, depois de `watering_reminder_delay`, lembra o jogador de regar destacando o regador.
 
 ### 4.6 Interação por Proximidade
 - `InteractableComponent` (Area2D) emite `interactable_activated` / `interactable_deactivated`.
 - Padrão: entidade detecta proximidade → emite `EventBus.show_action_prompt(key, label)` →
   player pressiona `I` → ação executa.
-- **Objetos interativos:** fogueira, baús, solo arado (prompt de sacola de sementes / aviso de ferramenta).
+- **Objetos interativos:** fogueira, baús, solo arado (sacola de sementes → aviso "Use o regador" → sem prompt após regar).
 
 ### 4.7 Fogueira (`Campfire`)
 - `max_fuel = 100`, `fuel_drain_rate = 0.2/s`, `fuel_per_wood = 25`.
 - **Não usa diálogo** — usa ActionPrompt: perto + tem `wood` → `[I] Abastecer` → consome 1 madeira → +25 combustível.
-- Se a madeira acabar, o prompt some (`inventory_changed`).
-- Barra de combustível laranja (`WorldHealthBar`), `hide_when_full = true`.
+- Sem madeira no inventário, o prompt mostra o aviso **"Corte lenha"** (`inventory_changed` atualiza em tempo real).
+- Fogueira **apagada começa com 0 de combustível** (a 1ª madeira acesa mostra 25%); só uma fogueira que já começa acesa (`is_lit = true` na cena) inicia com o tanque cheio.
+- Barra de combustível laranja (`WorldHealthBar`), `hide_when_full = true`; a barra só aparece ao acender, respeitando o `hide_when_full`.
 - Emite `campfire_lit` / `campfire_died` / `campfire_fuel_changed`; ilumina via `PointLight2D`.
 
 ### 4.8 Animais
@@ -229,7 +230,7 @@ Idle → Chase → Attack
 
 | Arquivo | Conteúdo |
 |---|---|
-| `guide.dialogue` | Marlow apresenta o plantio e entrega a semente de milho |
+| `guide.dialogue` | Marlow apresenta o plantio e entrega a semente de milho (libera `PlantCorn` e `WaterCrops`) |
 | `guide_night_warning.dialogue` | Aviso noturno (cortar lenha / monstros) |
 | `chest.dialogue` | Baú genérico |
 | `storage_chest.dialogue` | Depósito de milho/tomate (guardar/retirar) |
@@ -283,7 +284,7 @@ Idle → Chase → Attack
 - `show_action_prompt(key, label)` / `hide_action_prompt`
 - `show_seed_bag` (ícone de sacola de sementes no solo arado)
 - `show_click_animation` (animação de clique)
-- `show_action_warning(label)` (aviso de ferramenta errada)
+- `show_action_warning(label)` (aviso de ferramenta errada / "Use o regador")
 
 ### 4.17 Tela, Resolução e Limites do Mundo
 - **Resolução base:** 960×540 (16:9) · **janela:** 1280×720 · **stretch:** `canvas_items` + `expand` + escala fracionária.
@@ -306,7 +307,7 @@ Idle → Chase → Attack
 | Personagem | Papel | Detalhes |
 |---|---|---|
 | **Player** | Protagonista | `CharacterBody2D` + máquina de estados (Idle, Walk, Chopping, Tilling, Watering, Crossbow) |
-| **Marlow** (Guide) | Tutorial / lore | `guide.gd`; entrega sementes, avisa sobre a noite, lembra de regar |
+| **Marlow** (Guide) | Tutorial / lore | `guide.gd`; entrega sementes, avisa sobre a noite, lembra de regar. Animações direcionais `idle_*` / `walk_*` (front/back/left/right) com o mesmo spritesheet do player |
 | **Vaca (Cow)** | Animal de produção | Produz leite; navega na pastagem |
 | **Galinha (Chicken)** | Animal de produção | Produz ovos; navega na pastagem |
 | **MushMario / Mushrooms** | Inimigo comum | Invocado pelo Necromante |

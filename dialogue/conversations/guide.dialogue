@@ -4,7 +4,7 @@ Marlow: Há um solo especial onde as sementes nascem! [next=1]
 Marlow: Consegue encontrar ? [next=1] 
 - Yes
 	Marlow: Pegue a Semente de milho. [next=1] 
-	do GameDialogueManager.action_give_crop_seed()
+	do GameDialogueManager.action_give_crop_seed()	
 - No 
 	Marlow: Então se esforce mais! [next=1]
 => END
